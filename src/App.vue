@@ -164,3 +164,9 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style lang="less">
+body {
+  overscroll-behavior: none;
+}
+</style>
