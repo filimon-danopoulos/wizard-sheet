@@ -72,7 +72,9 @@
           @dismissed="dismissMercenary(soldier)"
         />
       </template>
-      <v-btn v-else color="primary" @click="toggleNewWizardDialog()">Create Wizard</v-btn>
+      <v-row v-else grow justify="center" align="center" style="min-height: 84px;">
+        <v-btn color="primary" @click="toggleNewWizardDialog()">Create Wizard</v-btn>
+      </v-row>
     </v-content>
   </v-app>
 </template>
