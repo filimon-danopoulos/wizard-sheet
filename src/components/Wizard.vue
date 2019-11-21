@@ -11,7 +11,7 @@
         {{ experience }} / 100
       </v-progress-circular>
     </v-list-item>
-    <v-card-text>
+    <v-card-text class="pb-0 pt-0">
       <StatLine :character="wizard" />
     </v-card-text>
     <v-card-actions>

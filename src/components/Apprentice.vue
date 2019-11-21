@@ -23,7 +23,7 @@
         </v-list>
       </v-menu>
     </v-list-item>
-    <v-card-text>
+    <v-card-text class="pb-0 pt-0">
       <StatLine :character="apprentice" />
     </v-card-text>
 

@@ -20,7 +20,7 @@
     <v-card-subtitle v-if="soldier.name">
       {{ soldier.name }}
     </v-card-subtitle>
-    <v-card-text class="pb-0">
+    <v-card-text class="pb-0 pt-0">
       <StatLine :character="soldier" />
     </v-card-text>
 
