@@ -1,0 +1,126 @@
+<template>
+  <v-dialog v-model="open" max-width="600px">
+    <v-card>
+      <v-card-title>
+        <span class="headline">Hire Mercenary</span>
+      </v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-select label="Mercenary" v-model="mercenary" :items="mercenaries"></v-select>
+          </v-row>
+          <v-row v-if="isApprentice">
+            <v-select label="Weapon" v-model="weapon" :items="weapons"></v-select>
+          </v-row>
+          <v-row v-if="isApprentice">
+            <v-text-field label="Name" v-model="name"></v-text-field>
+          </v-row>
+        </v-container>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" text @click="$emit('close')">Close</v-btn>
+        <v-btn color="blue darken-1" text @click="$emit('hire', createMercenary())">Save</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script lang="ts">
+import Vue from 'vue'
+import Elementalist from '@/model/wizards/Elementalist'
+import Staff from '@/model/items/basic/weapons/Staff'
+import HandWeapon from '@/model/items/basic/weapons/HandWeapon'
+import Apprentice from '@/model/wizards/Apprentice'
+import Archer from '@/model/soldiers/Archer'
+import Thug from '@/model/soldiers/Thug'
+import Thief from '@/model/soldiers/Thief'
+import Wizard from '@/model/wizards/Wizard'
+import { PropValidator } from 'vue/types/options'
+import WarHound from '@/model/soldiers/WarHound'
+import Character from '@/model/Character'
+import Crossbowman from '@/model/soldiers/Crossbowman'
+import Infantryman from '@/model/soldiers/Infantryman'
+import Tracker from '@/model/soldiers/Tracker'
+import ManAtArms from '@/model/soldiers/ManAtArms'
+import TreassureHunter from '@/model/soldiers/TreassureHunter'
+import Apothecary from '@/model/soldiers/Apothecary'
+import Barbarian from '@/model/soldiers/Barbarian'
+import Marksman from '@/model/soldiers/Marksman'
+import Knight from '@/model/soldiers/Knight'
+import Templar from '@/model/soldiers/Templar'
+import Ranger from '@/model/soldiers/Ranger'
+import Weapon from '@/model/items/basic/weapons/Weapon'
+import Soldier from '../../model/soldiers/Soldier'
+import Chronomancer from '../../model/wizards/Chronomancer'
+
+const weapons = [
+  { text: 'Hand Weapon', value: new HandWeapon() },
+  { text: 'Staff', value: new Staff() }
+]
+
+const mercenaries = [
+  new Apprentice('', new Chronomancer('', weapons[0].value), weapons[0].value),
+  new WarHound(),
+  new Thug(),
+  new Thief(),
+  new Archer(),
+  new Crossbowman(),
+  new Infantryman(),
+  new Tracker(),
+  new ManAtArms(),
+  new TreassureHunter(),
+  new Knight(),
+  new Templar(),
+  new Ranger(),
+  new Barbarian(),
+  new Apothecary(),
+  new Marksman()
+]
+
+export default Vue.extend({
+  props: {
+    open: {
+      type: Boolean,
+      required: true
+    },
+    wizard: {
+      type: Wizard,
+      required: true
+    } as PropValidator<Wizard>
+  },
+  computed: {
+    isApprentice(): boolean {
+      return this.mercenary instanceof Apprentice
+    },
+    mercenaries(): { text: string; value: Soldier | Apprentice }[] {
+      const allMercenaries = [...mercenaries]
+      if (this.wizard.apprentice) {
+        allMercenaries.splice(0, 1)
+      }
+      return allMercenaries
+        .filter(t => t.cost <= this.wizard.gold)
+        .map(m => ({
+          text: m.description,
+          value: m
+        }))
+    }
+  },
+  data() {
+    return {
+      name: '',
+      mercenary: mercenaries[1],
+      weapons: weapons,
+      weapon: weapons[0].value
+    }
+  },
+  methods: {
+    createMercenary(): Soldier | Apprentice {
+      if (this.mercenary instanceof Apprentice) {
+        return new Apprentice(this.name || 'Junior', this.wizard, this.weapon)
+      }
+      return this.mercenary
+    }
+  }
+})
+</script>

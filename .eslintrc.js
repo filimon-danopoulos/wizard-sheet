@@ -1,0 +1,26 @@
+module.exports = {
+  root: true,
+  env: {
+    node: true
+  },
+  extends: ['plugin:vue/essential', '@vue/prettier', '@vue/typescript'],
+  rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        trailingComma: 'none',
+        tabWidth: 2,
+        semi: false,
+        singleQuote: true,
+        endOfLine: 'auto',
+        printWidth: 100,
+        jsxBracketSameLine: true
+      }
+    ],
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+  },
+  parserOptions: {
+    parser: '@typescript-eslint/parser'
+  }
+}
