@@ -3,6 +3,7 @@ import Character from '../../../Character'
 import HandWeapon from './HandWeapon'
 
 export default class Dagger extends Weapon {
+  public readonly type = 'dagger' as string
   constructor() {
     super(-1, 0)
   }

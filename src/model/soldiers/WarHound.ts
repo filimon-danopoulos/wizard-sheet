@@ -14,7 +14,7 @@ const config = {
   notes: 'Cannot carry treasure'
 }
 export default class WarHound extends Soldier {
-  public readonly type = 'warhound'
+  public readonly type = 'warhound' as string
   constructor() {
     super({ ...config, maxEquipment: 0 })
   }

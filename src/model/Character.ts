@@ -124,14 +124,14 @@ export default abstract class Character extends JSONSerializable {
       this.effects.push(effect)
     }
   }
-  public toJSON(): string {
-    return JSON.stringify({
+  public toJSON(): any {
+    return {
       type: this.type,
-      name: this.name
-    })
+      name: this.name,
+      items: this.items.map(item => item.toJSON())
+    }
   }
-  public fromJSON(json: string): void {
-    const data = JSON.parse(json)
+  public fromJSON(data: any): void {
     this._name = data.name
   }
 }

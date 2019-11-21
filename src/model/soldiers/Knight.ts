@@ -16,7 +16,7 @@ const config = {
   notes: ''
 }
 export default class Knight extends Soldier {
-  public readonly type = 'knight'
+  public readonly type = 'knight' as string
   constructor() {
     super({
       ...config,

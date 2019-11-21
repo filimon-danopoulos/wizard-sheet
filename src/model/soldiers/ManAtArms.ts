@@ -4,7 +4,7 @@ import Shield from '../items/basic/armour/Shield'
 import LeatherArmour from '../items/basic/armour/LeatherArmour'
 
 const config = {
-  description: 'ManAtArms',
+  description: 'Man At Arms',
   move: 6,
   fight: 3,
   shoot: 0,
@@ -15,7 +15,7 @@ const config = {
   notes: ''
 }
 export default class ManAtArms extends Soldier {
-  public readonly type = 'manatarms'
+  public readonly type = 'manatarms' as string
   constructor() {
     super({
       ...config,

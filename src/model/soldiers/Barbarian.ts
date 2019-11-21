@@ -13,7 +13,7 @@ const config = {
   notes: ''
 }
 export default class Barbarian extends Soldier {
-  public readonly type = 'barbarian'
+  public readonly type = 'barbarian' as string
   constructor() {
     super({
       ...config,

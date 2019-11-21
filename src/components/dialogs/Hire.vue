@@ -92,24 +92,22 @@ export default Vue.extend({
   computed: {
     isApprentice(): boolean {
       return this.mercenary instanceof Apprentice
-    },
-    mercenaries(): { text: string; value: Soldier | Apprentice }[] {
-      const allMercenaries = [...mercenaries]
-      if (this.wizard.apprentice) {
-        allMercenaries.splice(0, 1)
-      }
-      return allMercenaries
-        .filter(t => t.cost <= this.wizard.gold)
-        .map(m => ({
-          text: m.description,
-          value: m
-        }))
     }
   },
   data() {
+    const hasApprentice = typeof this.wizard.apprentice !== 'undefined'
+    const mercs = mercenaries
+      .slice(hasApprentice ? 1 : 0)
+      .filter(t => t.cost <= this.wizard.gold)
+      .map(m => ({
+        text: m.description,
+        value: m
+      }))
+
     return {
       name: '',
-      mercenary: mercenaries[1],
+      mercenaries: mercs,
+      mercenary: mercs[0].value,
       weapons: weapons,
       weapon: weapons[0].value
     }

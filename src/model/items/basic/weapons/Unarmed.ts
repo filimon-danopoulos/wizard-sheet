@@ -1,7 +1,8 @@
 import Weapon from './Weapon'
 import Character from '../../../Character'
 
-export default class CrossBow extends Weapon {
+export default class Unarmed extends Weapon {
+  public readonly type = 'unarmed' as string
   constructor() {
     super(-2, 0)
   }

@@ -4,7 +4,7 @@ import Staff from '../items/basic/weapons/Staff'
 import HandWeapon from '../items/basic/weapons/HandWeapon'
 
 export default class Elementalist extends Wizard {
-  public readonly type = 'elementalist'
+  public readonly type = 'elementalist' as string
   constructor(name: string, weapon: Staff | HandWeapon) {
     super({
       name: name,

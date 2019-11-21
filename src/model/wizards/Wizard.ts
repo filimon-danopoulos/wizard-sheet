@@ -130,8 +130,12 @@ export default abstract class Wizard extends Character implements ISpellcaster {
     }
     return difficulty
   }
-  public toJSON(): string {
-    throw new Error('Method not implemented.')
+  public toJSON(): any {
+    const data = super.toJSON()
+    return Object.assign(data, {
+      apprentice: this.apprentice && this.apprentice!.toJSON(),
+      soldiers: this.soldiers.map(soldier => soldier.toJSON())
+    })
   }
   public fromJSON(json: string): void {
     throw new Error('Method not implemented.')

@@ -15,14 +15,14 @@ const config = {
 }
 
 export default class Apothecary extends Soldier {
-  public readonly type = 'apothecary'
+  public readonly type = 'apothecary' as string
   constructor() {
     super({
       ...config,
       maxEquipment: config.items.length + 1
     })
   }
-  public fromJSON(json: string): void {
+  public fromJSON(json: any): void {
     super.fromJSON(json)
     if (!this.items.some(item => item instanceof HealingPotion)) {
       this.items.push(new HealingPotion())

@@ -14,7 +14,7 @@ const config = {
   notes: ''
 }
 export default class Templar extends Soldier {
-  public readonly type = 'templar'
+  public readonly type = 'templar' as string
   constructor() {
     super({ ...config, maxEquipment: config.items.length + 1 })
   }

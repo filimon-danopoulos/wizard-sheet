@@ -5,7 +5,7 @@ import Character, { ISpellcaster, IMercenary } from '../Character'
 import Spell from '../magic/Spell'
 
 export default class Apprentice extends Character implements ISpellcaster, IMercenary {
-  public readonly type = 'apprentice'
+  public readonly type = 'apprentice' as string
   private readonly wizard: Wizard
   public readonly cost: number
   public get spells(): Spell[] {
@@ -33,15 +33,5 @@ export default class Apprentice extends Character implements ISpellcaster, IMerc
     })
     this.wizard = wizard
     this.cost = (wizard.level - 10) * 10 + 300
-  }
-  public toJSON(): string {
-    return JSON.stringify({
-      type: 'apprentice',
-      name: this.name
-    })
-  }
-  public fromJSON(json: string): void {
-    const data = JSON.parse(json)
-    this._name = data.name
   }
 }

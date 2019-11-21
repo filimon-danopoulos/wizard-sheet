@@ -16,7 +16,7 @@ const config = {
 }
 
 export default class Crossbowman extends Soldier {
-  public readonly type = 'crossbowman'
+  public readonly type = 'crossbowman' as string
   constructor() {
     super({
       ...config,

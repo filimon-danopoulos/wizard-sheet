@@ -105,6 +105,17 @@ export default Vue.extend({
       wizards: this.wizards
     }
   },
+  computed: {
+    wizardOptions(): { id: number; text: string }[] {
+      const options = [
+        {
+          id: 1,
+          text: 'Hire'
+        }
+      ]
+      return options.slice(this.selectedWizard === null || this.selectedWizard.gold <= 0 ? 1 : 0)
+    }
+  },
   data() {
     return {
       selectedWizard: null as null | Wizard,
@@ -116,11 +127,19 @@ export default Vue.extend({
       drawerItems: [
         { id: 1, icon: 'mdi-account-multiple', text: 'Change Wizard' },
         { id: 2, icon: 'mdi-account-multiple-plus', text: 'Create Wizard' }
-      ],
-      wizardOptions: [{ id: 1, text: 'Hire' }]
+      ]
     }
   },
-
+  watch: {
+    selectedWizard: {
+      deep: true,
+      handler(val: Wizard | undefined) {
+        if (typeof val !== 'undefined') {
+          console.log(JSON.stringify(val.toJSON(), null, 2))
+        }
+      }
+    }
+  },
   methods: {
     toggleDrawer() {
       this.drawer = !this.drawer
@@ -136,8 +155,10 @@ export default Vue.extend({
     handleOptionClick(id: number) {
       switch (id) {
         case 1:
-          this.toggleHireDialog()
-          break
+          return this.toggleHireDialog()
+        case 2:
+          console.log(JSON.stringify(this.selectedWizard!.toJSON(), null, 2))
+          return
       }
     },
     toggleWizardList() {

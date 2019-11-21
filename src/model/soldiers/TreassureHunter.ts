@@ -4,7 +4,7 @@ import Dagger from '../items/basic/weapons/Dagger'
 import LeatherArmour from '../items/basic/armour/LeatherArmour'
 
 const config = {
-  description: 'TreassureHunter',
+  description: 'Treassure Hunter',
   move: 7,
   fight: 3,
   shoot: 0,
@@ -15,7 +15,7 @@ const config = {
   notes: ''
 }
 export default class TreassureHunter extends Soldier {
-  public readonly type = 'treassurehunter'
+  public readonly type = 'treassurehunter' as string
   constructor() {
     super({ ...config, maxEquipment: config.items.length + 1 })
   }

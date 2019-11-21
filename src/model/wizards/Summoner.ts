@@ -4,7 +4,7 @@ import Staff from '../items/basic/weapons/Staff'
 import HandWeapon from '../items/basic/weapons/HandWeapon'
 
 export default class Summoner extends Wizard {
-  public readonly type = 'summoner'
+  public readonly type = 'summoner' as string
   constructor(name: string, weapon: Staff | HandWeapon) {
     super({
       name: name,

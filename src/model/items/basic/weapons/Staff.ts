@@ -2,6 +2,7 @@ import Weapon from './Weapon'
 import Character from '../../../Character'
 
 export default class Staff extends Weapon {
+  public readonly type = 'staff' as string
   constructor() {
     super(-1, 0)
   }
