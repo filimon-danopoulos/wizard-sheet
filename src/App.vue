@@ -19,6 +19,7 @@
             v-for="option in wizardOptions"
             :key="option.id"
             @click="handleOptionClick(option.id)"
+            style="min-width: 200px"
           >
             <v-list-item-title>{{ option.text }}</v-list-item-title>
           </v-list-item>
@@ -167,6 +168,6 @@ export default Vue.extend({
 
 <style lang="less">
 body {
-  overscroll-behavior: none;
+  overscroll-behavior: contain;
 }
 </style>
