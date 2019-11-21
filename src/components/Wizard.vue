@@ -13,6 +13,17 @@
     </v-list-item>
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="wizard" />
+      <v-row>
+        <v-col justify-self="around">
+          <v-btn color="primary darken-1" dark width="100%">BASE</v-btn>
+        </v-col>
+        <v-col justify-self="around">
+          <v-btn color="primary darken-1" dark width="100%">SPELLS</v-btn>
+        </v-col>
+        <v-col justify-self="around">
+          <v-btn color="primary darken-1" dark width="100%">ITEMS</v-btn>
+        </v-col>
+      </v-row>
     </v-card-text>
     <v-card-actions>
       <v-list-item class="grow">

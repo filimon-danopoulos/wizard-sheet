@@ -137,6 +137,7 @@ export default Vue.extend({
       deep: true,
       handler(val: Wizard | undefined) {
         if (typeof val !== 'undefined') {
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(val.toJSON(), null, 2))
         }
       }
@@ -158,9 +159,6 @@ export default Vue.extend({
       switch (id) {
         case 1:
           return this.toggleHireDialog()
-        case 2:
-          console.log(JSON.stringify(this.selectedWizard!.toJSON(), null, 2))
-          return
       }
     },
     toggleWizardList() {
