@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/wizard-sheet/precache-manifest.42453e841761a1fe070ef46c856a76a9.js"
+  "/wizard-sheet/precache-manifest.1b9b9d4db71fb3824a7c1832ce917687.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "wizard-sheet"});
