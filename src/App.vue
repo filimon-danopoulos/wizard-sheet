@@ -3,7 +3,7 @@
     <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click="toggleDrawer()"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Wizard Sheet</v-toolbar-title>
+      <v-toolbar-title>{{ this.$route.name || 'Wizard Sheet' }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -73,9 +73,26 @@
         />
       </template>
       <v-row v-else grow justify="center" align="center" style="min-height: 84px;">
+        <router-view></router-view>
         <v-btn color="primary" @click="toggleNewWizardDialog()">Create Wizard</v-btn>
       </v-row>
     </v-content>
+    <v-bottom-navigation :value="true" shift grow color="primary">
+      <v-btn to="/base">
+        <span>Base</span>
+        <v-icon>mdi-home-outline</v-icon>
+      </v-btn>
+
+      <v-btn to="/wizard">
+        <span>Wizard</span>
+        <v-icon>mdi-account-outline</v-icon>
+      </v-btn>
+
+      <v-btn to="/vault">
+        <span>Vault</span>
+        <v-icon>mdi-bank</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
   </v-app>
 </template>
 

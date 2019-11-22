@@ -14,13 +14,13 @@
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="wizard" />
       <v-row>
-        <v-col justify-self="around">
+        <v-col>
           <v-btn color="primary darken-1" dark block rounded>BASE</v-btn>
         </v-col>
-        <v-col justify-self="around">
+        <v-col>
           <v-btn color="primary darken-1" dark block rounded>SPELLS</v-btn>
         </v-col>
-        <v-col justify-self="around">
+        <v-col>
           <v-btn color="primary darken-1" dark block rounded>ITEMS</v-btn>
         </v-col>
       </v-row>
