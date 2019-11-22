@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ml-3 mr-3 mt-3" color="blue" dark>
+  <v-card class="ml-3 mr-3 mt-3" color="primary" dark>
     <v-list-item three-line>
       <v-list-item-content>
         <div class="overline mt-1">{{ wizard.description }}</div>
@@ -15,21 +15,35 @@
       <StatLine :character="wizard" />
       <v-row>
         <v-col>
-          <v-btn color="primary darken-1" dark block rounded>BASE</v-btn>
+          <v-btn color="primary darken-2" dark block rounded>SPELLS</v-btn>
         </v-col>
         <v-col>
-          <v-btn color="primary darken-1" dark block rounded>SPELLS</v-btn>
-        </v-col>
-        <v-col>
-          <v-btn color="primary darken-1" dark block rounded>ITEMS</v-btn>
+          <v-btn color="primary darken-2" dark block rounded>ITEMS</v-btn>
         </v-col>
       </v-row>
     </v-card-text>
     <v-card-actions>
       <v-list-item class="grow">
         <v-row align="center" justify="start">
-          <v-icon class="mr-1">mdi-coins</v-icon>
-          <span class="subheading">{{ wizard.gold }}</span>
+          <v-menu :offset-x="true">
+            <template v-slot:activator="{ on }">
+              <v-btn text :disabled="wizard.gold <= 0" v-on="on">
+                <v-icon class="mr-1">mdi-coins</v-icon>
+                <span class="subheading">{{ wizard.gold }}</span>
+              </v-btn>
+            </template>
+
+            <v-list>
+              <v-list-item
+                v-for="option in coinOptions"
+                :key="option.id"
+                @click="handleOptionClick(option.id)"
+                style="min-width: 200px"
+              >
+                <v-list-item-title>{{ option.text }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-row>
         <v-row align="center" justify="end">
           <v-icon class="mr-1">mdi-heart</v-icon>
@@ -37,6 +51,14 @@
         </v-row>
       </v-list-item>
     </v-card-actions>
+
+    <HireDialog
+      v-if="hireDialog"
+      :open="hireDialog"
+      :wizard="wizard"
+      @close="toggleHireDialog()"
+      @hire="mercenary => this.hireMercenary(mercenary)"
+    />
   </v-card>
 </template>
 
@@ -47,10 +69,14 @@ import Wizard from '@/model/wizards/Wizard'
 import { School } from '../model/magic/Spell'
 import Elementalist from '../model/wizards/Elementalist'
 import { PropValidator } from 'vue/types/options'
+import Soldier from '@/model/soldiers/Soldier'
+import Apprentice from '@/model/wizards/Apprentice'
+import HireDialog from './dialogs/Hire.vue'
 
 export default Vue.extend({
   components: {
-    StatLine
+    StatLine,
+    HireDialog
   },
   props: {
     wizard: {
@@ -59,12 +85,43 @@ export default Vue.extend({
       default: null
     } as PropValidator<Wizard>
   },
+  data() {
+    return {
+      hireDialog: false
+    }
+  },
   computed: {
     experience(): number {
       if (this.wizard instanceof Wizard) {
         return this.wizard.experience
       }
       return 0
+    },
+    coinOptions(): any[] {
+      return this.wizard.gold <= 0
+        ? []
+        : [
+            {
+              id: 1,
+              text: 'Hire'
+            }
+          ]
+    }
+  },
+  methods: {
+    handleOptionClick(id: number) {
+      switch (id) {
+        case 1:
+          return this.toggleHireDialog()
+      }
+    },
+    toggleHireDialog() {
+      this.hireDialog = !this.hireDialog
+    },
+    hireMercenary(mercenary: Soldier | Apprentice) {
+      this.toggleHireDialog()
+      this.wizard.hire(mercenary)
+      this.$forceUpdate()
     }
   }
 })

@@ -95,7 +95,7 @@ export default Vue.extend({
     }
   },
   data() {
-    const hasApprentice = typeof this.wizard.apprentice !== 'undefined'
+    const hasApprentice = this.wizard.apprentice !== null
     const mercs = mercenaries
       .slice(hasApprentice ? 1 : 0)
       .filter(t => t.cost <= this.wizard.gold)

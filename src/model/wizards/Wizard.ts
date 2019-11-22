@@ -42,8 +42,8 @@ export default abstract class Wizard extends Character implements ISpellcaster {
     return this._gold
   }
   public readonly soldiers: Soldier[]
-  private _apprentice?: Apprentice
-  public get apprentice(): Apprentice | undefined {
+  private _apprentice: Apprentice | null
+  public get apprentice(): Apprentice | null {
     return this._apprentice
   }
 
@@ -71,6 +71,7 @@ export default abstract class Wizard extends Character implements ISpellcaster {
       name: config.name,
       items: [config.weapon]
     })
+    this._apprentice = null
     this._level = 0
     this._unspentPoints = 0
     this._experience = 0

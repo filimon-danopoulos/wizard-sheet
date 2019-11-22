@@ -1,8 +1,8 @@
 <template>
-  <v-container class="pt-0 pb-0">
+  <v-container class="pb-0">
     <v-row>
       <div
-        class="grow body-2"
+        class="grow caption"
         v-for="header in statHeaders"
         :key="header"
         style="display: flex; flex: 1; justify-content: center;"

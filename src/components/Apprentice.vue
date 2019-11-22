@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ml-3 mr-3 mt-3" color="blue lighten-3" dark>
+  <v-card class="ml-3 mr-3 mt-3" color="primary lighten-2" dark>
     <v-list-item three-line>
       <v-list-item-content>
         <div class="overline mt-1">{{ apprentice.description }}</div>
