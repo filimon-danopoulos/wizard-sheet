@@ -90,7 +90,7 @@
 
       <v-btn to="/vault">
         <span>Vault</span>
-        <v-icon>mdi-bank</v-icon>
+        <v-icon>mdi-piggy-bank</v-icon>
       </v-btn>
     </v-bottom-navigation>
   </v-app>
