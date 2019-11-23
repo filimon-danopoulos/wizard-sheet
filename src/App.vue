@@ -28,10 +28,9 @@
     />
 
     <v-content>
-      <router-view v-if="selectedWizard" :wizard="selectedWizard"></router-view>
-      <v-row v-else grow justify="center" align="center" style="min-height: 84px;">
-        <v-btn color="primary" @click="toggleNewWizardDialog()">Create Wizard</v-btn>
-      </v-row>
+      <transition name="fade" mode="out-in">
+        <router-view v-if="selectedWizard" :wizard="selectedWizard"></router-view>
+      </transition>
     </v-content>
     <v-bottom-navigation v-if="selectedWizard" :value="true" shift grow color="primary">
       <v-btn to="/base">
@@ -54,15 +53,15 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import WizardComponent from './components/Wizard.vue'
-import ApprenticeComponent from './components/Apprentice.vue'
-import SoldierComponent from './components/Soldier.vue'
-import NewWizardDialog from './components/dialogs/NewWizard.vue'
-import Wizard from './model/wizards/Wizard'
-import Thug from './model/soldiers/Thug'
-import Character from './model/Character'
-import Soldier from './model/soldiers/Soldier'
-import Apprentice from './model/wizards/Apprentice'
+import WizardComponent from '@/components/Wizard.vue'
+import ApprenticeComponent from '@/components/Apprentice.vue'
+import SoldierComponent from '@/components/Soldier.vue'
+import NewWizardDialog from '@/dialogs/NewWizard.vue'
+import Wizard from '@/model/wizards/Wizard'
+import Thug from '@/model/soldiers/Thug'
+import Character from '@/model/Character'
+import Soldier from '@/model/soldiers/Soldier'
+import Apprentice from '@/model/wizards/Apprentice'
 
 export default Vue.extend({
   name: 'App',
@@ -80,7 +79,7 @@ export default Vue.extend({
       selectedWizard: null as null | Wizard,
       wizards: [] as Wizard[],
       drawer: false,
-      newWizardDialog: false,
+      newWizardDialog: true,
       hireDialog: false,
       wizardList: false,
       drawerItems: [
@@ -133,5 +132,17 @@ export default Vue.extend({
 <style lang="less">
 body {
   overscroll-behavior: contain;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: linear;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>

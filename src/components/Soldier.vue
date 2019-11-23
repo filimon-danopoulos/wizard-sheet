@@ -38,7 +38,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Soldier from '@/model/soldiers/Soldier'
-import StatLine from './StatLine.vue'
+import StatLine from '@/components/StatLine.vue'
 
 export default Vue.extend({
   components: {

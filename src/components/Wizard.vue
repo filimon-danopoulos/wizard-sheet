@@ -64,14 +64,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import StatLine from './StatLine.vue'
+import StatLine from '@/components/StatLine.vue'
 import Wizard from '@/model/wizards/Wizard'
-import { School } from '../model/magic/Spell'
-import Elementalist from '../model/wizards/Elementalist'
+import { School } from '@/model/magic/Spell'
+import Elementalist from '@/model/wizards/Elementalist'
 import { PropValidator } from 'vue/types/options'
 import Soldier from '@/model/soldiers/Soldier'
 import Apprentice from '@/model/wizards/Apprentice'
-import HireDialog from './dialogs/Hire.vue'
+import HireDialog from '@/dialogs/Hire.vue'
 
 export default Vue.extend({
   components: {

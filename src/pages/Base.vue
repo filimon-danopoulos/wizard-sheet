@@ -1,3 +1,3 @@
 <template funtional>
-  <div></div>
+  <h1 class="headline">Base</h1>
 </template>

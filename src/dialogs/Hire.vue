@@ -51,8 +51,8 @@ import Knight from '@/model/soldiers/Knight'
 import Templar from '@/model/soldiers/Templar'
 import Ranger from '@/model/soldiers/Ranger'
 import Weapon from '@/model/items/basic/weapons/Weapon'
-import Soldier from '../../model/soldiers/Soldier'
-import Chronomancer from '../../model/wizards/Chronomancer'
+import Soldier from '@/model/soldiers/Soldier'
+import Chronomancer from '@/model/wizards/Chronomancer'
 
 const weapons = [
   { text: 'Hand Weapon', value: new HandWeapon() },

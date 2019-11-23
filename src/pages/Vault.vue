@@ -1,3 +1,5 @@
 <template funtional>
-  <div></div>
+  <h1 class="headline">
+    Vault
+  </h1>
 </template>

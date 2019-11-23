@@ -40,8 +40,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import StatLine from './StatLine.vue'
-import Apprentice from '../model/wizards/Apprentice'
+import StatLine from '@/components/StatLine.vue'
+import Apprentice from '@/model/wizards/Apprentice'
 
 export default Vue.extend({
   components: {
