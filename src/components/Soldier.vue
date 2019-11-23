@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ml-3 mr-3 mt-3" color="grey lighten-4">
+  <v-card class="ml-3 mr-3 mt-3" color="light-green lighten-4">
     <v-card-title class="subtitle-2">
       {{ soldier.description }}
       <div style="flex: 1" />
@@ -11,6 +11,10 @@
         </template>
 
         <v-list>
+          <v-list-item>
+            <v-list-item-title>Rename</v-list-item-title>
+          </v-list-item>
+          <v-spacer />
           <v-list-item @click="$emit('dismissed')">
             <v-list-item-title>Dismiss</v-list-item-title>
           </v-list-item>

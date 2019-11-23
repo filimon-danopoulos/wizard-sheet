@@ -1,5 +1,5 @@
 <template funtional>
-  <div>
+  <div style="padding-bottom: 72px;">
     <WizardComponent :wizard="wizard" />
     <ApprenticeComponent
       v-if="wizard.apprentice"
@@ -12,6 +12,29 @@
       :soldier="soldier"
       @dismissed="dismissMercenary(soldier)"
     />
+    <v-fab-transition>
+      <v-btn
+        @click="toggleHireDialog()"
+        color="pink"
+        v-if="wizard.gold > 0"
+        dark
+        fixed
+        bottom
+        right
+        fab
+        mode=""
+        style="bottom: 64px;"
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+    </v-fab-transition>
+    <HireDialog
+      v-if="hireDialog"
+      :open="hireDialog"
+      :wizard="wizard"
+      @close="toggleHireDialog()"
+      @hire="mercenary => this.hireMercenary(mercenary)"
+    />
   </div>
 </template>
 
@@ -20,17 +43,25 @@ import Vue from 'vue'
 import Wizard from '../model/wizards/Wizard'
 import { PropValidator } from 'vue/types/options'
 
-import WizardComponent from '../components/Wizard.vue'
-import ApprenticeComponent from '../components/Apprentice.vue'
-import SoldierComponent from '../components/Soldier.vue'
+import WizardComponent from '@/components/Wizard.vue'
+import ApprenticeComponent from '@/components/Apprentice.vue'
+import SoldierComponent from '@/components/Soldier.vue'
 import Soldier from '@/model/soldiers/Soldier'
 import Apprentice from '@/model/wizards/Apprentice'
+import HireDialog from '@/dialogs/Hire.vue'
 
 export default Vue.extend({
   components: {
     WizardComponent,
     SoldierComponent,
-    ApprenticeComponent
+    ApprenticeComponent,
+    HireDialog
+  },
+  data() {
+    return {
+      showFAB: false,
+      hireDialog: false
+    }
   },
   props: {
     wizard: {
@@ -41,6 +72,14 @@ export default Vue.extend({
   methods: {
     dismissMercenary(mercenary: Soldier | Apprentice) {
       this.wizard.dismiss(mercenary)
+      this.$forceUpdate()
+    },
+    toggleHireDialog() {
+      this.hireDialog = !this.hireDialog
+    },
+    hireMercenary(mercenary: Soldier | Apprentice) {
+      this.toggleHireDialog()
+      this.wizard.hire(mercenary)
       this.$forceUpdate()
     }
   }

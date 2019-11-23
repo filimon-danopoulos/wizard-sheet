@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="open" max-width="600px">
+  <v-dialog v-model="open" fullscreen>
     <v-card>
       <v-card-title>
         <span class="headline">Create Wizard</span>

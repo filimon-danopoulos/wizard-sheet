@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ml-3 mr-3 mt-3" color="primary lighten-2" dark>
+  <v-card class="ml-3 mr-3 mt-3" color="teal lighten-2" dark>
     <v-list-item three-line>
       <v-list-item-content>
         <div class="overline mt-1">{{ apprentice.description }}</div>
@@ -17,6 +17,9 @@
         </template>
 
         <v-list>
+          <v-list-item>
+            <v-list-item-title>Rename</v-list-item-title>
+          </v-list-item>
           <v-list-item @click="$emit('dismissed')">
             <v-list-item-title>Dismiss</v-list-item-title>
           </v-list-item>

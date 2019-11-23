@@ -1,5 +1,5 @@
 <template funtional>
-  <div>
+  <div class="pb-3">
     <v-card class="ml-3 mr-3 mt-3" color="primary" dark>
       <v-card-title>
         Base!

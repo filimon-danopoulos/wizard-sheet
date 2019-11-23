@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click="toggleDrawer()"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ this.$route.name || 'Wizard Sheet' }}</v-toolbar-title>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" app clipped color="grey lighten-4">
+    <v-navigation-drawer v-model="drawer" temporary app clipped color="grey lighten-4">
       <v-list dense class="grey lighten-4">
         <template v-for="(item, i) in drawerItems">
           <v-list-item :key="i" link @click="handleListClick(item.id)">
@@ -27,23 +27,22 @@
       @new="wizard => this.createNewWizard(wizard)"
     />
 
-    <v-content>
-      <transition :name="transition">
-        <router-view v-if="selectedWizard" :wizard="selectedWizard"></router-view>
-      </transition>
+    <v-content style="overflow: hidden;">
+      <router-view @create="toggleNewWizardDialog()"></router-view>
     </v-content>
-    <v-bottom-navigation v-if="selectedWizard" :value="true" shift grow color="primary">
-      <v-btn to="/base">
+
+    <v-bottom-navigation v-if="$route.meta.navigation" app value shift grow color="primary">
+      <v-btn :to="{ name: 'Base', params: { wizard: selectedWizard } }">
         <span>Base</span>
         <v-icon>mdi-home-outline</v-icon>
       </v-btn>
 
-      <v-btn to="/warband">
+      <v-btn :to="{ name: 'Warband', params: { wizard: selectedWizard } }">
         <span>Warband</span>
         <v-icon>mdi-account-outline</v-icon>
       </v-btn>
 
-      <v-btn to="/vault">
+      <v-btn :to="{ name: 'Vault', params: { wizard: selectedWizard } }">
         <span>Vault</span>
         <v-icon>mdi-piggy-bank</v-icon>
       </v-btn>
@@ -53,6 +52,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import Navigation from '@/components/Navigation.vue'
 import WizardComponent from '@/components/Wizard.vue'
 import ApprenticeComponent from '@/components/Apprentice.vue'
 import SoldierComponent from '@/components/Soldier.vue'
@@ -69,18 +69,12 @@ export default Vue.extend({
   components: {
     NewWizardDialog
   },
-  provide(): { wizards: Wizard[] } {
-    return {
-      wizards: this.wizards
-    }
-  },
   data() {
     return {
-      transition: 'slide-right',
       selectedWizard: null as null | Wizard,
       wizards: [] as Wizard[],
       drawer: false,
-      newWizardDialog: true,
+      newWizardDialog: false,
       hireDialog: false,
       wizardList: false,
       drawerItems: [
@@ -89,14 +83,10 @@ export default Vue.extend({
       ]
     }
   },
+  mounted() {
+    this.goToWizardList()
+  },
   watch: {
-    $route(to, from) {
-      if (to.path === '/base' || from.path === '/vault') {
-        this.transition = 'slide-left'
-      } else if (to.path === '/vault' || from.path === '/base') {
-        this.transition = 'slide-right'
-      }
-    },
     selectedWizard: {
       deep: true,
       handler(val: Wizard | undefined) {
@@ -114,13 +104,18 @@ export default Vue.extend({
     handleListClick(id: number) {
       switch (id) {
         case 1:
-          return this.toggleWizardList()
+          return this.goToWizardList()
         case 2:
           return this.toggleNewWizardDialog()
       }
     },
-    toggleWizardList() {
-      this.wizardList = !this.wizardList
+    goToWizardList() {
+      this.$router.push({
+        name: 'Wizards',
+        params: {
+          wizards: this.wizards as any
+        }
+      })
     },
     toggleNewWizardDialog() {
       this.newWizardDialog = !this.newWizardDialog
@@ -129,9 +124,12 @@ export default Vue.extend({
       this.toggleNewWizardDialog()
       this.wizards.push(wizard)
       this.selectedWizard = wizard
-      if (this.$route.path !== '/warband') {
-        this.$router.push('/warband')
-      }
+      this.$router.push({
+        name: 'Warband',
+        params: {
+          wizard: wizard as any
+        }
+      })
     }
   }
 })
@@ -140,25 +138,5 @@ export default Vue.extend({
 <style lang="less">
 body {
   overscroll-behavior: contain;
-}
-
-.slide-left-enter-active,
-.slide-left-leave-active,
-.slide-right-enter-active,
-.slide-right-leave-active {
-  position: absolute;
-  width: 100%;
-  transition-duration: 0.2s;
-  transition-property: transform;
-  transition-timing-function: linear;
-}
-
-.slide-left-enter,
-.slide-right-leave-to {
-  transform: translateX(-100%);
-}
-.slide-left-leave-to,
-.slide-right-enter {
-  transform: translateX(100%);
 }
 </style>
