@@ -28,7 +28,7 @@
     />
 
     <v-content>
-      <transition name="fade" mode="out-in">
+      <transition :name="transition">
         <router-view v-if="selectedWizard" :wizard="selectedWizard"></router-view>
       </transition>
     </v-content>
@@ -76,6 +76,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      transition: 'slide-right',
       selectedWizard: null as null | Wizard,
       wizards: [] as Wizard[],
       drawer: false,
@@ -89,6 +90,13 @@ export default Vue.extend({
     }
   },
   watch: {
+    $route(to, from) {
+      if (to.path === '/base' || from.path === '/vault') {
+        this.transition = 'slide-left'
+      } else if (to.path === '/vault' || from.path === '/base') {
+        this.transition = 'slide-right'
+      }
+    },
     selectedWizard: {
       deep: true,
       handler(val: Wizard | undefined) {
@@ -134,15 +142,23 @@ body {
   overscroll-behavior: contain;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition-duration: 0.3s;
-  transition-property: opacity;
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  position: absolute;
+  width: 100%;
+  transition-duration: 0.2s;
+  transition-property: transform;
   transition-timing-function: linear;
 }
 
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
+.slide-left-enter,
+.slide-right-leave-to {
+  transform: translateX(-100%);
+}
+.slide-left-leave-to,
+.slide-right-enter {
+  transform: translateX(100%);
 }
 </style>
