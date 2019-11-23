@@ -28,7 +28,9 @@
     />
 
     <v-content style="overflow: hidden;">
-      <router-view @create="toggleNewWizardDialog()"></router-view>
+      <transition :name="transition">
+        <router-view @create="toggleNewWizardDialog()"></router-view>
+      </transition>
     </v-content>
 
     <v-bottom-navigation v-if="$route.meta.navigation" app value shift grow color="primary">
@@ -64,13 +66,13 @@ import Soldier from '@/model/soldiers/Soldier'
 import Apprentice from '@/model/wizards/Apprentice'
 
 export default Vue.extend({
-  name: 'App',
-
   components: {
     NewWizardDialog
   },
   data() {
     return {
+      transitioning: false,
+      transition: 'slide-right',
       selectedWizard: null as null | Wizard,
       wizards: [] as Wizard[],
       drawer: false,
@@ -87,6 +89,13 @@ export default Vue.extend({
     this.goToWizardList()
   },
   watch: {
+    $route(to, from) {
+      if (to.name === 'Base' || from.name === 'Vault') {
+        this.transition = 'slide-left'
+      } else if (to.name === 'Vault' || from.name === 'Base') {
+        this.transition = 'slide-right'
+      }
+    },
     selectedWizard: {
       deep: true,
       handler(val: Wizard | undefined) {
@@ -138,5 +147,26 @@ export default Vue.extend({
 <style lang="less">
 body {
   overscroll-behavior: contain;
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  position: absolute;
+  width: 100%;
+  height: calc(100% + 56px);
+  transition-duration: 0.2s;
+  transition-property: transform;
+  transition-timing-function: linear;
+}
+
+.slide-left-enter,
+.slide-right-leave-to {
+  transform: translateX(-100%);
+}
+.slide-left-leave-to,
+.slide-right-enter {
+  transform: translateX(100%);
 }
 </style>
