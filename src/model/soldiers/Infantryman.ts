@@ -19,7 +19,7 @@ export default class Infantryman extends Soldier {
   constructor() {
     super({
       ...config,
-      maxEquipment: config.items.length
+      maxItems: config.items.length
     })
   }
 }

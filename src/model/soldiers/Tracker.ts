@@ -18,6 +18,6 @@ const config = {
 export default class Tracker extends Soldier {
   public readonly type = 'tracker' as string
   constructor() {
-    super({ ...config, maxEquipment: config.items.length + 1 })
+    super({ ...config, maxItems: config.items.length + 1 })
   }
 }

@@ -3,6 +3,8 @@ import Character from '../../../Character'
 
 export default class Unarmed extends Weapon {
   public readonly type = 'unarmed' as string
+  public readonly name = 'Unarmed' as string
+  public readonly description = '' as string
   constructor() {
     super(-2, 0)
   }

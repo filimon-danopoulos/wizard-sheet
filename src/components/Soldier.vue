@@ -1,57 +1,21 @@
 <template>
-  <v-card class="ml-3 mr-3 mt-3" color="light-green lighten-4">
+  <v-card class="ml-3 mr-3 mt-3" color="light-green lighten-3">
     <v-card-title class="subtitle-2">
       {{ soldier.description }}
       <div style="flex: 1" />
-      <v-menu left bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
-        </template>
-
-        <v-list>
-          <v-list-item>
-            <v-list-item-title>Rename</v-list-item-title>
-          </v-list-item>
-          <v-spacer />
-          <v-list-item @click="$emit('dismissed')">
-            <v-list-item-title>Dismiss</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <CharacterOptions @dismiss="$emit('dismiss')" />
     </v-card-title>
     <v-card-subtitle v-if="soldier.name">
       {{ soldier.name }}
     </v-card-subtitle>
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="soldier" />
-      <v-list color="light-green lighten-2" class="mt-4">
-        <v-list-group
-          v-for="(group, groupIndex) in entryGroups"
-          v-model="group.active"
-          :key="groupIndex"
-          :prepend-icon="group.icon"
-          style="color: rgba(0, 0, 0, 0.54) !important;"
-          no-action
-        >
-          <v-list-item slot="activator">
-            <v-list-item-content>
-              <v-list-item-title>{{ group.text }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-list-item v-for="(entry, entryIndex) in group.entries" :key="entryIndex" class="pl-12">
-            <v-icon>{{ getEntryIcon(entry) }}</v-icon>
-            <v-list-item-content class="ml-12">
-              <v-list-item-title>{{ entry.name }}</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              {{ getEntryAction(entry) }}
-            </v-list-item-action>
-          </v-list-item>
-        </v-list-group>
-      </v-list>
+      <CollapsedContent
+        primaryColor="light-green lighten-2"
+        secondaryColor="light-green lighten-4"
+        :items="soldier.items"
+        :maxItems="soldier.maxItems"
+      />
     </v-card-text>
 
     <v-card-actions>
@@ -74,42 +38,20 @@ import Potion from '@/model/items/potions/Potion'
 import Armour from '@/model/items/basic/armour/Armour'
 import Weapon from '@/model/items/basic/weapons/Weapon'
 import { PropValidator } from 'vue/types/options'
+import CollapsedContent from '@/components/CollapsedContent.vue'
+import CharacterOptions from '@/components/CharacterOptions.vue'
 
 export default Vue.extend({
   components: {
-    StatLine
+    StatLine,
+    CollapsedContent,
+    CharacterOptions
   },
   props: {
     soldier: {
       type: Soldier,
       required: true
     } as PropValidator<Soldier>
-  },
-  computed: {
-    entryGroups(): { text: string; icon: string; entries: Item[] }[] {
-      return [
-        {
-          text: 'Items',
-          icon: 'mdi-sword-cross',
-          entries: this.soldier.items
-        }
-      ]
-    }
-  },
-  methods: {
-    getEntryIcon(item: Item) {
-      if (item instanceof Weapon) {
-        return 'mdi-sword'
-      } else if (item instanceof Armour) {
-        return 'mdi-shield-outline'
-      } else if (item instanceof Potion) {
-        return 'mdi-bottle-tonic-outline'
-      }
-      return 'mdi-tools'
-    },
-    getEntryAction(item: Item): string {
-      return ''
-    }
   }
 })
 </script>

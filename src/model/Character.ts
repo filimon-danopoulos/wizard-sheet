@@ -15,7 +15,7 @@ export interface ICharacterConfig {
   will: number
   health: number
   items: Item[]
-  maxEquipment: number
+  maxItems: number
 }
 
 export interface IMercenary {
@@ -89,9 +89,9 @@ export default abstract class Character extends JSONSerializable {
   public get items(): Item[] {
     return this._items
   }
-  protected _maxEquipment: number
-  public get maxEquipment(): number {
-    return this._maxEquipment
+  protected _maxItems: number
+  public get maxItems(): number {
+    return this._maxItems
   }
 
   constructor(config: ICharacterConfig) {
@@ -108,7 +108,7 @@ export default abstract class Character extends JSONSerializable {
     this._armour = new Stat(10)
     this._effects = []
     this._items = config.items
-    this._maxEquipment = config.maxEquipment
+    this._maxItems = config.maxItems
     this._description = config.description
     this.applyEquipment()
   }

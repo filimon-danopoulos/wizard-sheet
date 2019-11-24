@@ -21,7 +21,7 @@ const defaults = {
   shoot: 0,
   will: 4,
   health: 14,
-  maxEquipment: 5
+  maxItems: 5
 }
 
 export default abstract class Wizard extends Character implements ISpellcaster {

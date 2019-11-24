@@ -3,6 +3,8 @@ import Character, { Effect } from '../../Character'
 
 export default class ElixirOfLife extends Potion {
   public readonly type = 'elixiroflife' as string
+  public readonly name = 'Elixir of Life' as string
+  public readonly description = '' as string
   constructor() {
     super(500)
   }

@@ -1,5 +1,5 @@
 import Soldier from './Soldier'
-import CrossBow from '../items/basic/weapons/Crossbow'
+import Crossbow from '../items/basic/weapons/Crossbow'
 import Dagger from '../items/basic/weapons/Dagger'
 import LeatherArmour from '../items/basic/armour/LeatherArmour'
 
@@ -11,7 +11,7 @@ const config = {
   will: 0,
   health: 10,
   cost: 50,
-  items: [new CrossBow(), new Dagger(), new LeatherArmour()],
+  items: [new Crossbow(), new Dagger(), new LeatherArmour()],
   notes: ''
 }
 
@@ -20,7 +20,7 @@ export default class Crossbowman extends Soldier {
   constructor() {
     super({
       ...config,
-      maxEquipment: config.items.length + 1
+      maxItems: config.items.length + 1
     })
   }
 }

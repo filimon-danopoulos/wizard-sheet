@@ -17,6 +17,6 @@ const config = {
 export default class Marksman extends Soldier {
   public readonly type = 'marksman' as string
   constructor() {
-    super({ ...config, maxEquipment: config.items.length + 1 })
+    super({ ...config, maxItems: config.items.length + 1 })
   }
 }

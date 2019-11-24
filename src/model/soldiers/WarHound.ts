@@ -16,6 +16,6 @@ const config = {
 export default class WarHound extends Soldier {
   public readonly type = 'warhound' as string
   constructor() {
-    super({ ...config, maxEquipment: 0 })
+    super({ ...config, maxItems: 0 })
   }
 }

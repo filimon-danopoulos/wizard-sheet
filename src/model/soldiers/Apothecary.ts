@@ -19,7 +19,7 @@ export default class Apothecary extends Soldier {
   constructor() {
     super({
       ...config,
-      maxEquipment: config.items.length + 1
+      maxItems: config.items.length + 1
     })
   }
   public fromJSON(json: any): void {

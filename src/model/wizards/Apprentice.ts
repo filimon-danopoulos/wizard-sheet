@@ -31,7 +31,7 @@ export default class Apprentice extends Character implements ISpellcaster, IMerc
       will: wizard.will.base - 2,
       health: wizard.health.base - 4,
       items: [weapon],
-      maxEquipment: 4
+      maxItems: 4
     })
     this.wizard = wizard
     this.cost = (wizard.level - 10) * 10 + 300
