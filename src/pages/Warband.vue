@@ -16,7 +16,7 @@
       <v-btn
         @click="toggleHireDialog()"
         color="pink"
-        v-if="wizard.gold > 0 && warbandCount <= 10"
+        v-if="wizard.gold > 0 && warbandCount < 10"
         dark
         fixed
         bottom
