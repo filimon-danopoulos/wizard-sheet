@@ -130,7 +130,6 @@ export default abstract class Wizard extends Character implements ISpellcaster {
     } else if (this.allignedSchools.includes(spell.school)) {
       difficulty += 2
     }
-    console.log(difficulty)
     return difficulty
   }
   public toJSON(): any {
