@@ -20,6 +20,8 @@ export enum Category {
 }
 
 export interface ISpellConfig {
+  name: string
+  description: string
   category: Category
   school: School
   difficulty: number
@@ -27,12 +29,16 @@ export interface ISpellConfig {
 }
 
 export default class Spell {
+  public readonly name: string
+  public readonly description: string
   public readonly category: Category
   public readonly school: School
   public readonly difficulty: number
   public readonly effect: string
 
   constructor(config: ISpellConfig) {
+    this.name = config.name
+    this.description = config.description
     this.category = config.category
     this.school = config.school
     this.difficulty = config.difficulty

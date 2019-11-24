@@ -34,17 +34,17 @@
     </v-content>
 
     <v-bottom-navigation v-if="$route.meta.navigation" app value shift grow color="primary">
-      <v-btn :to="{ name: 'Base', params: { wizard: selectedWizard } }">
+      <v-btn :to="{ name: 'Base', params: { id: $route.params.id, wizard: selectedWizard } }">
         <span>Base</span>
         <v-icon>mdi-home-outline</v-icon>
       </v-btn>
 
-      <v-btn :to="{ name: 'Warband', params: { wizard: selectedWizard } }">
+      <v-btn :to="{ name: 'Warband', params: { id: $route.params.id, wizard: selectedWizard } }">
         <span>Warband</span>
         <v-icon>mdi-account-outline</v-icon>
       </v-btn>
 
-      <v-btn :to="{ name: 'Vault', params: { wizard: selectedWizard } }">
+      <v-btn :to="{ name: 'Vault', params: { id: $route.params.id, wizard: selectedWizard } }">
         <span>Vault</span>
         <v-icon>mdi-piggy-bank</v-icon>
       </v-btn>
@@ -64,6 +64,14 @@ import Thug from '@/model/soldiers/Thug'
 import Character from '@/model/Character'
 import Soldier from '@/model/soldiers/Soldier'
 import Apprentice from '@/model/wizards/Apprentice'
+import Decay from './model/magic/chronomancy/Decay'
+import TimeWalk from './model/magic/chronomancy/TimeWalk'
+import ElementalBall from './model/magic/elementalism/ElementalBall'
+import Slow from './model/magic/chronomancy/Slow'
+import BoneDart from './model/magic/necromancy/BoneDart'
+import EnchantWeapon from './model/magic/enchanting/EnchantWeapon'
+import CreateGrimoire from './model/magic/sigilism/CreateGrimoire'
+import RevealSecret from './model/magic/soothsaying/RevealSecret'
 
 export default Vue.extend({
   components: {
@@ -130,12 +138,21 @@ export default Vue.extend({
       this.newWizardDialog = !this.newWizardDialog
     },
     createNewWizard(wizard: Wizard) {
+      wizard.learnSpell(new Decay())
+      wizard.learnSpell(new Slow())
+      wizard.learnSpell(new TimeWalk())
+      wizard.learnSpell(new RevealSecret())
+      wizard.learnSpell(new ElementalBall())
+      wizard.learnSpell(new BoneDart())
+      wizard.learnSpell(new EnchantWeapon())
+      wizard.learnSpell(new CreateGrimoire())
       this.toggleNewWizardDialog()
       this.wizards.push(wizard)
       this.selectedWizard = wizard
       this.$router.push({
         name: 'Warband',
         params: {
+          id: (this.wizards.length - 1).toString(),
           wizard: wizard as any
         }
       })

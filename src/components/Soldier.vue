@@ -26,6 +26,32 @@
     </v-card-subtitle>
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="soldier" />
+      <v-list color="light-green lighten-2" class="mt-4">
+        <v-list-group
+          v-for="(group, groupIndex) in entryGroups"
+          v-model="group.active"
+          :key="groupIndex"
+          :prepend-icon="group.icon"
+          style="color: rgba(0, 0, 0, 0.54) !important;"
+          no-action
+        >
+          <v-list-item slot="activator">
+            <v-list-item-content>
+              <v-list-item-title>{{ group.text }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item v-for="(entry, entryIndex) in group.entries" :key="entryIndex" class="pl-12">
+            <v-icon>{{ getEntryIcon(entry) }}</v-icon>
+            <v-list-item-content class="ml-12">
+              <v-list-item-title>{{ entry.name }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              {{ getEntryAction(entry) }}
+            </v-list-item-action>
+          </v-list-item>
+        </v-list-group>
+      </v-list>
     </v-card-text>
 
     <v-card-actions>
@@ -43,6 +69,11 @@
 import Vue from 'vue'
 import Soldier from '@/model/soldiers/Soldier'
 import StatLine from '@/components/StatLine.vue'
+import Item from '@/model/items/Item'
+import Potion from '@/model/items/potions/Potion'
+import Armour from '@/model/items/basic/armour/Armour'
+import Weapon from '@/model/items/basic/weapons/Weapon'
+import { PropValidator } from 'vue/types/options'
 
 export default Vue.extend({
   components: {
@@ -52,7 +83,33 @@ export default Vue.extend({
     soldier: {
       type: Soldier,
       required: true
-    } as any
+    } as PropValidator<Soldier>
+  },
+  computed: {
+    entryGroups(): { text: string; icon: string; entries: Item[] }[] {
+      return [
+        {
+          text: 'Items',
+          icon: 'mdi-sword-cross',
+          entries: this.soldier.items
+        }
+      ]
+    }
+  },
+  methods: {
+    getEntryIcon(item: Item) {
+      if (item instanceof Weapon) {
+        return 'mdi-sword'
+      } else if (item instanceof Armour) {
+        return 'mdi-shield-outline'
+      } else if (item instanceof Potion) {
+        return 'mdi-bottle-tonic-outline'
+      }
+      return 'mdi-tools'
+    },
+    getEntryAction(item: Item): string {
+      return ''
+    }
   }
 })
 </script>

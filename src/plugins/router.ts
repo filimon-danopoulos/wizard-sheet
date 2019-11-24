@@ -20,7 +20,7 @@ export default new VueRouter({
     },
     {
       name: 'Base',
-      path: '/base',
+      path: '/base/:id',
       component: Base,
       props: true,
       meta: {
@@ -29,7 +29,7 @@ export default new VueRouter({
     },
     {
       name: 'Warband',
-      path: '/warband',
+      path: '/warband/:id',
       component: Warband,
       props: true,
       meta: {
@@ -38,7 +38,7 @@ export default new VueRouter({
     },
     {
       name: 'Vault',
-      path: '/vault',
+      path: '/vault/:id',
       component: Vault,
       props: true,
       meta: {

@@ -16,7 +16,7 @@
       <v-btn
         @click="toggleHireDialog()"
         color="pink"
-        v-if="wizard.gold > 0"
+        v-if="wizard.gold > 0 && warbandCount <= 10"
         dark
         fixed
         bottom
@@ -56,6 +56,11 @@ export default Vue.extend({
     SoldierComponent,
     ApprenticeComponent,
     HireDialog
+  },
+  computed: {
+    warbandCount() {
+      return 1 + this.wizard.soldiers.length + (this.wizard.apprentice !== null ? 1 : 0)
+    }
   },
   data() {
     return {

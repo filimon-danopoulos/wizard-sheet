@@ -1,7 +1,7 @@
 <template>
   <div class="pb-3">
     <v-list two-line subheader>
-      <v-list-item v-for="(wizard, i) in wizards" :key="i" @click="navigateTo(wizard)">
+      <v-list-item v-for="(wizard, i) in wizards" :key="i" @click="navigateTo(wizard, i)">
         <v-list-item-content>
           <v-list-item-title>{{ wizard.name }}</v-list-item-title>
           <v-list-item-subtitle>
@@ -31,10 +31,11 @@ export default Vue.extend({
     } as PropValidator<Wizard[]>
   },
   methods: {
-    navigateTo(wizard: Wizard) {
+    navigateTo(wizard: Wizard, index: number) {
       this.$router.push({
         name: 'Warband',
         params: {
+          id: index.toString(),
           wizard: wizard as any
         }
       })

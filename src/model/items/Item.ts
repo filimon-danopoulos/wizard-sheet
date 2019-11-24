@@ -2,6 +2,10 @@ import Character from '../Character'
 import JSONSerializable from '../JSONSerializable'
 
 export default abstract class Item extends JSONSerializable {
+  public get name(): string {
+    return this.type
+  }
+
   public readonly cost: number
   constructor(cost: number) {
     super()

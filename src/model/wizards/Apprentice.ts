@@ -11,6 +11,8 @@ export default class Apprentice extends Character implements ISpellcaster, IMerc
   public get spells(): Spell[] {
     return this.wizard.spells.map(spell => {
       return new Spell({
+        name: spell.name,
+        description: spell.description,
         school: spell.school,
         category: spell.category,
         difficulty: spell.difficulty + 2,

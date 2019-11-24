@@ -54,11 +54,12 @@ export default abstract class Wizard extends Character implements ISpellcaster {
   private _spells: Spell[]
   public get spells(): Spell[] {
     return this._spells.map(spell => {
-      const modifier = this.calculateSpellDificulty(spell)
       return new Spell({
+        name: spell.name,
+        description: spell.description,
         school: spell.school,
         category: spell.category,
-        difficulty: spell.difficulty + modifier,
+        difficulty: this.calculateSpellDificulty(spell),
         effect: spell.effect
       })
     })
@@ -129,6 +130,7 @@ export default abstract class Wizard extends Character implements ISpellcaster {
     } else if (this.allignedSchools.includes(spell.school)) {
       difficulty += 2
     }
+    console.log(difficulty)
     return difficulty
   }
   public toJSON(): any {
