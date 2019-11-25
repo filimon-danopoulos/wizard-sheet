@@ -13,7 +13,7 @@
     </v-row>
     <v-row>
       <div
-        class="grow body-1"
+        class="grow title font-weight-black"
         v-for="(stat, i) in stats"
         :key="i"
         style="display: flex; flex: 1; justify-content: center;"
@@ -43,14 +43,13 @@ export default Vue.extend({
         this.character.fight.modified,
         this.character.shoot.modified,
         this.character.armour.modified,
-        this.character.will.modified,
-        this.character.health.base
+        this.character.will.modified
       ]
     }
   },
   data() {
     return {
-      statHeaders: ['MOVE', 'FIGHT', 'SHOOT', 'ARMOUR', 'WILL', 'HEALTH']
+      statHeaders: ['MOVE', 'FIGHT', 'SHOOT', 'ARMOUR', 'WILL']
     }
   }
 })

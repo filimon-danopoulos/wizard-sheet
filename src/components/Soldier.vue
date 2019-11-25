@@ -10,7 +10,7 @@
     </v-card-subtitle>
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="soldier" />
-      <CollapsedContent
+      <CharacterDetails
         primaryColor="light-green lighten-2"
         secondaryColor="light-green lighten-4"
         :items="soldier.items"
@@ -22,7 +22,9 @@
       <v-list-item class="grow">
         <v-row align="center" justify="end">
           <v-icon class="mr-1">mdi-heart</v-icon>
-          <span class="subheading mr-2">{{ soldier.health.current }} </span>
+          <span class="subheading mr-2"
+            >{{ soldier.health.current }} / {{ soldier.health.base }}
+          </span>
         </v-row>
       </v-list-item>
     </v-card-actions>
@@ -38,13 +40,13 @@ import Potion from '@/model/items/potions/Potion'
 import Armour from '@/model/items/basic/armour/Armour'
 import Weapon from '@/model/items/basic/weapons/Weapon'
 import { PropValidator } from 'vue/types/options'
-import CollapsedContent from '@/components/CollapsedContent.vue'
+import CharacterDetails from '@/components/CharacterDetails.vue'
 import CharacterOptions from '@/components/CharacterOptions.vue'
 
 export default Vue.extend({
   components: {
     StatLine,
-    CollapsedContent,
+    CharacterDetails,
     CharacterOptions
   },
   props: {

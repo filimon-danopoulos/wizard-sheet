@@ -32,7 +32,9 @@
           <v-list-item-title>{{ entry.name }}</v-list-item-title>
         </v-list-item-content>
         <v-list-item-action>
-          {{ getEntryAction(entry) }}
+          <v-chip v-if="getEntryChip(entry)">
+            {{ getEntryChip(entry) }}
+          </v-chip>
         </v-list-item-action>
       </v-list-item>
     </v-list-group>
@@ -145,7 +147,7 @@ export default Vue.extend({
           return ''
       }
     },
-    getEntryAction(entry: Item | Spell): string {
+    getEntryChip(entry: Item | Spell): string {
       if (entry instanceof Spell) {
         return entry.difficulty.toString()
       }

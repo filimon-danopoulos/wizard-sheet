@@ -13,7 +13,7 @@
     </v-list-item>
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="apprentice" />
-      <CollapsedContent
+      <CharacterDetails
         primaryColor="teal lighten-1"
         secondaryColor="teal lighten-3"
         :whiteText="true"
@@ -27,7 +27,9 @@
       <v-list-item class="grow">
         <v-row align="center" justify="end">
           <v-icon class="mr-1">mdi-heart</v-icon>
-          <span class="subheading mr-2">{{ apprentice.health.current }} </span>
+          <span class="subheading mr-2"
+            >{{ apprentice.health.current }} / {{ apprentice.health.base }}
+          </span>
         </v-row>
       </v-list-item>
     </v-card-actions>
@@ -44,13 +46,13 @@ import { PropValidator } from 'vue/types/options'
 import Potion from '@/model/items/potions/Potion'
 import Armour from '@/model/items/basic/armour/Armour'
 import Weapon from '@/model/items/basic/weapons/Weapon'
-import CollapsedContent from '@/components/CollapsedContent.vue'
+import CharacterDetails from '@/components/CharacterDetails.vue'
 import CharacterOptions from '@/components/CharacterOptions.vue'
 
 export default Vue.extend({
   components: {
     StatLine,
-    CollapsedContent,
+    CharacterDetails,
     CharacterOptions
   },
   props: {

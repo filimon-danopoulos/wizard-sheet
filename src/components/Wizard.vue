@@ -13,7 +13,7 @@
     </v-list-item>
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="wizard" />
-      <CollpasedContent
+      <CharacterDetails
         primaryColor="blue darken-3"
         secondaryColor="blue darken-1"
         :whiteText="true"
@@ -30,7 +30,9 @@
         </v-row>
         <v-row align="center" justify="end">
           <v-icon class="mr-1">mdi-heart</v-icon>
-          <span class="subheading mr-2">{{ wizard.health.current }} </span>
+          <span class="subheading mr-2"
+            >{{ wizard.health.current }} / {{ wizard.health.base }}</span
+          >
         </v-row>
       </v-list-item>
     </v-card-actions>
@@ -40,7 +42,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import StatLine from '@/components/StatLine.vue'
-import CollpasedContent from '@/components/CollapsedContent.vue'
+import CharacterDetails from '@/components/CharacterDetails.vue'
 import CharacterOptions from '@/components/CharacterOptions.vue'
 import Items from '@/components/Items.vue'
 import Spells from '@/components/Spells.vue'
@@ -58,7 +60,7 @@ import Potion from '@/model/items/potions/Potion'
 export default Vue.extend({
   components: {
     StatLine,
-    CollpasedContent,
+    CharacterDetails,
     CharacterOptions
   },
   props: {
