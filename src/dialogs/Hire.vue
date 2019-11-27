@@ -12,7 +12,7 @@
           <v-row v-if="isApprentice">
             <v-select label="Weapon" v-model="weapon" :items="weapons"></v-select>
           </v-row>
-          <v-row v-if="isApprentice">
+          <v-row>
             <v-text-field label="Name" v-model="name"></v-text-field>
           </v-row>
         </v-container>
@@ -118,6 +118,8 @@ export default Vue.extend({
         const apprentice = new Apprentice(this.name || 'Junior', this.wizard)
         apprentice.addItem(this.weapon)
         return apprentice
+      } else {
+        this.mercenary.name = this.name
       }
       return this.mercenary
     }

@@ -7,7 +7,7 @@
           {{ apprentice.name }}
         </v-list-item-title>
       </v-list-item-content>
-      <CharacterOptions @dismissed="$emit('dismissed')" />
+      <CharacterOptions @dismissed="$emit('dismissed')" @rename="renaming = true" />
     </v-list-item>
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="apprentice" />
@@ -31,6 +31,17 @@
         </v-row>
       </v-list-item>
     </v-card-actions>
+    <RenameDialog
+      :open="renaming"
+      :name="apprentice.name"
+      @save="
+        name => {
+          this.apprentice.name = name
+          this.renaming = false
+        }
+      "
+      @close="renaming = false"
+    />
   </v-card>
 </template>
 
@@ -46,18 +57,25 @@ import Armour from '@/model/items/basic/armour/Armour'
 import Weapon from '@/model/items/basic/weapons/Weapon'
 import CharacterDetails from '@/components/CharacterDetails.vue'
 import CharacterOptions from '@/components/CharacterOptions.vue'
+import RenameDialog from '@/dialogs/Rename.vue'
 
 export default Vue.extend({
   components: {
     StatLine,
     CharacterDetails,
-    CharacterOptions
+    CharacterOptions,
+    RenameDialog
   },
   props: {
     apprentice: {
       type: Apprentice,
       required: true
     } as PropValidator<Apprentice>
+  },
+  data() {
+    return {
+      renaming: false
+    }
   }
 })
 </script>

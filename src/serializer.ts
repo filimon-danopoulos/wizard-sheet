@@ -241,17 +241,25 @@ function parseApprentice(json: IApprenticeRecord, wizard: Wizard) {
 export interface ISoldierRecord {
   type: string
   items: IItemRecord[]
+  name: string
 }
 
 function serializeSoldier(soldier: Soldier): ISoldierRecord {
   return {
     type: soldier.type,
-    items: serializeItems(soldier.items)
+    items: serializeItems(soldier.items),
+    name: soldier.name
   }
 }
 
 function parseSoldier(json: ISoldierRecord): Soldier {
-  switch (json.type) {
+  const soldier = getSoldier(json.type)
+  soldier.name = json.name
+  return soldier
+}
+
+function getSoldier(type: string) {
+  switch (type) {
     case 'apothecary':
       return new Apothecary()
     case 'archer':
@@ -283,7 +291,7 @@ function parseSoldier(json: ISoldierRecord): Soldier {
     case 'warhound':
       return new WarHound()
   }
-  throw new Error(`Unknown soldier "${json.type}"`)
+  throw new Error(`Unknown soldier "${type}"`)
 }
 
 export interface IItemRecord {

@@ -1,11 +1,11 @@
 <template>
   <v-card class="ml-3 mr-3 mt-3" color="light-green lighten-3">
-    <v-card-title class="subtitle-2">
+    <v-card-title class="overline pb-1">
       {{ soldier.description }}
       <div style="flex: 1" />
-      <CharacterOptions @dismissed="$emit('dismissed')" />
+      <CharacterOptions @dismissed="$emit('dismissed')" @rename="renaming = true" />
     </v-card-title>
-    <v-card-subtitle v-if="soldier.name">
+    <v-card-subtitle class="title pb-0">
       {{ soldier.name }}
     </v-card-subtitle>
     <v-card-text class="pb-0 pt-0">
@@ -28,6 +28,17 @@
         </v-row>
       </v-list-item>
     </v-card-actions>
+    <RenameDialog
+      :open="renaming"
+      :name="soldier.name"
+      @save="
+        name => {
+          this.soldier.name = name
+          this.renaming = false
+        }
+      "
+      @close="renaming = false"
+    />
   </v-card>
 </template>
 
@@ -42,18 +53,25 @@ import Weapon from '@/model/items/basic/weapons/Weapon'
 import { PropValidator } from 'vue/types/options'
 import CharacterDetails from '@/components/CharacterDetails.vue'
 import CharacterOptions from '@/components/CharacterOptions.vue'
+import RenameDialog from '@/dialogs/Rename.vue'
 
 export default Vue.extend({
   components: {
     StatLine,
     CharacterDetails,
-    CharacterOptions
+    CharacterOptions,
+    RenameDialog
   },
   props: {
     soldier: {
       type: Soldier,
       required: true
     } as PropValidator<Soldier>
+  },
+  data() {
+    return {
+      renaming: false
+    }
   }
 })
 </script>
