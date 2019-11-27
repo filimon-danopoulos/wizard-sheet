@@ -111,6 +111,9 @@ export default Vue.extend({
       } else if (to.name === 'Vault' || from.name === 'Base') {
         this.transition = 'slide-right'
       }
+      if (to.params.wizard !== from.params.wizard) {
+        this.selectedWizard = to.params.wizard
+      }
     },
     selectedWizard: {
       deep: true,
@@ -118,9 +121,8 @@ export default Vue.extend({
         if (typeof val !== 'undefined') {
           const storedWizards = window.localStorage.getItem('wizards')
           const wizards = storedWizards ? (JSON.parse(storedWizards) as any[]) : []
-          const wizardIndex = wizards.findIndex((x: any) => x.name === val.name)
-          if (wizardIndex !== -1) {
-            wizards.splice(wizardIndex, 1, serializer.serialize(val))
+          if (wizards[+this.$route.params.id]) {
+            wizards.splice(+this.$route.params.id, 1, serializer.serialize(val))
           } else {
             wizards.push(serializer.serialize(val))
           }
@@ -163,7 +165,6 @@ export default Vue.extend({
       wizard.learnSpell(new CreateGrimoire())
       this.toggleNewWizardDialog()
       this.wizards.push(wizard)
-      this.selectedWizard = wizard
       this.$router.push({
         name: 'Warband',
         params: {
