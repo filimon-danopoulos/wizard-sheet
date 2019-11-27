@@ -9,7 +9,7 @@
         <v-list-item-title class="headline">{{ wizard.name }}</v-list-item-title>
         <v-list-item-subtitle class="title">Level {{ wizard.level }}</v-list-item-subtitle>
       </v-list-item-content>
-      <CharacterOptions :dismissable="false" />
+      <CharacterOptions :dismissable="false" @rename="renaming = true" />
     </v-list-item>
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="wizard" />
@@ -36,6 +36,17 @@
         </v-row>
       </v-list-item>
     </v-card-actions>
+    <RenameDialog
+      :open="renaming"
+      :name="wizard.name"
+      @save="
+        name => {
+          this.wizard.name = name
+          this.renaming = false
+        }
+      "
+      @close="renaming = false"
+    />
   </v-card>
 </template>
 
@@ -56,12 +67,14 @@ import Apprentice from '@/model/wizards/Apprentice'
 import Weapon from '@/model/items/basic/weapons/Weapon'
 import Armour from '@/model/items/basic/armour/Armour'
 import Potion from '@/model/items/potions/Potion'
+import RenameDialog from '@/dialogs/Rename.vue'
 
 export default Vue.extend({
   components: {
     StatLine,
     CharacterDetails,
-    CharacterOptions
+    CharacterOptions,
+    RenameDialog
   },
   props: {
     wizard: ({
@@ -69,6 +82,11 @@ export default Vue.extend({
       required: false,
       default: null
     } as unknown) as PropValidator<Wizard>
+  },
+  data() {
+    return {
+      renaming: false
+    }
   },
   computed: {
     experience(): number {

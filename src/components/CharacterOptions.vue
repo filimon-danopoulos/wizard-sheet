@@ -8,7 +8,7 @@
 
     <v-list color="grey lighten-2">
       <v-list-item>
-        <v-list-item-title>Rename</v-list-item-title>
+        <v-list-item-title @click="$emit('rename')">Rename</v-list-item-title>
       </v-list-item>
       <v-spacer />
       <v-list-item v-if="dismissable" @click="$emit('dismissed')">
