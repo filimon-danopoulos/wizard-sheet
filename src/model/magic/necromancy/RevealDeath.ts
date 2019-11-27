@@ -1,6 +1,7 @@
 import Spell, { Category, School } from '../Spell'
 
 export default class RevealDeath extends Spell {
+  public readonly type: string = 'revealdeath'
   constructor() {
     super({
       name: 'Reveal Death',
@@ -10,5 +11,10 @@ export default class RevealDeath extends Spell {
       difficulty: 12,
       effect: ''
     })
+  }
+  public copy() {
+    const spell = new RevealDeath()
+    spell.difficulty = this.difficulty
+    return spell
   }
 }

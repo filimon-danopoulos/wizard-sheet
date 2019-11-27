@@ -1,6 +1,7 @@
 import Spell, { Category, School } from '../Spell'
 
 export default class CallStorm extends Spell {
+  public readonly type: string = 'callstorm'
   constructor() {
     super({
       name: 'Call Storm',
@@ -10,5 +11,10 @@ export default class CallStorm extends Spell {
       difficulty: 12,
       effect: ''
     })
+  }
+  public copy() {
+    const spell = new CallStorm()
+    spell.difficulty = this.difficulty
+    return spell
   }
 }

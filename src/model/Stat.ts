@@ -1,5 +1,5 @@
 export default class Stat {
-  public readonly base: number
+  public base: number
   private modifiers: number[]
 
   public get modified(): number {

@@ -1,31 +1,26 @@
 import Soldier from './Soldier'
 import Staff from '../items/basic/weapons/Staff'
 import HealingPotion from '../items/potions/HealingPotion'
+import Stat from '../Stat'
+import Health from '../Health'
 
-const config = {
-  description: 'Apothecary',
-  move: 6,
-  fight: 0,
-  shoot: 0,
-  will: 0,
-  health: 12,
-  cost: 100,
-  items: [new Staff(), new HealingPotion()],
-  notes: 'Starts each game with a healing potion'
-}
+const startingItems = [new Staff(true), new HealingPotion(true)]
 
 export default class Apothecary extends Soldier {
   public readonly type = 'apothecary' as string
+  public readonly description = 'Apothecary' as string
+  public readonly cost: number = 100
+  public readonly move: Stat = new Stat(6)
+  public readonly fight: Stat = new Stat(0)
+  public readonly shoot: Stat = new Stat(0)
+  public readonly armour: Stat = new Stat(10)
+  public readonly will: Stat = new Stat(0)
+  public readonly health: Health = new Health(12)
+  public readonly damage: Stat = new Stat(0)
+  public readonly save: Stat = new Stat(0)
+  public readonly maxItems: number = startingItems.length + 1
   constructor() {
-    super({
-      ...config,
-      maxItems: config.items.length + 1
-    })
-  }
-  public fromJSON(json: any): void {
-    super.fromJSON(json)
-    if (!this.items.some(item => item instanceof HealingPotion)) {
-      this.items.push(new HealingPotion())
-    }
+    super()
+    startingItems.forEach(item => this.addItem(item))
   }
 }

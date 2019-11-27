@@ -2,21 +2,25 @@ import Soldier from './Soldier'
 import HandWeapon from '../items/basic/weapons/HandWeapon'
 import Dagger from '../items/basic/weapons/Dagger'
 import LeatherArmour from '../items/basic/armour/LeatherArmour'
+import Stat from '../Stat'
+import Health from '../Health'
 
-const config = {
-  description: 'Treassure Hunter',
-  move: 7,
-  fight: 3,
-  shoot: 0,
-  will: 2,
-  health: 12,
-  cost: 80,
-  items: [new HandWeapon(), new Dagger(), new LeatherArmour()],
-  notes: ''
-}
+const startingItems = [new HandWeapon(true), new Dagger(true), new LeatherArmour(true)]
 export default class TreassureHunter extends Soldier {
   public readonly type = 'treassurehunter' as string
+  public readonly description = 'Treassure Hunter' as string
+  public readonly cost: number = 80
+  public readonly move: Stat = new Stat(7)
+  public readonly fight: Stat = new Stat(3)
+  public readonly shoot: Stat = new Stat(0)
+  public readonly armour: Stat = new Stat(10)
+  public readonly will: Stat = new Stat(2)
+  public readonly health: Health = new Health(12)
+  public readonly damage: Stat = new Stat(0)
+  public readonly save: Stat = new Stat(0)
+  public readonly maxItems: number = startingItems.length + 1
   constructor() {
-    super({ ...config, maxItems: config.items.length + 1 })
+    super()
+    startingItems.forEach(item => this.addItem(item))
   }
 }

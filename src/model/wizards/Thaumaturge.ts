@@ -5,10 +5,10 @@ import HandWeapon from '../items/basic/weapons/HandWeapon'
 
 export default class Thaumaturge extends Wizard {
   public readonly type = 'thaumaturge' as string
-  constructor(name: string, weapon: Staff | HandWeapon) {
+  public readonly description = 'Thaumaturge' as string
+  constructor(name: string) {
     super({
       name: name,
-      description: 'Thaumaturge',
       primarySchool: School.Thaumaturgy,
       allignedSchools: [School.Soothsaying, School.Sigilism, School.Illusionism],
       neutralSchools: [
@@ -18,8 +18,7 @@ export default class Thaumaturge extends Wizard {
         School.Summoning,
         School.Enchanting
       ],
-      opposedSchool: School.Necromancy,
-      weapon: weapon
+      opposedSchool: School.Necromancy
     })
   }
 }

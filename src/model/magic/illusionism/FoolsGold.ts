@@ -1,6 +1,7 @@
 import Spell, { Category, School } from '../Spell'
 
 export default class FoolsGold extends Spell {
+  public readonly type: string = 'foolsgold'
   constructor() {
     super({
       name: 'Fools Gold',
@@ -10,5 +11,10 @@ export default class FoolsGold extends Spell {
       difficulty: 8,
       effect: ''
     })
+  }
+  public copy() {
+    const spell = new FoolsGold()
+    spell.difficulty = this.difficulty
+    return spell
   }
 }

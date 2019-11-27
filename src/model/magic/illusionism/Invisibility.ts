@@ -1,6 +1,7 @@
 import Spell, { Category, School } from '../Spell'
 
-export default class extends Spell {
+export default class Invisibility extends Spell {
+  public readonly type: string = 'invisibility'
   constructor() {
     super({
       name: 'Invisibility',
@@ -10,5 +11,10 @@ export default class extends Spell {
       difficulty: 12,
       effect: ''
     })
+  }
+  public copy() {
+    const spell = new Invisibility()
+    spell.difficulty = this.difficulty
+    return spell
   }
 }

@@ -4,11 +4,11 @@ import Health from './Health'
 import Spell from './magic/Spell'
 import Potion from './items/potions/Potion'
 import JSONSerializable from './JSONSerializable'
+import Armour from './items/basic/armour/Armour'
+import Weapon from './items/basic/weapons/Weapon'
 
 export interface ICharacterConfig {
-  description: string
   name?: string
-  race?: Race
   move: number
   fight: number
   shoot: number
@@ -31,107 +31,33 @@ export enum Effect {
   Invulnerable
 }
 
-export enum Race {
-  Hunamoid,
-  Animal
-}
-
 export default abstract class Character extends JSONSerializable {
-  protected _name: string
-  public get name(): string {
-    return this._name
-  }
-  protected _description: string
-  public get description(): string {
-    return this._description
-  }
-  protected _race: Race
-  public get race(): Race {
-    return this._race
-  }
-  protected _move: Stat
-  public get move(): Stat {
-    return this._move
-  }
-  protected _fight: Stat
-  public get fight(): Stat {
-    return this._fight
-  }
-  protected _shoot: Stat
-  public get shoot(): Stat {
-    return this._shoot
-  }
-  protected _armour: Stat
-  public get armour(): Stat {
-    return this._armour
-  }
-  protected _will: Stat
-  public get will(): Stat {
-    return this._will
-  }
-  protected _health: Health
-  public get health(): Health {
-    return this._health
-  }
-  protected _damage: Stat
-  public get damage(): Stat {
-    return this._damage
-  }
-  protected _save: Stat
-  public get save(): Stat {
-    return this._save
-  }
-  protected _effects: Effect[]
-  public get effects(): Effect[] {
-    return this._effects
-  }
-  protected _items: Item[]
-  public get items(): Item[] {
-    return this._items
-  }
-  protected _maxItems: number
-  public get maxItems(): number {
-    return this._maxItems
-  }
-
-  constructor(config: ICharacterConfig) {
-    super()
-    this._name = typeof config.name !== 'undefined' ? config.name : ''
-    this._race = typeof config.race !== 'undefined' ? config.race : Race.Hunamoid
-    this._move = new Stat(config.move)
-    this._fight = new Stat(config.fight)
-    this._shoot = new Stat(config.shoot)
-    this._will = new Stat(config.will)
-    this._health = new Health(config.health)
-    this._damage = new Stat(0)
-    this._save = new Stat(0)
-    this._armour = new Stat(10)
-    this._effects = []
-    this._items = config.items
-    this._maxItems = config.maxItems
-    this._description = config.description
-    this.applyEquipment()
-  }
-
-  private applyEquipment(): void {
-    this.items
-      .filter(equipment => !(equipment instanceof Potion))
-      .forEach(equipment => equipment.apply(this))
-  }
+  public name: string = ''
+  public abstract readonly description: string
+  public abstract readonly move: Stat
+  public abstract readonly fight: Stat
+  public abstract readonly shoot: Stat
+  public abstract readonly armour: Stat
+  public abstract readonly will: Stat
+  public abstract readonly health: Health
+  public abstract readonly damage: Stat
+  public abstract readonly save: Stat
+  public abstract readonly maxItems: number
+  public readonly effects: Effect[] = []
+  public readonly items: Item[] = []
 
   public addEffect(effect: Effect) {
     if (!this.effects.includes(effect)) {
       this.effects.push(effect)
     }
   }
-  public toJSON(): any {
-    return {
-      type: this.type,
-      name: this.name,
-      items: this.items.map(item => item.toJSON())
+
+  public addItem(item: Item) {
+    if (this.items.length < this.maxItems) {
+      this.items.push(item)
+      if (item instanceof Weapon || item instanceof Armour) {
+        item.apply(this)
+      }
     }
-  }
-  public fromJSON(data: any): void {
-    this._name = data.name
   }
 }

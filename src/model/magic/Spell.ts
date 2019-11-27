@@ -1,3 +1,5 @@
+import JSONSerializable from '../JSONSerializable'
+
 export enum School {
   Chronomancy,
   Elementalism,
@@ -28,15 +30,16 @@ export interface ISpellConfig {
   effect: string
 }
 
-export default class Spell {
+export default abstract class Spell extends JSONSerializable {
   public readonly name: string
   public readonly description: string
   public readonly category: Category
   public readonly school: School
-  public readonly difficulty: number
   public readonly effect: string
+  public difficulty: number
 
   constructor(config: ISpellConfig) {
+    super()
     this.name = config.name
     this.description = config.description
     this.category = config.category
@@ -44,4 +47,6 @@ export default class Spell {
     this.difficulty = config.difficulty
     this.effect = config.effect
   }
+
+  public abstract copy(): Spell
 }

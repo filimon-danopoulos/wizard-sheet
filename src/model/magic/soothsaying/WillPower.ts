@@ -1,6 +1,7 @@
 import Spell, { Category, School } from '../Spell'
 
 export default class WillPower extends Spell {
+  public readonly type: string = 'willpower'
   constructor() {
     super({
       name: 'Will Power',
@@ -10,5 +11,10 @@ export default class WillPower extends Spell {
       difficulty: 10,
       effect: ''
     })
+  }
+  public copy() {
+    const spell = new WillPower()
+    spell.difficulty = this.difficulty
+    return spell
   }
 }

@@ -1,21 +1,17 @@
 export default class Health {
-  public readonly base: number
-
-  private _current: number
-  public get current(): Number {
-    return this._current
-  }
+  public base: number
+  public current: number
 
   constructor(base: number) {
     this.base = base
-    this._current = base
+    this.current = base
   }
 
   public heal(amount: number) {
-    this._current = Math.min(this._current + amount, this.base)
+    this.current = Math.min(this.current + amount, this.base)
   }
 
   public damage(amount: number) {
-    this._current = Math.max(this._current - amount, 0)
+    this.current = Math.max(this.current - amount, 0)
   }
 }

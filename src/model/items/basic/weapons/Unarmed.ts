@@ -5,8 +5,8 @@ export default class Unarmed extends Weapon {
   public readonly type = 'unarmed' as string
   public readonly name = 'Unarmed' as string
   public readonly description = '' as string
-  constructor() {
-    super(-2, 0)
+  constructor(required: boolean = false) {
+    super(-2, 0, required)
   }
 
   public apply(character: Character) {

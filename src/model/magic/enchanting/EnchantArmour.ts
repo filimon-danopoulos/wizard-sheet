@@ -1,6 +1,7 @@
 import Spell, { Category, School } from '../Spell'
 
 export default class EnchantArmour extends Spell {
+  public readonly type: string = 'enchantarmour'
   constructor() {
     super({
       name: 'Enchant Armour',
@@ -10,5 +11,10 @@ export default class EnchantArmour extends Spell {
       difficulty: 8,
       effect: ''
     })
+  }
+  public copy() {
+    const spell = new EnchantArmour()
+    spell.difficulty = this.difficulty
+    return spell
   }
 }

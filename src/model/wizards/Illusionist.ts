@@ -5,10 +5,10 @@ import Staff from '../items/basic/weapons/Staff'
 
 export default class Illusionist extends Wizard {
   public readonly type = 'illusionist' as string
-  constructor(name: string, weapon: Staff | HandWeapon) {
+  public readonly description = 'Illusionist' as string
+  constructor(name: string) {
     super({
       name: name,
-      description: 'Illusionist',
       primarySchool: School.Illusionism,
       allignedSchools: [School.Soothsaying, School.Sigilism, School.Thaumaturgy],
       neutralSchools: [
@@ -18,8 +18,7 @@ export default class Illusionist extends Wizard {
         School.Summoning,
         School.Enchanting
       ],
-      opposedSchool: School.Elementalism,
-      weapon: weapon
+      opposedSchool: School.Elementalism
     })
   }
 }

@@ -5,8 +5,8 @@ export default class Staff extends Weapon {
   public readonly type = 'staff' as string
   public readonly name = 'Staff' as string
   public readonly description = '' as string
-  constructor() {
-    super(-1, 0)
+  constructor(required: boolean = false) {
+    super(-1, 0, required)
   }
 
   public apply(character: Character) {

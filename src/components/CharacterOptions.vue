@@ -8,9 +8,6 @@
 
     <v-list color="grey lighten-2">
       <v-list-item>
-        <v-list-item-title>Equip</v-list-item-title>
-      </v-list-item>
-      <v-list-item>
         <v-list-item-title>Rename</v-list-item-title>
       </v-list-item>
       <v-spacer />

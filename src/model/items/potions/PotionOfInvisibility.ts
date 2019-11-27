@@ -1,12 +1,12 @@
 import Potion from './Potion'
 import Character, { Effect } from '../../Character'
 
-export default class PotionOfStrength extends Potion {
+export default class PotionOfInvisibility extends Potion {
   public readonly type = 'potionofstrength' as string
   public readonly name = 'Potion of Invisibility' as string
   public readonly description = '' as string
-  constructor() {
-    super(100)
+  constructor(required: boolean = false) {
+    super(100, required)
   }
 
   public apply(character: Character) {

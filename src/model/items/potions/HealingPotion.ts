@@ -5,8 +5,8 @@ export default class HealingPotion extends Potion {
   public readonly type = 'healingpotion' as string
   public readonly name = 'Healing Potion' as string
   public readonly description = '' as string
-  constructor() {
-    super(50)
+  constructor(required: boolean = false) {
+    super(50, required)
   }
 
   public apply(character: Character) {

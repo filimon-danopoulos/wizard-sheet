@@ -3,7 +3,7 @@
     <v-card-title class="subtitle-2">
       {{ soldier.description }}
       <div style="flex: 1" />
-      <CharacterOptions @dismiss="$emit('dismiss')" />
+      <CharacterOptions @dismissed="$emit('dismissed')" />
     </v-card-title>
     <v-card-subtitle v-if="soldier.name">
       {{ soldier.name }}

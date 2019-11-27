@@ -72,6 +72,7 @@ import BoneDart from './model/magic/necromancy/BoneDart'
 import EnchantWeapon from './model/magic/enchanting/EnchantWeapon'
 import CreateGrimoire from './model/magic/sigilism/CreateGrimoire'
 import RevealSecret from './model/magic/soothsaying/RevealSecret'
+import * as serializer from '@/serializer'
 
 export default Vue.extend({
   components: {
@@ -93,6 +94,13 @@ export default Vue.extend({
       ]
     }
   },
+  created() {
+    const storedWizards = window.localStorage.getItem('wizards')
+    const wizardRecords = storedWizards
+      ? (JSON.parse(storedWizards) as serializer.IWizardRecord[])
+      : []
+    this.wizards = wizardRecords.map(record => serializer.deserialize(record))
+  },
   mounted() {
     this.goToWizardList()
   },
@@ -108,8 +116,15 @@ export default Vue.extend({
       deep: true,
       handler(val: Wizard | undefined) {
         if (typeof val !== 'undefined') {
-          // eslint-disable-next-line no-console
-          console.log(JSON.stringify(val.toJSON(), null, 2))
+          const storedWizards = window.localStorage.getItem('wizards')
+          const wizards = storedWizards ? (JSON.parse(storedWizards) as any[]) : []
+          const wizardIndex = wizards.findIndex((x: any) => x.name === val.name)
+          if (wizardIndex !== -1) {
+            wizards.splice(wizardIndex, 1, serializer.serialize(val))
+          } else {
+            wizards.push(serializer.serialize(val))
+          }
+          window.localStorage.setItem('wizards', JSON.stringify(wizards))
         }
       }
     }

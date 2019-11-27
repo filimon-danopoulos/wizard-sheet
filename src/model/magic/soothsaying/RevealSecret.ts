@@ -1,6 +1,8 @@
 import Spell, { Category, School } from '../Spell'
+import RevealInvisible from './RevealInvisible'
 
 export default class RevealSecret extends Spell {
+  public readonly type: string = 'revealsecret'
   constructor() {
     super({
       name: 'Reveal Secret',
@@ -10,5 +12,10 @@ export default class RevealSecret extends Spell {
       difficulty: 12,
       effect: ''
     })
+  }
+  public copy() {
+    const spell = new RevealInvisible()
+    spell.difficulty = this.difficulty
+    return spell
   }
 }

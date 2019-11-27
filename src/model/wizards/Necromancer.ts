@@ -5,10 +5,11 @@ import HandWeapon from '../items/basic/weapons/HandWeapon'
 
 export default class Necromancer extends Wizard {
   public readonly type = 'necromancer' as string
-  constructor(name: string, weapon: Staff | HandWeapon) {
+  public readonly description = 'Necromancer' as string
+
+  constructor(name: string) {
     super({
       name: name,
-      description: 'Necromancer',
       primarySchool: School.Necromancy,
       allignedSchools: [School.Witchcraft, School.Chronomancy, School.Summoning],
       neutralSchools: [
@@ -18,8 +19,7 @@ export default class Necromancer extends Wizard {
         School.Enchanting,
         School.Soothsaying
       ],
-      opposedSchool: School.Thaumaturgy,
-      weapon: weapon
+      opposedSchool: School.Thaumaturgy
     })
   }
 }

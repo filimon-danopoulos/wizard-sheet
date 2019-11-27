@@ -5,10 +5,10 @@ import HandWeapon from '../items/basic/weapons/HandWeapon'
 
 export default class Elementalist extends Wizard {
   public readonly type = 'elementalist' as string
-  constructor(name: string, weapon: Staff | HandWeapon) {
+  public readonly description = 'Elementalist' as string
+  constructor(name: string) {
     super({
       name: name,
-      description: 'Elementalist',
       primarySchool: School.Elementalism,
       allignedSchools: [School.Summoning, School.Enchanting, School.Chronomancy],
       neutralSchools: [
@@ -18,8 +18,7 @@ export default class Elementalist extends Wizard {
         School.Witchcraft,
         School.Necromancy
       ],
-      opposedSchool: School.Illusionism,
-      weapon: weapon
+      opposedSchool: School.Illusionism
     })
   }
 }

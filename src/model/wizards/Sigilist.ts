@@ -5,10 +5,11 @@ import HandWeapon from '../items/basic/weapons/HandWeapon'
 
 export default class Sigilist extends Wizard {
   public readonly type = 'sigilist' as string
-  constructor(name: string, weapon: Staff | HandWeapon) {
+  public readonly description = 'Sigilist' as string
+
+  constructor(name: string) {
     super({
       name: name,
-      description: 'Sigilist',
       primarySchool: School.Sigilism,
       allignedSchools: [School.Thaumaturgy, School.Illusionism, School.Enchanting],
       neutralSchools: [
@@ -18,8 +19,7 @@ export default class Sigilist extends Wizard {
         School.Chronomancy,
         School.Soothsaying
       ],
-      opposedSchool: School.Summoning,
-      weapon: weapon
+      opposedSchool: School.Summoning
     })
   }
 }

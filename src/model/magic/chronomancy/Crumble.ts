@@ -1,6 +1,7 @@
 import Spell, { Category, School } from '../Spell'
 
 export default class Crumble extends Spell {
+  public readonly type: string = 'crumble'
   constructor() {
     super({
       name: 'Crumble',
@@ -10,5 +11,10 @@ export default class Crumble extends Spell {
       difficulty: 10,
       effect: ''
     })
+  }
+  public copy() {
+    const spell = new Crumble()
+    spell.difficulty = this.difficulty
+    return spell
   }
 }

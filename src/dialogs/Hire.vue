@@ -59,8 +59,8 @@ const weapons = [
   { text: 'Staff', value: new Staff() }
 ]
 
-const mercenaries = [
-  new Apprentice('', new Chronomancer('', weapons[0].value), weapons[0].value),
+const mercenaries = () => [
+  new Apprentice('', new Chronomancer('')),
   new WarHound(),
   new Thug(),
   new Thief(),
@@ -84,10 +84,10 @@ export default Vue.extend({
       type: Boolean,
       required: true
     },
-    wizard: {
+    wizard: ({
       type: Wizard,
       required: true
-    } as PropValidator<Wizard>
+    } as unknown) as PropValidator<Wizard>
   },
   computed: {
     isApprentice(): boolean {
@@ -96,7 +96,7 @@ export default Vue.extend({
   },
   data() {
     const hasApprentice = this.wizard.apprentice !== null
-    const mercs = mercenaries
+    const mercs = mercenaries()
       .slice(hasApprentice ? 1 : 0)
       .filter(t => t.cost <= this.wizard.gold)
       .map(m => ({
@@ -115,7 +115,9 @@ export default Vue.extend({
   methods: {
     createMercenary(): Soldier | Apprentice {
       if (this.mercenary instanceof Apprentice) {
-        return new Apprentice(this.name || 'Junior', this.wizard, this.weapon)
+        const apprentice = new Apprentice(this.name || 'Junior', this.wizard)
+        apprentice.addItem(this.weapon)
+        return apprentice
       }
       return this.mercenary
     }

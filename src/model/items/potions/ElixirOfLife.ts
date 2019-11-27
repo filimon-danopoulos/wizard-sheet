@@ -5,7 +5,7 @@ export default class ElixirOfLife extends Potion {
   public readonly type = 'elixiroflife' as string
   public readonly name = 'Elixir of Life' as string
   public readonly description = '' as string
-  constructor() {
-    super(500)
+  constructor(required: boolean = false) {
+    super(500, required)
   }
 }

@@ -1,6 +1,7 @@
 import Spell, { Category, School } from '../Spell'
 
 export default class WriteScroll extends Spell {
+  public readonly type: string = 'writescroll'
   constructor() {
     super({
       name: 'Write Scroll',
@@ -10,5 +11,10 @@ export default class WriteScroll extends Spell {
       difficulty: 12,
       effect: ''
     })
+  }
+  public copy() {
+    const spell = new WriteScroll()
+    spell.difficulty = this.difficulty
+    return spell
   }
 }

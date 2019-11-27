@@ -64,11 +64,11 @@ export default Vue.extend({
     CharacterOptions
   },
   props: {
-    wizard: {
+    wizard: ({
       type: Wizard,
       required: false,
       default: null
-    } as PropValidator<Wizard>
+    } as unknown) as PropValidator<Wizard>
   },
   computed: {
     experience(): number {

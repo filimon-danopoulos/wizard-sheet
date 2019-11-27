@@ -5,10 +5,11 @@ import HandWeapon from '../items/basic/weapons/HandWeapon'
 
 export default class Witch extends Wizard {
   public readonly type = 'witch' as string
-  constructor(name: string, weapon: Staff | HandWeapon) {
+  public readonly description = 'Witch' as string
+
+  constructor(name: string) {
     super({
       name: name,
-      description: 'Witch',
       primarySchool: School.Witchcraft,
       allignedSchools: [School.Enchanting, School.Necromancy, School.Summoning],
       neutralSchools: [
@@ -18,8 +19,7 @@ export default class Witch extends Wizard {
         School.Sigilism,
         School.Chronomancy
       ],
-      opposedSchool: School.Soothsaying,
-      weapon: weapon
+      opposedSchool: School.Soothsaying
     })
   }
 }

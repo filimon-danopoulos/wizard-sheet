@@ -32,7 +32,7 @@
           <v-list-item-title>{{ entry.name }}</v-list-item-title>
         </v-list-item-content>
         <v-list-item-action>
-          <v-chip v-if="getEntryChip(entry)">
+          <v-chip v-if="getEntryChip(entry)" :color="primaryColor">
             {{ getEntryChip(entry) }}
           </v-chip>
         </v-list-item-action>

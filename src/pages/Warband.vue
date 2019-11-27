@@ -69,10 +69,10 @@ export default Vue.extend({
     }
   },
   props: {
-    wizard: {
+    wizard: ({
       type: Wizard,
       required: true
-    } as PropValidator<Wizard>
+    } as unknown) as PropValidator<Wizard>
   },
   methods: {
     dismissMercenary(mercenary: Soldier | Apprentice) {

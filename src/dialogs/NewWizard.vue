@@ -20,7 +20,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" text @click="$emit('close')">Close</v-btn>
-        <v-btn color="blue darken-1" text @click="$emit('new', createWizard())">Save</v-btn>
+        <v-btn color="blue darken-1" text @click="createWizard()">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -78,29 +78,38 @@ export default Vue.extend({
     }
   },
   methods: {
-    createWizard(): Wizard {
+    createWizard() {
+      const wizards = JSON.parse(window.localStorage.getItem('wizards') || '[]') as any[]
+      if (wizards.some(w => w.name === this.name)) {
+        return
+      }
       const weapon = this.getWeapon()
+      const wizard = this.getWizard()
+      wizard.addItem(weapon)
+      this.$emit('new', wizard)
+    },
+    getWizard(): Wizard {
       switch (this.school) {
         case 1:
-          return new Chronomancer(this.name, weapon)
+          return new Chronomancer(this.name)
         case 2:
-          return new Elementalist(this.name, weapon)
+          return new Elementalist(this.name)
         case 3:
-          return new Enchanter(this.name, weapon)
+          return new Enchanter(this.name)
         case 4:
-          return new Illusionist(this.name, weapon)
+          return new Illusionist(this.name)
         case 5:
-          return new Necromancer(this.name, weapon)
+          return new Necromancer(this.name)
         case 6:
-          return new Sigilist(this.name, weapon)
+          return new Sigilist(this.name)
         case 7:
-          return new Soothsayer(this.name, weapon)
+          return new Soothsayer(this.name)
         case 8:
-          return new Summoner(this.name, weapon)
+          return new Summoner(this.name)
         case 9:
-          return new Thaumaturge(this.name, weapon)
+          return new Thaumaturge(this.name)
         case 10:
-          return new Witch(this.name, weapon)
+          return new Witch(this.name)
       }
       throw new Error('Unkown Wizard')
     },
