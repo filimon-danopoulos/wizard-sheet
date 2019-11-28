@@ -15,7 +15,7 @@
     <v-fab-transition>
       <v-btn
         @click="toggleHireDialog()"
-        color="pink"
+        color="primary"
         v-if="wizard.gold > 0 && warbandCount < 10"
         dark
         fixed

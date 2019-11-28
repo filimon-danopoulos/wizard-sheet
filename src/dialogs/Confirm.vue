@@ -2,13 +2,13 @@
   <v-dialog v-model="open" max-width="600px" persistent>
     <v-card>
       <v-card-title>
-        <span class="headline">Are you sure?</span>
+        <span class="headline">{{ header }}</span>
       </v-card-title>
       <v-card-text>
         <v-container>
           <v-row>
             <span class="body-1">
-              You can't undo this action, are you certain that you want to continue?
+              {{ message }}
             </span>
           </v-row>
         </v-container>
@@ -31,6 +31,16 @@ export default Vue.extend({
     open: {
       type: Boolean,
       required: true
+    },
+    header: {
+      type: String,
+      required: false,
+      default: 'Please Confirm'
+    },
+    message: {
+      type: String,
+      required: false,
+      default: "You can't undo this action, are you certain that you want to continue?"
     }
   }
 })

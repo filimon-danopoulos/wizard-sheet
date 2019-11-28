@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ml-3 mr-3 mt-3" color="teal lighten-2" dark>
+  <v-card class="ml-3 mr-3 mt-3">
     <v-list-item three-line>
       <v-list-item-content>
         <div class="overline mt-1">{{ apprentice.description }}</div>
@@ -12,8 +12,8 @@
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="apprentice" />
       <CharacterDetails
-        primaryColor="teal lighten-1"
-        secondaryColor="teal lighten-3"
+        primaryColor=""
+        secondaryColor=""
         :whiteText="true"
         :items="apprentice.items"
         :maxItems="apprentice.maxItems"
@@ -24,10 +24,10 @@
     <v-card-actions>
       <v-list-item class="grow">
         <v-row align="center" justify="end">
-          <v-icon class="mr-1">mdi-heart</v-icon>
-          <span class="subheading mr-2"
-            >{{ apprentice.health.current }} / {{ apprentice.health.base }}
-          </span>
+          <v-icon class="mr-1" color="red darken-3">mdi-heart</v-icon>
+          <span class="subheading mr-2 font-weight-bold red--text text--darken-3"
+            >{{ apprentice.health.current }} / {{ apprentice.health.base }}</span
+          >
         </v-row>
       </v-list-item>
     </v-card-actions>

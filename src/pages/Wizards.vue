@@ -1,21 +1,23 @@
 <template>
   <div class="pb-3">
-    <v-list two-line subheader>
-      <v-list-item v-for="(wizard, i) in wizards" :key="i" @click="navigateTo(wizard, i)">
-        <v-list-item-content>
-          <v-list-item-title>{{ wizard.name }}</v-list-item-title>
-          <v-list-item-subtitle>
-            Level {{ wizard.level }} | {{ wizard.description }}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-    <div
-      v-if="!wizards.length"
-      style="min-height: 240px; width: 100%; display: flex; justify-content: center; align-items: center;"
-    >
-      <v-btn color="primary" dark @click="$emit('create')">Create Wizard</v-btn>
-    </div>
+    <v-card class="ml-3 mr-3 mt-3">
+      <v-list two-line subheader>
+        <v-list-item v-for="(wizard, i) in wizards" :key="i" @click="navigateTo(wizard, i)">
+          <v-list-item-content>
+            <v-list-item-title>{{ wizard.name }}</v-list-item-title>
+            <v-list-item-subtitle>
+              Level {{ wizard.level }} | {{ wizard.description }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <div
+        v-if="!wizards.length"
+        style="min-height: 240px; width: 100%; display: flex; justify-content: center; align-items: center;"
+      >
+        <v-btn color="primary" dark @click="$emit('create')">Create Wizard</v-btn>
+      </div>
+    </v-card>
   </div>
 </template>
 

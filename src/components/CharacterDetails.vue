@@ -1,12 +1,5 @@
 <template>
-  <v-list
-    :color="primaryColor"
-    class="mt-4 pb-0 pt-0"
-    :class="{
-      'force-white-text': whiteText
-    }"
-    flat
-  >
+  <v-list class="mt-4 pb-0 pt-0" flat>
     <v-list-group
       v-for="(group, groupIndex) in entryGroups"
       v-model="group.active"
@@ -21,18 +14,13 @@
           <v-list-item-title>{{ group.text }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item
-        v-for="(entry, entryIndex) in group.entries"
-        :key="entryIndex"
-        class="pl-0"
-        :class="secondaryColor"
-      >
+      <v-list-item v-for="(entry, entryIndex) in group.entries" :key="entryIndex" class="pl-0">
         <v-icon class="ml-4 mr-3">{{ getEntryIcon(entry) }}</v-icon>
         <v-list-item-content>
           <v-list-item-title>{{ entry.name }}</v-list-item-title>
         </v-list-item-content>
         <v-list-item-action>
-          <v-chip v-if="getEntryChip(entry)" :color="primaryColor">
+          <v-chip v-if="getEntryChip(entry)">
             {{ getEntryChip(entry) }}
           </v-chip>
         </v-list-item-action>
@@ -51,19 +39,6 @@ import Potion from '@/model/items/potions/Potion'
 import { PropValidator } from 'vue/types/options'
 export default Vue.extend({
   props: {
-    primaryColor: {
-      type: String,
-      required: true
-    },
-    secondaryColor: {
-      type: String,
-      required: true
-    },
-    whiteText: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     items: {
       type: Array,
       required: false,
@@ -156,28 +131,3 @@ export default Vue.extend({
   }
 })
 </script>
-
-<style lang="less" scoped>
-.force-white-text {
-  /deep/ .v-list-group--active {
-    /deep/ .v-list-group__header__prepend-icon {
-      color: white !important;
-    }
-
-    /deep/ .v-list-group__header__append-icon {
-      color: white !important;
-    }
-  }
-}
-:not(.force-white-text) {
-  /deep/ .v-list-group--active {
-    /deep/ .v-list-group__header__prepend-icon {
-      color: rgba(0, 0, 0, 0.51) !important;
-    }
-
-    /deep/ .v-list-group__header__append-icon {
-      color: rgba(0, 0, 0, 0.51) !important;
-    }
-  }
-}
-</style>

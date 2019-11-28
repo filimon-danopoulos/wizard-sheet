@@ -7,6 +7,7 @@ import Apprentice from './Apprentice'
 import Item from '../items/Item'
 import Stat from '../Stat'
 import Health from '../Health'
+import Base from '../bases/Base'
 
 export interface IWizardConfig {
   name: string
@@ -49,6 +50,7 @@ export default abstract class Wizard extends Character implements ISpellcaster {
   public experience: number = 0
   public gold: number = 500
   public apprentice: Apprentice | null = null
+  public base: Base | null = null
   public readonly soldiers: Soldier[] = []
   public readonly spells: Spell[] = []
 

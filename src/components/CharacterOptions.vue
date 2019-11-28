@@ -5,8 +5,7 @@
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
     </template>
-
-    <v-list color="grey lighten-2">
+    <v-list color="grey lighten-3">
       <v-list-item>
         <v-list-item-title @click="$emit('rename')">Rename</v-list-item-title>
       </v-list-item>

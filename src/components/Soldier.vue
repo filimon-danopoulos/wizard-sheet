@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ml-3 mr-3 mt-3" color="light-green lighten-3">
+  <v-card class="ml-3 mr-3 mt-3">
     <v-card-title class="overline pb-1">
       {{ soldier.description }}
       <div style="flex: 1" />
@@ -11,8 +11,8 @@
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="soldier" />
       <CharacterDetails
-        primaryColor="light-green lighten-2"
-        secondaryColor="light-green lighten-4"
+        primaryColor=""
+        secondaryColor=""
         :items="soldier.items"
         :maxItems="soldier.maxItems"
       />
@@ -21,10 +21,10 @@
     <v-card-actions>
       <v-list-item class="grow">
         <v-row align="center" justify="end">
-          <v-icon class="mr-1">mdi-heart</v-icon>
-          <span class="subheading mr-2"
-            >{{ soldier.health.current }} / {{ soldier.health.base }}
-          </span>
+          <v-icon class="mr-1" color="red darken-3">mdi-heart</v-icon>
+          <span class="subheading mr-2 font-weight-bold red--text text--darken-3"
+            >{{ soldier.health.current }} / {{ soldier.health.base }}</span
+          >
         </v-row>
       </v-list-item>
     </v-card-actions>

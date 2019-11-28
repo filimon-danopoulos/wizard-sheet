@@ -129,6 +129,26 @@ import Fog from './model/magic/witchcraft/Fog'
 import Mud from './model/magic/witchcraft/Mud'
 import Curse from './model/magic/witchcraft/Curse'
 import PoisonDart from './model/magic/witchcraft/PoisonDart'
+import Base from './model/bases/Base'
+import Resource from './model/bases/resources/Resource'
+import Inn from './model/bases/Inn'
+import Brewery from './model/bases/Brewery'
+import Crypt from './model/bases/Crypt'
+import Laboratory from './model/bases/Laboratory'
+import Library from './model/bases/Library'
+import Temple from './model/bases/Temple'
+import Tower from './model/bases/Tower'
+import Treasury from './model/bases/Treasury'
+import ArcaneCandle from './model/bases/resources/ArcaneCandle'
+import CarrierPidgeons from './model/bases/resources/CarrierPidgeons'
+import CelestialTelescope from './model/bases/resources/CelestialTelescope'
+import CrystalBall from './model/bases/resources/CrystalBall'
+import EnchantersWorkshop from './model/bases/resources/EnchantersWorkshop'
+import GiantCauldron from './model/bases/resources/GiantCauldron'
+import Kennel from './model/bases/resources/Kennel'
+import SarcophagusOfHealing from './model/bases/resources/SarcophagusOfHealing'
+import Scriptorium from './model/bases/resources/Scriptorium'
+import SummoningCircle from './model/bases/resources/SummoningCircle'
 
 export function serialize(wizard: Wizard) {
   return serializeWizard(wizard)
@@ -153,6 +173,7 @@ export interface IWizardRecord {
   level: number
   unspentPoints: number
   spells: ISpellRecord[]
+  base: IBaseRecord | null
 }
 
 function serializeWizard(wizard: Wizard): IWizardRecord {
@@ -171,7 +192,8 @@ function serializeWizard(wizard: Wizard): IWizardRecord {
     experience: wizard.experience,
     level: wizard.level,
     unspentPoints: wizard.unspentPoints,
-    spells: wizard.spells.map(serializeSpell)
+    spells: wizard.spells.map(serializeSpell),
+    base: serializeBase(wizard.base)
   }
 }
 
@@ -194,6 +216,7 @@ function parseWizard(json: IWizardRecord): Wizard {
     effects: []
   })
   wizard.apprentice = json.apprentice !== null ? parseApprentice(json.apprentice, wizard) : null
+  wizard.base = json.base !== null ? parseBase(json.base) : null
   return wizard
 }
 function getWizardCtor(type: string): new (name: string) => Wizard {
@@ -536,6 +559,92 @@ function getSpell(type: string): Spell {
       return new PoisonDart()
   }
   throw new Error(`Unknown spell "${type}"`)
+}
+
+export interface IBaseRecord {
+  type: string
+  vault: IItemRecord[]
+  resources: IResourceRecord[]
+}
+
+function serializeBase(base: Base | null): IBaseRecord | null {
+  if (base === null) {
+    return null
+  }
+  return {
+    type: base.type,
+    vault: serializeItems(base.vault),
+    resources: serializeResources(base.resources)
+  }
+}
+
+function parseBase(json: IBaseRecord): Base {
+  const base = getBase(json.type)
+  json.resources.map(parseResource).forEach(resource => {
+    base.resources.push(resource)
+  })
+  json.vault.map(parseItem).forEach(item => {
+    base.vault.push(item)
+  })
+  return base
+}
+
+function getBase(type: string): Base {
+  switch (type) {
+    case 'brewery':
+      return new Brewery()
+    case 'crypt':
+      return new Crypt()
+    case 'inn':
+      return new Inn()
+    case 'laboratory':
+      return new Laboratory()
+    case 'library':
+      return new Library()
+    case 'temple':
+      return new Temple()
+    case 'tower':
+      return new Tower()
+    case 'treasury':
+      return new Treasury()
+  }
+  throw new Error(`Unknown base "${type}"`)
+}
+
+export interface IResourceRecord {
+  type: string
+}
+
+function serializeResources(resources: Resource[]): IResourceRecord[] {
+  return resources.map(resource => ({
+    type: resource.type
+  }))
+}
+
+function parseResource(json: IResourceRecord): Resource {
+  switch (json.type) {
+    case 'arcanecandle':
+      return new ArcaneCandle()
+    case 'carrierpidgeons':
+      return new CarrierPidgeons()
+    case 'celestialtelescope':
+      return new CelestialTelescope()
+    case 'crystalball':
+      return new CrystalBall()
+    case 'enchantersworkshop':
+      return new EnchantersWorkshop()
+    case 'giantcauldron':
+      return new GiantCauldron()
+    case 'kennel':
+      return new Kennel()
+    case 'sarcophagusofhealing':
+      return new SarcophagusOfHealing()
+    case 'scriptorium':
+      return new Scriptorium()
+    case 'summoningcircle':
+      return new SummoningCircle()
+  }
+  throw new Error(`Unknown record "${json.type}"`)
 }
 
 ;(window as any).parseWizard = parseWizard

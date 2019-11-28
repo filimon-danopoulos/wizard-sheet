@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app>
       <v-app-bar-nav-icon @click="toggleDrawer()"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ this.$route.name || 'Wizard Sheet' }}</v-toolbar-title>
     </v-app-bar>

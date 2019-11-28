@@ -1,19 +1,27 @@
 <template>
   <v-card class="ml-3 mr-3 mt-3">
-    <v-card-title>
+    <v-card-title class="headline">
       Select a Base
     </v-card-title>
     <v-card-text>
-      <v-list three-line subheader>
-        <v-list-item v-for="(base, i) in bases" :key="i" @click="() => {}">
-          <v-list-item-content>
-            <v-list-item-title>{{ base.name }}</v-list-item-title>
-            <v-list-item-subtitle>
-              {{ base.description }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+      <p>
+        After your first game you can choose a base, the choice is permanent to pick it with care.
+      </p>
+      <v-expansion-panels>
+        <v-expansion-panel v-for="(base, i) in bases" :key="i">
+          <v-expansion-panel-header>{{ base.name }}</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-col>
+              <v-row class="mb-6">
+                {{ base.description }}
+              </v-row>
+              <v-row justify="center">
+                <v-btn color="primary" @click="selectBase(base)">Use as Base</v-btn>
+              </v-row>
+            </v-col>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-card-text>
   </v-card>
 </template>
@@ -30,6 +38,7 @@ import Brewery from '@/model/bases/Brewery'
 import Library from '@/model/bases/Library'
 import Laboratory from '@/model/bases/Laboratory'
 import Treasury from '@/model/bases/Treasury'
+import Base from '@/model/bases/Base'
 
 const bases = () => [
   new Inn(),
@@ -46,6 +55,11 @@ export default Vue.extend({
   data() {
     return {
       bases: bases()
+    }
+  },
+  methods: {
+    selectBase(base: Base) {
+      this.$emit('select', base)
     }
   }
 })
