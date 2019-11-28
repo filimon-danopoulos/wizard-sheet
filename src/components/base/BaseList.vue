@@ -4,7 +4,7 @@
       Select a Base
     </v-card-title>
     <v-card-text>
-      <v-list two-line subheader>
+      <v-list three-line subheader>
         <v-list-item v-for="(base, i) in bases" :key="i" @click="() => {}">
           <v-list-item-content>
             <v-list-item-title>{{ base.name }}</v-list-item-title>
