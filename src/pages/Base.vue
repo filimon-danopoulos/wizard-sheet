@@ -1,15 +1,16 @@
-<template funtional>
+<template>
   <div class="pb-3">
-    <v-card class="ml-3 mr-3 mt-3" color="primary" dark>
-      <v-card-title>
-        Base!
-      </v-card-title>
-      <v-card-text>
-        Eventually the Base content will be seen here...
-      </v-card-text>
-      <v-card-actions>
-        <v-list-item class="grow"></v-list-item>
-      </v-card-actions>
-    </v-card>
+    <BaseList />
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+import BaseList from '@/components/base/BaseList.vue'
+
+export default Vue.extend({
+  components: {
+    BaseList
+  }
+})
+</script>
