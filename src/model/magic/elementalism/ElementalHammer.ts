@@ -5,7 +5,8 @@ export default class ElementalHammer extends Spell {
   constructor() {
     super({
       name: 'Elemental Hammer',
-      description: '',
+      description:
+        'This spell is cast upon a weapon. The next time this weapon causes at least 1 point of damage, it inflicts an additional 5 points of damage. ',
       school: School.Elementalism,
       category: Category.LineOfSight,
       difficulty: 10,

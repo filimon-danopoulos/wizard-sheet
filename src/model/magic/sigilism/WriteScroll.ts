@@ -5,7 +5,8 @@ export default class WriteScroll extends Spell {
   constructor() {
     super({
       name: 'Write Scroll',
-      description: '',
+      description:
+        'A spellcaster may attempt to cast this spell once after every game. If successful, one scroll is created. The scroll must be of a spell that the spellcaster knows.',
       school: School.Sigilism,
       category: Category.OutOfGame,
       difficulty: 12,

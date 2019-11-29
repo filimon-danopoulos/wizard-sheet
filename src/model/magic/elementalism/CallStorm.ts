@@ -5,7 +5,8 @@ export default class CallStorm extends Spell {
   constructor() {
     super({
       name: 'Call Storm',
-      description: '',
+      description:
+        'If this spell is successfully cast, all bow and crossbow attacks are -1 for the rest of the game. This spell may be cast multiple times (and by multiple spellcasters), with each additional casting increasing the penalty by a further -1, up to a maximum penalty of -10.',
       school: School.Elementalism,
       category: Category.AreaEffect,
       difficulty: 12,

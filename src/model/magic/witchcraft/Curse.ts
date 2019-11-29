@@ -5,7 +5,8 @@ export default class Curse extends Spell {
   constructor() {
     super({
       name: 'Curse',
-      description: '',
+      description:
+        'The target must pass a Will roll versus the casting roll or suffer -1 to its Fight, Shoot, and Will stats for the rest of the game. This spell may be cast on the same target up to five times, for a maximum of - 5 to each of the three stats.',
       school: School.Witchcraft,
       category: Category.LineOfSight,
       difficulty: 10,

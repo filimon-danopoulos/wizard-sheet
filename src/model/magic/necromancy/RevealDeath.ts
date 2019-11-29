@@ -5,7 +5,8 @@ export default class RevealDeath extends Spell {
   constructor() {
     super({
       name: 'Reveal Death',
-      description: '',
+      description:
+        'This spell causes the target to see a vision of his own death. The target must make an immediate Will roll versus the casting roll. If the target fails, he loses his next activation. ',
       school: School.Necromancy,
       category: Category.LineOfSight,
       difficulty: 12,

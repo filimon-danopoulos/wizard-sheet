@@ -1,6 +1,7 @@
 import JSONSerializable from '../JSONSerializable'
 
 export enum School {
+  All,
   Chronomancy,
   Elementalism,
   Enchanting,

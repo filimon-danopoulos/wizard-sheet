@@ -5,7 +5,8 @@ export default class Teleport extends Spell {
   constructor() {
     super({
       name: 'Teleport',
-      description: '',
+      description:
+        'The spellcaster immediately moves to any location within line of sight, but may take no other action this turn. This spell may not be used to enter combat.',
       school: School.Illusionism,
       category: Category.SelfOnly,
       difficulty: 10,

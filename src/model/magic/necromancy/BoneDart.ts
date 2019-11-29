@@ -5,7 +5,8 @@ export default class BoneDart extends Spell {
   constructor() {
     super({
       name: 'Bone Dart',
-      description: '',
+      description:
+        'This spell fires a small, sharp shard of bone at a target. The spellcaster may make an immediate +5 shooting attack against any figure in line of sight. This does not count as a magic attack.',
       school: School.Necromancy,
       category: Category.LineOfSight,
       difficulty: 8,

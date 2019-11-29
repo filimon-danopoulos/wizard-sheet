@@ -5,7 +5,8 @@ export default class BrewPotion extends Spell {
   constructor() {
     super({
       name: 'Brew Potion',
-      description: '',
+      description:
+        'A spellcaster may attempt to cast this spell before the game. If successful, he gains one potion of any type (except Elixir of Life). This potion may be given to any member of his warband.',
       school: School.Witchcraft,
       category: Category.OutOfGame,
       difficulty: 12,

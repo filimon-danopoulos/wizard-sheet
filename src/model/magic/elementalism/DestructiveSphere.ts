@@ -5,7 +5,7 @@ export default class DestructiveSphere extends Spell {
   constructor() {
     super({
       name: 'Destructive Sphere',
-      description: '',
+      description: 'Every figure within 3” of the spellcaster suffers a +5 attack.',
       school: School.Elementalism,
       category: Category.AreaEffect,
       difficulty: 12,

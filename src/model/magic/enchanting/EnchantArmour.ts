@@ -5,7 +5,8 @@ export default class EnchantArmour extends Spell {
   constructor() {
     super({
       name: 'Enchant Armour',
-      description: '',
+      description:
+        'The armour worn by the target now counts as magic armour and grants a +1 to Armour for the rest of the game. Multiple castings of this spell on the same target have no effect',
       school: School.Enchanting,
       category: Category.LineOfSight,
       difficulty: 8,

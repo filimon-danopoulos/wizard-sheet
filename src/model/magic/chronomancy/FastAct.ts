@@ -5,7 +5,8 @@ export default class FastAct extends Spell {
   constructor() {
     super({
       name: 'Fast Act',
-      description: '',
+      description:
+        'The target figure will act first next turn, in a special phase before either player’s wizard phase. If this spell is cast multiple times in the same turn, all figures so affected will act in this special phase, starting with the last figure to have had Fast Act cast upon it, and concluding with the first.',
       school: School.Chronomancy,
       category: Category.LineOfSight,
       difficulty: 8,

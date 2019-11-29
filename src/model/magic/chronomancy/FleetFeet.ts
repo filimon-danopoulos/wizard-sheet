@@ -5,7 +5,8 @@ export default class FleetFeet extends Spell {
   constructor() {
     super({
       name: 'Fleet Feet',
-      description: '',
+      description:
+        'Target receives +2 Move for the rest of the game. Multiple castings of Fleet Feet on the same target have no effect.',
       school: School.Chronomancy,
       category: Category.LineOfSight,
       difficulty: 10,

@@ -5,7 +5,8 @@ export default class Banish extends Spell {
   constructor() {
     super({
       name: 'Banish',
-      description: '',
+      description:
+        'If successfully cast, all demons within line of sight of the spellcaster must pass an immediate Will roll versus the casting roll or be removed from the game.',
       school: School.Thaumaturgy,
       category: Category.LineOfSight,
       difficulty: 10,

@@ -4,6 +4,7 @@ import Wizards from '@/pages/Wizards.vue'
 import Base from '@/pages/Base.vue'
 import Warband from '@/pages/Warband.vue'
 import Vault from '@/pages/Vault.vue'
+import Spellbook from '@/pages/Spellbook.vue'
 
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
@@ -17,6 +18,11 @@ export default new VueRouter({
       path: '',
       component: Wizards,
       props: true
+    },
+    {
+      name: 'Spellbook',
+      path: '/spellbook',
+      component: Spellbook
     },
     {
       name: 'Base',

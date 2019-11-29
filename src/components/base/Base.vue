@@ -16,25 +16,26 @@
       <v-list three-line subheader>
         <template v-for="(resource, i) in resources">
           <v-divider v-if="i === 0" :key="i - 1"></v-divider>
-          <v-list-item :key="resource.type" :disabled="disabled(resource)">
+          <v-list-item :key="resource.type" @click="activeResource = resource">
             <v-list-item-content>
-              <v-list-item-title v-text="resource.name"></v-list-item-title>
+              <v-list-item-title
+                :class="disabled(resource) ? 'grey--text text--lighten-1' : ''"
+                v-text="resource.name"
+              ></v-list-item-title>
               <v-list-item-subtitle
                 :class="disabled(resource) ? '' : 'text--primary'"
                 v-text="resource.cost + ' gold coins'"
               ></v-list-item-subtitle>
               <v-list-item-subtitle v-text="resource.description"></v-list-item-subtitle>
             </v-list-item-content>
-
             <v-list-item-action>
-              <v-btn :disabled="disabled(resource)" x-large icon @click="confirm = true">
+              <v-btn :disabled="disabled(resource)" x-large icon @click.stop="confirm = true">
                 <v-icon>
                   mdi-plus
                 </v-icon>
               </v-btn>
             </v-list-item-action>
           </v-list-item>
-
           <v-divider v-if="i + 1 < resources.length" :key="i"></v-divider>
         </template>
       </v-list>
@@ -44,6 +45,12 @@
       @no="confirm = false"
       @yes="confirm = false"
       :header="'Buy Resource'"
+    />
+    <DetailsDialog
+      @close="activeResource = null"
+      :open="activeResource !== null"
+      :header="activeResource !== null ? activeResource.name : ''"
+      :message="activeResource !== null ? activeResource.description : ''"
     />
   </v-card>
 </template>
@@ -63,7 +70,8 @@ import SarcophagusOfHealing from '@/model/bases/resources/SarcophagusOfHealing'
 import Scriptorium from '@/model/bases/resources/Scriptorium'
 import SummoningCircle from '@/model/bases/resources/SummoningCircle'
 import ConfirmDialog from '@/dialogs/Confirm.vue'
-import Resource from '../../model/bases/resources/Resource'
+import Resource from '@/model/bases/resources/Resource'
+import DetailsDialog from '@/dialogs/Details.vue'
 
 const resources = () => [
   new ArcaneCandle(),
@@ -80,7 +88,8 @@ const resources = () => [
 
 export default Vue.extend({
   components: {
-    ConfirmDialog
+    ConfirmDialog,
+    DetailsDialog
   },
   props: {
     base: {
@@ -95,6 +104,7 @@ export default Vue.extend({
   data() {
     return {
       resources: resources(),
+      activeResource: null as Resource | null,
       confirm: false
     }
   },

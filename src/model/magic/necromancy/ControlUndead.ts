@@ -5,7 +5,8 @@ export default class ControlUndead extends Spell {
   constructor() {
     super({
       name: 'Control Undead',
-      description: '',
+      description:
+        'If successfully cast, the target undead creature must make an immediate Will roll versus the casting roll. If the roll fails, the spellcaster gains control of the undead creature for the rest of the game. A spellcaster may only control one undead creature at a time. ',
       school: School.Necromancy,
       category: Category.LineOfSight,
       difficulty: 12,

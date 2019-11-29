@@ -5,7 +5,8 @@ export default class Dispel extends Spell {
   constructor() {
     super({
       name: 'Dispel',
-      description: '',
+      description:
+        'Immediately cancels the ongoing effect of any one spell. It cannot unsummon a creature, but it can cancel the control of a creature.',
       school: School.Thaumaturgy,
       category: Category.LineOfSight,
       difficulty: 12,

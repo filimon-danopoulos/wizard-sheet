@@ -5,7 +5,8 @@ export default class Mud extends Spell {
   constructor() {
     super({
       name: 'Mud',
-      description: '',
+      description:
+        'All ground within a 3” radius of a target point becomes rough ground for the rest of the game.',
       school: School.Witchcraft,
       category: Category.LineOfSight,
       difficulty: 10,

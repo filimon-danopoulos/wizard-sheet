@@ -5,7 +5,7 @@ export default class RevealInvisible extends Spell {
   constructor() {
     super({
       name: 'Reveal Invisible',
-      description: '',
+      description: 'This spell cancels all Invisibility spells within 24” of the caster.',
       school: School.Soothsaying,
       category: Category.AreaEffect,
       difficulty: 8,

@@ -5,7 +5,8 @@ export default class BindDemon extends Spell {
   constructor() {
     super({
       name: 'Bind Demon',
-      description: '',
+      description:
+        'The target demon must make an immediate Will roll versus the casting roll. If it fails, the spellcaster gains control of the demon for the rest of the game. A spellcaster may only have one bound demon at a time.',
       school: School.Summoning,
       category: Category.LineOfSight,
       difficulty: 10,

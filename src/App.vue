@@ -90,7 +90,8 @@ export default Vue.extend({
       wizardList: false,
       drawerItems: [
         { id: 1, icon: 'mdi-account-multiple', text: 'Change Wizard' },
-        { id: 2, icon: 'mdi-account-multiple-plus', text: 'Create Wizard' }
+        { id: 2, icon: 'mdi-account-multiple-plus', text: 'Create Wizard' },
+        { id: 3, icon: 'mdi-book-open-variant', text: 'Spellbook' }
       ]
     }
   },
@@ -141,6 +142,8 @@ export default Vue.extend({
           return this.goToWizardList()
         case 2:
           return this.toggleNewWizardDialog()
+        case 3:
+          return this.goToSpellbook()
       }
     },
     goToWizardList() {
@@ -149,6 +152,11 @@ export default Vue.extend({
         params: {
           wizards: this.wizards as any
         }
+      })
+    },
+    goToSpellbook() {
+      this.$router.push({
+        name: 'Spellbook'
       })
     },
     toggleNewWizardDialog() {

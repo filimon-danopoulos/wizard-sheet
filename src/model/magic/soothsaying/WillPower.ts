@@ -5,7 +5,8 @@ export default class WillPower extends Spell {
   constructor() {
     super({
       name: 'Will Power',
-      description: '',
+      description:
+        'Target gains +3 Will for the rest of the game. Multiple Will Power spells on the same target have no effect.',
       school: School.Soothsaying,
       category: Category.LineOfSight,
       difficulty: 10,

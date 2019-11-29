@@ -149,6 +149,7 @@ import Kennel from './model/bases/resources/Kennel'
 import SarcophagusOfHealing from './model/bases/resources/SarcophagusOfHealing'
 import Scriptorium from './model/bases/resources/Scriptorium'
 import SummoningCircle from './model/bases/resources/SummoningCircle'
+import * as utils from '@/utils'
 
 export function serialize(wizard: Wizard) {
   return serializeWizard(wizard)
@@ -395,168 +396,11 @@ function parseSpell(json: ISpellRecord): Spell {
   return spell
 }
 
+const allSpells = utils.allSpells()
 function getSpell(type: string): Spell {
-  switch (type) {
-    case 'crumble':
-      return new Crumble()
-    case 'decay':
-      return new Decay()
-    case 'fastact':
-      return new FastAct()
-    case 'fleetfeet':
-      return new FleetFeet()
-    case 'petrify':
-      return new Petrify()
-    case 'slow':
-      return new Slow()
-    case 'timestone':
-      return new TimeStone()
-    case 'timewalk':
-      return new TimeWalk()
-    case 'callstorm':
-      return new CallStorm()
-    case 'destructivesphere':
-      return new DestructiveSphere()
-    case 'elementalball':
-      return new ElementalBall()
-    case 'elementalbolt':
-      return new ElementalBolt()
-    case 'elementalhammer':
-      return new ElementalHammer()
-    case 'elementalshield':
-      return new ElementalShield()
-    case 'scattershot':
-      return new ScatterShot()
-    case 'wall':
-      return new Wall()
-    case 'animateconstruct':
-      return new AnimateConstruct()
-    case 'controlconstruct':
-      return new ControlConstruct()
-    case 'embededenchantment':
-      return new EmbedEnchantment()
-    case 'enchantarmour':
-      return new EnchantArmour()
-    case 'enchantweapon':
-      return new EnchantWeapon()
-    case 'grenade':
-      return new Grenade()
-    case 'strength':
-      return new Strength()
-    case 'telekinesis':
-      return new Telekinesis()
-    case 'beauty':
-      return new Beauty()
-    case 'foolsgold':
-      return new FoolsGold()
-    case 'glow':
-      return new Glow()
-    case 'illusionarysoldier':
-      return new IllusionarySoldier()
-    case 'invisibility':
-      return new Invisibility()
-    case 'monstrousform':
-      return new MonstrousForm()
-    case 'teleport':
-      return new Teleport()
-    case 'transpose':
-      return new Transpose()
-    case 'bonedart':
-      return new BoneDart()
-    case 'bonesoftheearth':
-      return new BonesOfTheEarth()
-    case 'controlundead':
-      return new ControlUndead()
-    case 'raisezombie':
-      return new RaiseZombie()
-    case 'revealdeath':
-      return new RevealDeath()
-    case 'spelleater':
-      return new SpellEater()
-    case 'stealhealth':
-      return new StealHealth()
-    case 'strikedead':
-      return new StrikeDead()
-    case 'absorbknowledge':
-      return new AbsorbKnowledge()
-    case 'creategrimoire':
-      return new CreateGrimoire()
-    case 'drainingword':
-      return new DrainingWord()
-    case 'explosiverune':
-      return new ExplosiveRune()
-    case 'furiousquill':
-      return new FuriousQuill()
-    case 'powerword':
-      return new PowerWord()
-    case 'push':
-      return new Push()
-    case 'writescroll':
-      return new WriteScroll()
-    case 'awareness':
-      return new Awareness()
-    case 'combatawareness':
-      return new CombatAwareness()
-    case 'forgetspell':
-      return new ForgetSpell()
-    case 'mindcontrol':
-      return new MindControl()
-    case 'revealinvisible':
-      return new RevealInvisible()
-    case 'revealsecret':
-      return new RevealSecret()
-    case 'willpower':
-      return new WillPower()
-    case 'wizardeye':
-      return new WizardEye()
-    case 'binddemon':
-      return new BindDemon()
-    case 'imp':
-      return new Imp()
-    case 'leap':
-      return new Leap()
-    case 'plagueofinsects':
-      return new PlagueOfInsects()
-    case 'planartear':
-      return new PlanarTear()
-    case 'planewalk':
-      return new Planewalk()
-    case 'posses':
-      return new Posses()
-    case 'summondemon':
-      return new SummonDemon()
-    case 'banish':
-      return new Banish()
-    case 'blindinglight':
-      return new BlindingLight()
-    case 'circleofprotection':
-      return new CircleOfProtection()
-    case 'dispel':
-      return new Dispel()
-    case 'heal':
-      return new Heal()
-    case 'miraculouscure':
-      return new MiraculousCure()
-    case 'restorelife':
-      return new RestoreLife()
-    case 'shield':
-      return new ShieldSpell()
-    case 'animalcompanion':
-      return new AnimalCompanion()
-    case 'brewpotion':
-      return new BrewPotion()
-    case 'controlanimal':
-      return new ControlAnimal()
-    case 'curse':
-      return new Curse()
-    case 'familiar':
-      return new Familiar()
-    case 'fog':
-      return new Fog()
-    case 'mud':
-      return new Mud()
-    case 'poisondart':
-      return new PoisonDart()
+  const spell = allSpells.find(s => s.type === type)
+  if (spell) {
+    return spell.copy()
   }
   throw new Error(`Unknown spell "${type}"`)
 }
