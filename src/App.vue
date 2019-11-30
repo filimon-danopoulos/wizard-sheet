@@ -21,10 +21,12 @@
       </v-list>
     </v-navigation-drawer>
 
-    <NewWizardDialog
+    <CreateWizardDialog
+      v-if="newWizardDialog"
       :open="newWizardDialog"
       @close="toggleNewWizardDialog()"
       @new="wizard => this.createNewWizard(wizard)"
+      @created="wizard => this.createNewWizard(wizard)"
     />
 
     <v-content style="overflow: hidden;">
@@ -58,7 +60,7 @@ import Navigation from '@/components/Navigation.vue'
 import WizardComponent from '@/components/Wizard.vue'
 import ApprenticeComponent from '@/components/Apprentice.vue'
 import SoldierComponent from '@/components/Soldier.vue'
-import NewWizardDialog from '@/dialogs/NewWizard.vue'
+import CreateWizardDialog from '@/dialogs/CreateWizard.vue'
 import Wizard from '@/model/wizards/Wizard'
 import Thug from '@/model/soldiers/Thug'
 import Character from '@/model/Character'
@@ -76,7 +78,7 @@ import * as serializer from '@/serializer'
 
 export default Vue.extend({
   components: {
-    NewWizardDialog
+    CreateWizardDialog
   },
   data() {
     return {
@@ -163,14 +165,6 @@ export default Vue.extend({
       this.newWizardDialog = !this.newWizardDialog
     },
     createNewWizard(wizard: Wizard) {
-      wizard.learnSpell(new Decay())
-      wizard.learnSpell(new Slow())
-      wizard.learnSpell(new TimeWalk())
-      wizard.learnSpell(new RevealSecret())
-      wizard.learnSpell(new ElementalBall())
-      wizard.learnSpell(new BoneDart())
-      wizard.learnSpell(new EnchantWeapon())
-      wizard.learnSpell(new CreateGrimoire())
       this.toggleNewWizardDialog()
       this.wizards.push(wizard)
       this.$router.push({

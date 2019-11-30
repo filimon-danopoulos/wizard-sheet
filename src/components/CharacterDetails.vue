@@ -113,7 +113,7 @@ export default Vue.extend({
         case School.Soothsaying:
           return 'mdi-eye-outline'
         case School.Summoning:
-          return 'mdi-paw'
+          return 'mdi-emoticon-devil-outline'
         case School.Thaumaturgy:
           return 'mdi-shield-cross-outline'
         case School.Witchcraft:

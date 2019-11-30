@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="open" max-width="600px" persistent>
+  <v-dialog @input="$emit('close')" :value="open" max-width="600px">
     <v-card>
       <v-card-title>
         <span class="headline">{{ header }}</span>

@@ -54,10 +54,10 @@ export default abstract class Wizard extends Character implements ISpellcaster {
   public readonly soldiers: Soldier[] = []
   public readonly spells: Spell[] = []
 
-  private readonly primarySchool: School
-  private readonly allignedSchools: School[]
-  private readonly neutralSchools: School[]
-  private readonly opposedSchool: School
+  public primarySchool: School
+  public allignedSchools: School[]
+  public neutralSchools: School[]
+  public opposedSchool: School
 
   constructor(config: IWizardConfig) {
     super()
