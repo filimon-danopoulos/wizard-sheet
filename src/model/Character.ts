@@ -60,4 +60,12 @@ export default abstract class Character extends JSONSerializable {
       }
     }
   }
+
+  public removeItem(item: Item) {
+    const index = this.items.findIndex(i => i === item)
+    if (index !== -1) {
+      this.items.splice(index, 1)
+      item.remove(this)
+    }
+  }
 }

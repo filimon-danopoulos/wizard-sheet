@@ -33,24 +33,6 @@
           <v-window-item :value="4">
             <Spells :selectable="true" :restrictTo="neutralRestriction" v-model="neutralSpells" />
           </v-window-item>
-
-          <v-window-item :value="5">
-            <v-switch label="Hire" v-model="apprentice"></v-switch>
-            <v-text-field
-              :disabled="!apprentice"
-              label="Name"
-              required
-              :value="apprentice && apprentice.name"
-              @input="val => (apprentice.name = val)"
-            ></v-text-field>
-            <v-select
-              :disabled="!apprentice"
-              label="Weapon"
-              :value="weapon"
-              @change="handleWeaponChange(apprentice, weapon)"
-              :items="weapons"
-            ></v-select>
-          </v-window-item>
         </v-window>
       </v-card-text>
 
@@ -64,11 +46,11 @@
         <v-btn v-show="step !== 1" text @click="step--">
           Back
         </v-btn>
-        <v-btn color="primary" v-if="step < 5" depressed @click="handleStep(step)">
+        <v-btn color="primary" v-if="step < 4" depressed @click="handleStep(step)">
           Next
         </v-btn>
         <v-btn color="primary" v-else depressed @click="handleStep(step)">
-          OK
+          Done
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -88,7 +70,6 @@ import Slow from '../model/magic/chronomancy/Slow'
 import TimeStone from '../model/magic/chronomancy/TimeStone'
 import TimeWalk from '../model/magic/chronomancy/TimeWalk'
 import Chronomancer from '../model/wizards/Chronomancer'
-import Apprentice from '../model/wizards/Apprentice'
 import Wizard from '../model/wizards/Wizard'
 import Elementalist from '@/model/wizards/Elementalist'
 import Enchanter from '@/model/wizards/Enchanter'
@@ -123,20 +104,6 @@ export default Vue.extend({
     neutralRestriction(): School[] {
       return this.wizard.neutralSchools
     },
-    apprentice: {
-      get(): Apprentice | null {
-        return this.wizard.apprentice
-      },
-      set(value: Boolean) {
-        if (value) {
-          const apprentice = new Apprentice(this.wizard.name + ' Jr.', this.wizard)
-          apprentice.addItem(this.getWeapon(this.weapon))
-          this.wizard.apprentice = apprentice
-        } else {
-          this.wizard.apprentice = null
-        }
-      }
-    },
     currentTitle() {
       switch (this.step) {
         case 1:
@@ -147,8 +114,6 @@ export default Vue.extend({
           return 'Select Alligned Spells'
         case 4:
           return 'Select Neutral Spells'
-        case 5:
-          return 'Hire Apprentice'
         default:
           return ''
       }
@@ -186,7 +151,6 @@ export default Vue.extend({
   methods: {
     handleSchoolChange(school: School) {
       const wizard = this.getWizard(school, this.wizard.name)
-      wizard.apprentice = this.wizard.apprentice
       wizard.addItem(this.getWeapon(this.weapon))
       this.wizard.spells.forEach(spell => {
         wizard.learnSpell(spell)
@@ -244,8 +208,7 @@ export default Vue.extend({
         case 3:
           return this.selectAllignedSpells()
         case 4:
-          return this.selectNeutralSpells()
-        case 5:
+          this.selectNeutralSpells()
           return this.$emit('created', this.wizard)
       }
     },

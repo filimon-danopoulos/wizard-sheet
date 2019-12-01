@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panels :value="0">
+  <v-expansion-panels>
     <v-expansion-panel v-for="(school, i) in schools" :key="i" class="spell-panel">
       <v-expansion-panel-header>
         <v-icon class="mr-4" style="flex: 0 0 auto">

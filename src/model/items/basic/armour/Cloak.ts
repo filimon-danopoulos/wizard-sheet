@@ -1,11 +1,11 @@
 import Armour from './Armour'
 
-export default class Shield extends Armour {
-  public readonly type = 'shield' as string
-  public readonly name = 'Shield' as string
+export default class Cloak extends Armour {
+  public readonly type = 'cloak' as string
+  public readonly name = 'Cloak' as string
   public readonly description = '' as string
   public readonly cost: number = 0
   constructor(required: boolean = false) {
-    super(1, required)
+    super(0, required)
   }
 }
