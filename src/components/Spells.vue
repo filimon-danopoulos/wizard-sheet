@@ -19,7 +19,7 @@
               <v-checkbox
                 hide-details
                 :value="value.includes(spell)"
-                @change="$emit('input', [...value, spell])"
+                @change="handleCheckChange(spell)"
               ></v-checkbox>
             </v-list-item-avatar>
             <v-list-item-content>
@@ -96,6 +96,15 @@ export default Vue.extend({
     }
   },
   methods: {
+    handleCheckChange(spell: Spell) {
+      if (this.value.includes(spell)) {
+        const spells = [...this.value]
+        spells.splice(spells.indexOf(spell), 1)
+        this.$emit('input', spells)
+      } else {
+        this.$emit('input', [...this.value, spell])
+      }
+    },
     getSpellCategory(spell: Spell): string {
       switch (spell.category) {
         case Category.OutOfGame:

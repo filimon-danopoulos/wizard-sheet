@@ -80,6 +80,26 @@ import Mud from './model/magic/witchcraft/Mud'
 import PoisonDart from './model/magic/witchcraft/PoisonDart'
 import Shield from './model/magic/thaumaturgy/Shield'
 import Transcendence from './model/magic/Transcendence'
+import Bear from './model/monsters/animals/Bear'
+import Boar from './model/monsters/animals/Boar'
+import Monster from './model/monsters/Monster'
+import GiantRat from './model/monsters/animals/GiantRat'
+import GiantWorm from './model/monsters/animals/GiantWorm'
+import IceToad from './model/monsters/animals/IceToad'
+import SnowLeopard from './model/monsters/animals/SnowLeopard'
+import WhiteGorilla from './model/monsters/animals/WhiteGorilla'
+import WildDog from './model/monsters/animals/WildDog'
+import Wolf from './model/monsters/animals/Wolf'
+import SmallConstruct from './model/monsters/construct/SmallConstruct'
+import MediumConstruct from './model/monsters/construct/MediumConstruct'
+import LargeConstruct from './model/monsters/construct/LargeConstruct'
+import ImpMonster from './model/monsters/demons/Imp'
+import MinorDemon from './model/monsters/demons/MinorDemon'
+import MajorDemon from './model/monsters/demons/MajorDemon'
+import FrostGiant from './model/monsters/misc/FrostGiant'
+import FrostTroll from './model/monsters/misc/FrostTroll'
+import Werewolf from './model/monsters/misc/Werewolf'
+import IceSpider from './model/monsters/animals/IceSpider'
 
 export function allSpells(): Spell[] {
   return [
@@ -164,5 +184,29 @@ export function allSpells(): Spell[] {
     new Mud(),
     new PoisonDart(),
     new Transcendence()
+  ]
+}
+
+export function allMonsters(): Monster[] {
+  return [
+    new Bear(),
+    new Boar(),
+    new GiantRat(),
+    new GiantWorm(),
+    new IceSpider(),
+    new IceToad(),
+    new SnowLeopard(),
+    new WhiteGorilla(),
+    new WildDog(),
+    new Wolf(),
+    new SmallConstruct(),
+    new MediumConstruct(),
+    new LargeConstruct(),
+    new ImpMonster(),
+    new MinorDemon(),
+    new MajorDemon(true),
+    new FrostGiant(),
+    new FrostTroll(),
+    new Werewolf()
   ]
 }

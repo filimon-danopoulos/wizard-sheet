@@ -46,11 +46,8 @@
         <v-btn v-show="step !== 1" text @click="step--">
           Back
         </v-btn>
-        <v-btn color="primary" v-if="step < 4" depressed @click="handleStep(step)">
-          Next
-        </v-btn>
-        <v-btn color="primary" v-else depressed @click="handleStep(step)">
-          Done
+        <v-btn color="primary" :disabled="disabledStep" depressed @click="handleStep(step)">
+          {{ step === 4 ? 'Done' : 'Next' }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -95,6 +92,26 @@ export default Vue.extend({
     }
   },
   computed: {
+    disabledStep(): Boolean {
+      if (this.step === 1) {
+        return this.wizard.name === ''
+      } else if (this.step === 2) {
+        return this.primarySpells.length !== 3
+      } else if (this.step === 3) {
+        const schools = new Set()
+        this.allignedSpells.forEach(spell => {
+          schools.add(spell.school)
+        })
+        return this.allignedSpells.length !== 3 || schools.size !== 3
+      } else if (this.step === 4) {
+        const schools = new Set()
+        this.neutralSpells.forEach(spell => {
+          schools.add(spell.school)
+        })
+        return this.neutralSpells.length !== 2 || schools.size !== 2
+      }
+      return false
+    },
     primaryRestriction(): School[] {
       return [this.wizard.primarySchool]
     },

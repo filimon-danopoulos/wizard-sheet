@@ -25,7 +25,6 @@
       v-if="newWizardDialog"
       :open="newWizardDialog"
       @close="toggleNewWizardDialog()"
-      @new="wizard => this.createNewWizard(wizard)"
       @created="wizard => this.createNewWizard(wizard)"
     />
 
@@ -93,7 +92,8 @@ export default Vue.extend({
       drawerItems: [
         { id: 1, icon: 'mdi-account-multiple', text: 'Change Wizard' },
         { id: 2, icon: 'mdi-account-multiple-plus', text: 'Create Wizard' },
-        { id: 3, icon: 'mdi-book-open-variant', text: 'Spellbook' }
+        { id: 3, icon: 'mdi-book-open-variant', text: 'Spellbook' },
+        { id: 4, icon: 'mdi-paw', text: 'Beastiary' }
       ]
     }
   },
@@ -146,6 +146,8 @@ export default Vue.extend({
           return this.toggleNewWizardDialog()
         case 3:
           return this.goToSpellbook()
+        case 4:
+          return this.goToBeastiary()
       }
     },
     goToWizardList() {
@@ -154,6 +156,11 @@ export default Vue.extend({
         params: {
           wizards: this.wizards as any
         }
+      })
+    },
+    goToBeastiary() {
+      this.$router.push({
+        name: 'Beastiary'
       })
     },
     goToSpellbook() {

@@ -9,7 +9,7 @@ export default class Strength extends Spell {
         'The target receives +2 Fight for the rest of the game. Multiple Strength spells on the same target have no effect.',
       school: School.Enchanting,
       category: Category.LineOfSight,
-      difficulty: 100,
+      difficulty: 10,
       effect: ''
     })
   }

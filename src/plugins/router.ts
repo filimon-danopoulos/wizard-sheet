@@ -5,6 +5,7 @@ import Base from '@/pages/Base.vue'
 import Warband from '@/pages/Warband.vue'
 import Vault from '@/pages/Vault.vue'
 import Spellbook from '@/pages/Spellbook.vue'
+import Beastiary from '@/pages/Beastiary.vue'
 
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
@@ -23,6 +24,11 @@ export default new VueRouter({
       name: 'Spellbook',
       path: '/spellbook',
       component: Spellbook
+    },
+    {
+      name: 'Beastiary',
+      path: '/beastiary',
+      component: Beastiary
     },
     {
       name: 'Base',
