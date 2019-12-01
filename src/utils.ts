@@ -100,6 +100,13 @@ import FrostGiant from './model/monsters/misc/FrostGiant'
 import FrostTroll from './model/monsters/misc/FrostTroll'
 import Werewolf from './model/monsters/misc/Werewolf'
 import IceSpider from './model/monsters/animals/IceSpider'
+import ArmouredSkeleton from './model/monsters/undead/ArmouredSkeleton'
+import Ghoul from './model/monsters/undead/Ghoul'
+import Skeleton from './model/monsters/undead/Skeleton'
+import Undead from './model/monsters/undead/Undead'
+import Vampire from './model/monsters/undead/Vampire'
+import Wraith from './model/monsters/undead/Wraith'
+import Zombie from './model/monsters/undead/Zombie'
 
 export function allSpells(): Spell[] {
   return [
@@ -207,6 +214,12 @@ export function allMonsters(): Monster[] {
     new MajorDemon(true),
     new FrostGiant(),
     new FrostTroll(),
-    new Werewolf()
+    new Werewolf(),
+    new ArmouredSkeleton(),
+    new Ghoul(),
+    new Skeleton(),
+    new Vampire(),
+    new Wraith(),
+    new Zombie()
   ]
 }
