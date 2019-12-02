@@ -29,23 +29,32 @@
     />
 
     <v-content style="overflow: hidden;">
-      <transition :name="transition">
+      <keep-alive>
         <router-view @create="toggleNewWizardDialog()"></router-view>
-      </transition>
+      </keep-alive>
     </v-content>
 
     <v-bottom-navigation v-if="$route.meta.navigation" app value shift grow color="primary">
-      <v-btn :to="{ name: 'Base', params: { id: $route.params.id, wizard: selectedWizard } }">
+      <v-btn
+        :ripple="false"
+        :to="{ name: 'Base', params: { id: $route.params.id, wizard: selectedWizard } }"
+      >
         <span>Base</span>
         <v-icon>mdi-home-outline</v-icon>
       </v-btn>
 
-      <v-btn :to="{ name: 'Warband', params: { id: $route.params.id, wizard: selectedWizard } }">
+      <v-btn
+        :ripple="false"
+        :to="{ name: 'Warband', params: { id: $route.params.id, wizard: selectedWizard } }"
+      >
         <span>Warband</span>
         <v-icon>mdi-account-outline</v-icon>
       </v-btn>
 
-      <v-btn :to="{ name: 'Vault', params: { id: $route.params.id, wizard: selectedWizard } }">
+      <v-btn
+        :ripple="false"
+        :to="{ name: 'Vault', params: { id: $route.params.id, wizard: selectedWizard } }"
+      >
         <span>Vault</span>
         <v-icon>mdi-piggy-bank</v-icon>
       </v-btn>
@@ -81,8 +90,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      transitioning: false,
-      transition: 'slide-right',
       selectedWizard: null as null | Wizard,
       wizards: [] as Wizard[],
       drawer: false,
@@ -109,11 +116,6 @@ export default Vue.extend({
   },
   watch: {
     $route(to, from) {
-      if (to.name === 'Base' || from.name === 'Vault') {
-        this.transition = 'slide-left'
-      } else if (to.name === 'Vault' || from.name === 'Base') {
-        this.transition = 'slide-right'
-      }
       if (to.params.wizard !== from.params.wizard) {
         this.selectedWizard = to.params.wizard
       }
@@ -187,28 +189,7 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
-body {
+html {
   overscroll-behavior: contain;
-}
-
-.slide-left-enter-active,
-.slide-left-leave-active,
-.slide-right-enter-active,
-.slide-right-leave-active {
-  position: absolute;
-  width: 100%;
-  height: calc(100% + 56px);
-  transition-duration: 0.2s;
-  transition-property: transform;
-  transition-timing-function: linear;
-}
-
-.slide-left-enter,
-.slide-right-leave-to {
-  transform: translateX(-100%);
-}
-.slide-left-leave-to,
-.slide-right-enter {
-  transform: translateX(100%);
 }
 </style>
