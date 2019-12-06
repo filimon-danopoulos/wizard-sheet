@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "73fe5a7d32ad494b8738",
+    "revision": "60d6060734e20ecefc70",
     "url": "/wizard-sheet/css/app.6b2c2c0c.css"
   },
   {
-    "revision": "96412f8c30bdeb8d9b0c",
+    "revision": "e948df74cbd5c32fad90",
     "url": "/wizard-sheet/css/chunk-vendors.0557e7d0.css"
   },
   {
@@ -24,16 +24,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/wizard-sheet/fonts/materialdesignicons-webfont.e5290ab9.woff"
   },
   {
-    "revision": "90863240194a4f2367857bedbee155ea",
+    "revision": "cf33b60018c8e388940553253fd847e7",
     "url": "/wizard-sheet/index.html"
   },
   {
-    "revision": "73fe5a7d32ad494b8738",
-    "url": "/wizard-sheet/js/app.4ea4bea1.js"
+    "revision": "60d6060734e20ecefc70",
+    "url": "/wizard-sheet/js/app.d12e809e.js"
   },
   {
-    "revision": "96412f8c30bdeb8d9b0c",
-    "url": "/wizard-sheet/js/chunk-vendors.e3d20945.js"
+    "revision": "e948df74cbd5c32fad90",
+    "url": "/wizard-sheet/js/chunk-vendors.a67a6daf.js"
   },
   {
     "revision": "fe72fba2ef9da82fd6120833ac7ea776",
