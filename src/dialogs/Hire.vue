@@ -53,6 +53,7 @@ import Ranger from '@/model/soldiers/Ranger'
 import Weapon from '@/model/items/basic/weapons/Weapon'
 import Soldier from '@/model/soldiers/Soldier'
 import Chronomancer from '@/model/wizards/Chronomancer'
+import Warband from '../model/Warband'
 
 const weapons = [
   { text: 'Hand Weapon', value: new HandWeapon() },
@@ -84,10 +85,10 @@ export default Vue.extend({
       type: Boolean,
       required: true
     },
-    wizard: ({
-      type: Wizard,
+    warband: {
+      type: Warband as new () => Warband,
       required: true
-    } as unknown) as PropValidator<Wizard>
+    }
   },
   computed: {
     isApprentice(): boolean {
@@ -95,10 +96,10 @@ export default Vue.extend({
     }
   },
   data() {
-    const hasApprentice = this.wizard.apprentice !== null
+    const hasApprentice = this.warband.wizard.apprentice !== null
     const mercs = mercenaries()
       .slice(hasApprentice ? 1 : 0)
-      .filter(t => t.cost <= this.wizard.gold)
+      .filter(t => t.cost <= this.warband.gold)
       .map(m => ({
         text: m.description,
         value: m
@@ -115,7 +116,7 @@ export default Vue.extend({
   methods: {
     createMercenary(): Soldier | Apprentice {
       if (this.mercenary instanceof Apprentice) {
-        const apprentice = new Apprentice(this.name || 'Junior', this.wizard)
+        const apprentice = new Apprentice(this.name || 'Junior', this.warband.wizard)
         apprentice.addItem(this.weapon)
         return apprentice
       } else {

@@ -1,7 +1,5 @@
-import Wizard, { IWizardData } from './Wizard'
+import Wizard from './Wizard'
 import { School } from '../magic/Spell'
-import HandWeapon from '../items/basic/weapons/HandWeapon'
-import Staff from '../items/basic/weapons/Staff'
 
 export default class Chronomancer extends Wizard {
   public readonly type = 'chronomancer' as string

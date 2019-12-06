@@ -1,7 +1,7 @@
 <template>
   <div class="pb-3">
-    <BaseList v-if="!wizard.base" @select="setBase" />
-    <BaseComponent v-else :base="wizard.base" :gold="wizard.gold" />
+    <BaseList v-if="!warband.base" @select="setBase" />
+    <BaseComponent v-else :base="warband.base" :gold="warband.gold" />
   </div>
 </template>
 
@@ -12,13 +12,14 @@ import BaseComponent from '@/components/base/Base.vue'
 import Wizard from '@/model/wizards/Wizard'
 import { PropValidator } from 'vue/types/options'
 import Base from '@/model/bases/Base'
+import Warband from '../model/Warband'
 
 export default Vue.extend({
   props: {
-    wizard: ({
-      type: Wizard,
+    warband: {
+      type: Warband as new () => Warband,
       required: true
-    } as unknown) as PropValidator<Wizard>
+    }
   },
   components: {
     BaseList,
@@ -26,7 +27,7 @@ export default Vue.extend({
   },
   methods: {
     setBase(base: Base) {
-      this.wizard.base = base
+      this.warband.base = base
     }
   }
 })

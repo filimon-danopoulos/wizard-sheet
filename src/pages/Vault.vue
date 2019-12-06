@@ -5,10 +5,7 @@
         Available Items
       </v-card-title>
       <v-card-text>
-        <div v-if="!wizard.base">
-          After you have select a base you can see your vault items here.
-        </div>
-        <div v-else-if="wizard.base.vault.length">
+        <div v-if="warband.vault.length">
           Your vault is not empty!
         </div>
         <div v-else>
@@ -23,12 +20,13 @@
 import Vue from 'vue'
 import { PropValidator } from 'vue/types/options'
 import Wizard from '../model/wizards/Wizard'
+import Warband from '../model/Warband'
 export default Vue.extend({
   props: {
-    wizard: ({
-      type: Wizard,
+    warband: {
+      type: Warband as new () => Warband,
       required: true
-    } as unknown) as PropValidator<Wizard>
+    }
   }
 })
 </script>

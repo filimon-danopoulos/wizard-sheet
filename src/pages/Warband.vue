@@ -1,13 +1,13 @@
 <template funtional>
   <div style="padding-bottom: 72px;">
-    <CharacterComponent :character="wizard" />
+    <CharacterComponent :character="warband.wizard" />
     <CharacterComponent
-      v-if="wizard.apprentice"
-      :character="wizard.apprentice"
-      @dismissed="dismissMercenary(wizard.apprentice)"
+      v-if="warband.wizard.apprentice"
+      :character="warband.wizard.apprentice"
+      @dismissed="dismissMercenary(warband.wizard.apprentice)"
     />
     <CharacterComponent
-      v-for="(soldier, i) in wizard.soldiers"
+      v-for="(soldier, i) in warband.soldiers"
       :key="i"
       :character="soldier"
       @dismissed="dismissMercenary(soldier)"
@@ -16,7 +16,7 @@
       <v-btn
         @click="toggleHireDialog()"
         color="primary"
-        v-if="wizard.gold > 0 && warbandCount < 10"
+        v-if="warband.gold > 0 && warbandCount < 10"
         dark
         fixed
         bottom
@@ -31,7 +31,7 @@
     <HireDialog
       v-if="hireDialog"
       :open="hireDialog"
-      :wizard="wizard"
+      :warband="warband"
       @close="toggleHireDialog()"
       @hire="mercenary => this.hireMercenary(mercenary)"
     />
@@ -53,6 +53,7 @@ import Soldier from '@/model/soldiers/Soldier'
 import Apprentice from '@/model/wizards/Apprentice'
 import HireDialog from '@/dialogs/Hire.vue'
 import ConfirmDialog from '@/dialogs/Confirm.vue'
+import Warband from '../model/Warband'
 
 let resolve: (val: boolean) => void
 
@@ -64,7 +65,7 @@ export default Vue.extend({
   },
   computed: {
     warbandCount() {
-      return 1 + this.wizard.soldiers.length + (this.wizard.apprentice !== null ? 1 : 0)
+      return 1 + this.warband.soldiers.length + (this.warband.wizard.apprentice !== null ? 1 : 0)
     }
   },
   data() {
@@ -75,8 +76,8 @@ export default Vue.extend({
     }
   },
   props: {
-    wizard: {
-      type: (Wizard as unknown) as new () => Wizard,
+    warband: {
+      type: Warband as new () => Warband,
       required: true
     }
   },
@@ -96,7 +97,7 @@ export default Vue.extend({
     async dismissMercenary(mercenary: Soldier | Apprentice) {
       const confirmed = await this.confirmDismissal()
       if (confirmed) {
-        this.wizard.dismiss(mercenary)
+        this.warband.dismiss(mercenary)
         this.$forceUpdate()
       }
     },
@@ -105,7 +106,7 @@ export default Vue.extend({
     },
     hireMercenary(mercenary: Soldier | Apprentice) {
       this.toggleHireDialog()
-      this.wizard.hire(mercenary)
+      this.warband.hire(mercenary)
       this.$forceUpdate()
     }
   }

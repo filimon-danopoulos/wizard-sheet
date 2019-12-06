@@ -37,7 +37,7 @@
     <v-bottom-navigation v-if="$route.meta.navigation" app value shift grow color="primary">
       <v-btn
         :ripple="false"
-        :to="{ name: 'Base', params: { id: $route.params.id, wizard: selectedWizard } }"
+        :to="{ name: 'Base', params: { id: $route.params.id, warband: selectedWarband } }"
       >
         <span>Base</span>
         <v-icon>mdi-home-outline</v-icon>
@@ -45,7 +45,7 @@
 
       <v-btn
         :ripple="false"
-        :to="{ name: 'Warband', params: { id: $route.params.id, wizard: selectedWizard } }"
+        :to="{ name: 'Warband', params: { id: $route.params.id, warband: selectedWarband } }"
       >
         <span>Warband</span>
         <v-icon>mdi-account-outline</v-icon>
@@ -53,7 +53,7 @@
 
       <v-btn
         :ripple="false"
-        :to="{ name: 'Vault', params: { id: $route.params.id, wizard: selectedWizard } }"
+        :to="{ name: 'Vault', params: { id: $route.params.id, warband: selectedWarband } }"
       >
         <span>Vault</span>
         <v-icon>mdi-piggy-bank</v-icon>
@@ -83,6 +83,7 @@ import EnchantWeapon from './model/magic/enchanting/EnchantWeapon'
 import CreateGrimoire from './model/magic/sigilism/CreateGrimoire'
 import RevealSecret from './model/magic/soothsaying/RevealSecret'
 import * as serializer from '@/serializer'
+import Warband from './model/Warband'
 
 export default Vue.extend({
   components: {
@@ -90,8 +91,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      selectedWizard: null as null | Wizard,
-      wizards: [] as Wizard[],
+      selectedWarband: null as null | Warband,
+      warbands: [] as Warband[],
       drawer: false,
       newWizardDialog: false,
       hireDialog: false,
@@ -105,33 +106,34 @@ export default Vue.extend({
     }
   },
   created() {
-    const storedWizards = window.localStorage.getItem('wizards')
-    const wizardRecords = storedWizards
-      ? (JSON.parse(storedWizards) as serializer.IWizardRecord[])
+    const storedWarbands = window.localStorage.getItem('warbands')
+    const warbandRecords = storedWarbands
+      ? (JSON.parse(storedWarbands) as serializer.IWarbandRecord[])
       : []
-    this.wizards = wizardRecords.map(record => serializer.deserialize(record))
+    this.warbands = warbandRecords.map(record => serializer.deserialize(record))
   },
   mounted() {
     this.goToWizardList()
   },
   watch: {
     $route(to, from) {
-      if (to.params.wizard !== from.params.wizard) {
-        this.selectedWizard = to.params.wizard
+      if (to.params.warband !== from.params.warband) {
+        this.selectedWarband = to.params.warband
       }
     },
-    selectedWizard: {
+    selectedWarband: {
       deep: true,
-      handler(val: Wizard | undefined) {
+      handler(val: Warband | undefined) {
         if (typeof val !== 'undefined') {
-          const storedWizards = window.localStorage.getItem('wizards')
-          const wizards = storedWizards ? (JSON.parse(storedWizards) as any[]) : []
-          if (wizards[+this.$route.params.id]) {
-            wizards.splice(+this.$route.params.id, 1, serializer.serialize(val))
+          debugger
+          const storedWarbands = window.localStorage.getItem('warbands')
+          const warbands = storedWarbands ? (JSON.parse(storedWarbands) as any[]) : []
+          if (warbands[+this.$route.params.id]) {
+            warbands.splice(+this.$route.params.id, 1, serializer.serialize(val))
           } else {
-            wizards.push(serializer.serialize(val))
+            warbands.push(serializer.serialize(val))
           }
-          window.localStorage.setItem('wizards', JSON.stringify(wizards))
+          window.localStorage.setItem('warbands', JSON.stringify(warbands))
         }
       }
     }
@@ -156,7 +158,7 @@ export default Vue.extend({
       this.$router.push({
         name: 'Wizards',
         params: {
-          wizards: this.wizards as any
+          warbands: this.warbands as any
         }
       })
     },
@@ -175,12 +177,13 @@ export default Vue.extend({
     },
     createNewWizard(wizard: Wizard) {
       this.toggleNewWizardDialog()
-      this.wizards.push(wizard)
+      const warband = new Warband(wizard)
+      this.warbands.push(warband)
       this.$router.push({
         name: 'Warband',
         params: {
-          id: (this.wizards.length - 1).toString(),
-          wizard: wizard as any
+          id: (this.warbands.length - 1).toString(),
+          warband: warband as any
         }
       })
     }

@@ -49,86 +49,6 @@ import PotionOfStrength from './model/items/potions/PotionOfStrength'
 import PotionOfTeleport from './model/items/potions/PotionOfTeleport'
 import PotionOfThoughness from './model/items/potions/PotionOfToughness'
 import Spell from './model/magic/Spell'
-import Decay from './model/magic/chronomancy/Decay'
-import Crumble from './model/magic/chronomancy/Crumble'
-import FastAct from './model/magic/chronomancy/FastAct'
-import FleetFeet from './model/magic/chronomancy/FleetFeet'
-import Petrify from './model/magic/chronomancy/Petrify'
-import Slow from './model/magic/chronomancy/Slow'
-import TimeStone from './model/magic/chronomancy/TimeStone'
-import TimeWalk from './model/magic/chronomancy/TimeWalk'
-import CallStorm from './model/magic/elementalism/CallStorm'
-import DestructiveSphere from './model/magic/elementalism/DestructiveSphere'
-import ElementalBall from './model/magic/elementalism/ElementalBall'
-import ElementalBolt from './model/magic/elementalism/ElementalBolt'
-import ElementalHammer from './model/magic/elementalism/ElementalHammer'
-import ElementalShield from './model/magic/elementalism/ElementalShield'
-import ScatterShot from './model/magic/elementalism/ScatterShot'
-import Wall from './model/magic/elementalism/Wall'
-import AnimateConstruct from './model/magic/enchanting/AnimateConstruct'
-import ControlConstruct from './model/magic/enchanting/ControlConstruct'
-import EmbedEnchantment from './model/magic/enchanting/EmbedEnchantment'
-import EnchantArmour from './model/magic/enchanting/EnchantArmour'
-import EnchantWeapon from './model/magic/enchanting/EnchantWeapon'
-import Grenade from './model/magic/enchanting/Grenade'
-import Strength from './model/magic/enchanting/Strength'
-import Telekinesis from './model/magic/enchanting/Telekinesis'
-import Beauty from './model/magic/illusionism/Beauty'
-import FoolsGold from './model/magic/illusionism/FoolsGold'
-import Glow from './model/magic/illusionism/Glow'
-import IllusionarySoldier from './model/magic/illusionism/IllusionarySoldier'
-import Invisibility from './model/magic/illusionism/Invisibility'
-import MonstrousForm from './model/magic/illusionism/MonstrousForm'
-import Teleport from './model/magic/illusionism/Teleport'
-import Transpose from './model/magic/illusionism/Transpose'
-import BoneDart from './model/magic/necromancy/BoneDart'
-import BonesOfTheEarth from './model/magic/necromancy/BonesOfTheEarth'
-import ControlUndead from './model/magic/necromancy/ControlUndead'
-import RaiseZombie from './model/magic/necromancy/RaiseZombie'
-import RevealDeath from './model/magic/necromancy/RevealDeath'
-import SpellEater from './model/magic/necromancy/SpellEater'
-import StealHealth from './model/magic/necromancy/StealHealth'
-import StrikeDead from './model/magic/necromancy/StrikeDead'
-import AbsorbKnowledge from './model/magic/sigilism/AbsorbKnowledge'
-import CreateGrimoire from './model/magic/sigilism/CreateGrimoire'
-import DrainingWord from './model/magic/sigilism/DrainingWord'
-import ExplosiveRune from './model/magic/sigilism/ExplosiveRune'
-import FuriousQuill from './model/magic/sigilism/FuriousQuill'
-import PowerWord from './model/magic/sigilism/PowerWord'
-import Push from './model/magic/sigilism/Push'
-import WriteScroll from './model/magic/sigilism/WriteScroll'
-import Awareness from './model/magic/soothsaying/Awareness'
-import CombatAwareness from './model/magic/soothsaying/CombatAwareness'
-import ForgetSpell from './model/magic/soothsaying/ForgetSpell'
-import MindControl from './model/magic/soothsaying/MindControl'
-import RevealInvisible from './model/magic/soothsaying/RevealInvisible'
-import RevealSecret from './model/magic/soothsaying/RevealSecret'
-import WillPower from './model/magic/soothsaying/WillPower'
-import WizardEye from './model/magic/soothsaying/WizardEye'
-import BindDemon from './model/magic/summoning/BindDemon'
-import Imp from './model/magic/summoning/Imp'
-import Leap from './model/magic/summoning/Leap'
-import PlagueOfInsects from './model/magic/summoning/PlagueOfInsects'
-import PlanarTear from './model/magic/summoning/PlanarTear'
-import Planewalk from './model/magic/summoning/Planewalk'
-import Posses from './model/magic/summoning/Posses'
-import SummonDemon from './model/magic/summoning/SummonDemon'
-import Banish from './model/magic/thaumaturgy/Banish'
-import BlindingLight from './model/magic/thaumaturgy/BlindingLight'
-import CircleOfProtection from './model/magic/thaumaturgy/CircleOfProtection'
-import Dispel from './model/magic/thaumaturgy/Dispel'
-import Heal from './model/magic/thaumaturgy/Heal'
-import MiraculousCure from './model/magic/thaumaturgy/MiraculousCure'
-import RestoreLife from './model/magic/thaumaturgy/RestoreLife'
-import ShieldSpell from './model/magic/thaumaturgy/Shield'
-import AnimalCompanion from './model/magic/witchcraft/AnimalCompanion'
-import BrewPotion from './model/magic/witchcraft/BrewPotion'
-import ControlAnimal from './model/magic/witchcraft/ControlAnimal'
-import Familiar from './model/magic/witchcraft/Familiar'
-import Fog from './model/magic/witchcraft/Fog'
-import Mud from './model/magic/witchcraft/Mud'
-import Curse from './model/magic/witchcraft/Curse'
-import PoisonDart from './model/magic/witchcraft/PoisonDart'
 import Base from './model/bases/Base'
 import Resource from './model/bases/resources/Resource'
 import Inn from './model/bases/Inn'
@@ -150,12 +70,41 @@ import SarcophagusOfHealing from './model/bases/resources/SarcophagusOfHealing'
 import Scriptorium from './model/bases/resources/Scriptorium'
 import SummoningCircle from './model/bases/resources/SummoningCircle'
 import * as utils from '@/utils'
+import Warband from './model/Warband'
 
-export function serialize(wizard: Wizard) {
-  return serializeWizard(wizard)
+export interface IWarbandRecord {
+  wizard: IWizardRecord
+  // captain: Captain | null = null
+  base: IBaseRecord | null
+  soldiers: ISoldierRecord[]
+  vault: IItemRecord[]
+  numberOfGames: number
+  gold: number
 }
-export function deserialize(json: IWizardRecord): Wizard {
-  return parseWizard(json)
+
+export function serialize(warband: Warband): IWarbandRecord {
+  return {
+    wizard: serializeWizard(warband.wizard),
+    base: serializeBase(warband.base),
+    soldiers: warband.soldiers.map(serializeSoldier),
+    vault: serializeItems(warband.vault),
+    numberOfGames: warband.numberOfGames,
+    gold: warband.gold
+  }
+}
+export function deserialize(json: IWarbandRecord): Warband {
+  const wizard = parseWizard(json.wizard)
+  const warband = new Warband(wizard)
+  warband.base = json.base !== null ? parseBase(json.base) : null
+  json.soldiers.map(parseSoldier).forEach(soldier => {
+    warband.soldiers.push(soldier)
+  })
+  json.vault.map(parseItem).forEach(item => {
+    warband.vault.push(item)
+  })
+  warband.numberOfGames = json.numberOfGames
+  warband.gold = json.gold
+  return warband
 }
 
 export interface IWizardRecord {
@@ -168,13 +117,10 @@ export interface IWizardRecord {
   items: IItemRecord[]
   type: string
   apprentice: IApprenticeRecord | null
-  soldiers: ISoldierRecord[]
-  gold: number
   experience: number
   level: number
   unspentPoints: number
   spells: ISpellRecord[]
-  base: IBaseRecord | null
 }
 
 function serializeWizard(wizard: Wizard): IWizardRecord {
@@ -188,36 +134,27 @@ function serializeWizard(wizard: Wizard): IWizardRecord {
     items: serializeItems(wizard.items),
     type: wizard.type,
     apprentice: wizard.apprentice !== null ? serializeApprentice(wizard.apprentice) : null,
-    soldiers: wizard.soldiers.map(serializeSoldier),
-    gold: wizard.gold,
     experience: wizard.experience,
     level: wizard.level,
     unspentPoints: wizard.unspentPoints,
-    spells: wizard.spells.map(serializeSpell),
-    base: serializeBase(wizard.base)
+    spells: wizard.spells.map(serializeSpell)
   }
 }
 
 function parseWizard(json: IWizardRecord): Wizard {
   const ctor = getWizardCtor(json.type)
-  const wizard = Wizard.load(ctor, {
-    name: json.name,
-    fight: json.fight,
-    health: json.health,
-    move: json.move,
-    shoot: json.shoot,
-    will: json.will,
-    level: json.level,
-    gold: json.gold,
-    experience: json.experience,
-    unspentPoints: json.unspentPoints,
-    soldiers: json.soldiers.map(parseSoldier),
-    items: json.items.map(parseItem),
-    spells: json.spells.map(parseSpell),
-    effects: []
-  })
+  const wizard = new ctor(json.name)
+  wizard.fight.base = json.fight
+  wizard.health.base = json.health
+  wizard.move.base = json.move
+  wizard.shoot.base = json.shoot
+  wizard.will.base = json.will
+  wizard.level = json.level
+  wizard.experience = json.experience
+  wizard.unspentPoints = json.unspentPoints
+  json.items.map(parseItem).forEach(item => wizard.items.push(item))
+  json.spells.map(parseSpell).forEach(spell => wizard.spells.push(spell))
   wizard.apprentice = json.apprentice !== null ? parseApprentice(json.apprentice, wizard) : null
-  wizard.base = json.base !== null ? parseBase(json.base) : null
   return wizard
 }
 function getWizardCtor(type: string): new (name: string) => Wizard {

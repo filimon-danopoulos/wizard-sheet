@@ -5,9 +5,6 @@ import Apprentice from './Apprentice'
 import Item from '../items/Item'
 import Stat from '../Stat'
 import Health from '../Health'
-import Base from '../bases/Base'
-import Scroll from '../items/magic/Scroll'
-import SpellItem from '../items/magic/SpellItem'
 
 export interface IWizardConfig {
   name: string
@@ -15,23 +12,6 @@ export interface IWizardConfig {
   allignedSchools: School[]
   neutralSchools: School[]
   opposedSchool: School
-}
-
-export interface IWizardData {
-  name: string
-  move: number
-  fight: number
-  shoot: number
-  will: number
-  health: number
-  level: number
-  gold: number
-  experience: number
-  unspentPoints: number
-  soldiers: Soldier[]
-  items: Item[]
-  spells: Spell[]
-  effects: Effect[]
 }
 
 export default abstract class Wizard extends Character implements ISpellcaster {
@@ -48,12 +28,8 @@ export default abstract class Wizard extends Character implements ISpellcaster {
   public level: number = 0
   public unspentPoints: number = 0
   public experience: number = 0
-  public gold: number = 500
   public apprentice: Apprentice | null = null
-  public base: Base | null = null
-  public readonly soldiers: Soldier[] = []
   public readonly spells: Spell[] = []
-  public numberOfGames: number = 0
 
   public primarySchool: School
   public allignedSchools: School[]
@@ -76,40 +52,6 @@ export default abstract class Wizard extends Character implements ISpellcaster {
     }
   }
 
-  public selectBase(base: Base) {
-    if (this.numberOfGames === 0) {
-      return
-    }
-    this.base = base
-  }
-
-  public hire(mercenary: Soldier | Apprentice) {
-    if (this.gold < mercenary.cost) {
-      return
-    }
-    if (mercenary instanceof Soldier) {
-      this.soldiers.push(mercenary)
-    } else {
-      this.apprentice = mercenary
-    }
-    this.gold -= mercenary.cost
-  }
-
-  public dismiss(mercenary: Soldier | Apprentice) {
-    let removed = false
-    if (mercenary instanceof Soldier && this.soldiers.includes(mercenary)) {
-      this.soldiers.splice(this.soldiers.indexOf(mercenary), 1)
-      removed = true
-    } else if (this.apprentice === mercenary) {
-      this.apprentice = null
-      removed = true
-    }
-
-    if (removed && this.numberOfGames === 0) {
-      this.gold += mercenary.cost
-    }
-  }
-
   public grantExperience(experience: number) {
     this.experience += experience
     while (this.experience >= 100) {
@@ -129,55 +71,5 @@ export default abstract class Wizard extends Character implements ISpellcaster {
       difficulty += 2
     }
     return difficulty
-  }
-
-  public sell(item: Item) {
-    if (this.base && this.base.vault.includes(item)) {
-      if (item instanceof SpellItem && !this.spells.includes(item.spell)) {
-        return
-      }
-      const index = this.base!.vault.findIndex(i => i === item)
-      this.base.vault.splice(index, 1)
-      this.gold += item instanceof Scroll ? 100 : Math.floor(item.cost / 2)
-    }
-  }
-
-  public buy(item: Item) {
-    if (this.base && this.gold >= item.cost) {
-      this.base.vault.push(item)
-      this.gold -= item.cost
-    }
-  }
-
-  public archive(item: Item) {
-    if (this.base) {
-      this.base.vault.push(item)
-    }
-  }
-
-  public static load<T extends Wizard>(ctor: new (name: string) => T, json: IWizardData): T {
-    const wizard = new ctor(json.name)
-    json.effects.forEach(effect => {
-      wizard.effects.push(effect)
-    })
-    wizard.experience = json.experience
-    wizard.fight.base = json.fight
-    wizard.gold = json.gold
-    wizard.health.base = json.health
-    json.items.forEach(item => {
-      wizard.items.push(item)
-    })
-    wizard.level = json.level
-    wizard.move.base = json.move
-    wizard.shoot.base = json.shoot
-    json.soldiers.forEach(soldier => {
-      wizard.soldiers.push(soldier)
-    })
-    wizard.unspentPoints = json.unspentPoints
-    wizard.will.base = json.will
-    json.spells.forEach(spell => {
-      wizard.spells.push(spell)
-    })
-    return wizard
   }
 }

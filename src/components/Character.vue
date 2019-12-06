@@ -32,12 +32,6 @@
     </v-card-text>
     <v-card-actions>
       <v-list-item class="grow">
-        <v-row v-if="isWizard" align="center" justify="start">
-          <v-icon class="mr-1" color="amber darken-2">mdi-coins</v-icon>
-          <span class="subheading font-weight-bold  amber--text text--darken-2">{{
-            character.gold
-          }}</span>
-        </v-row>
         <v-row align="center" justify="end">
           <v-icon class="mr-1" color="red darken-3">mdi-heart</v-icon>
           <span class="subheading mr-2 font-weight-bold red--text text--darken-3"
