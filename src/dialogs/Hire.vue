@@ -63,7 +63,6 @@ const weapons = [
 
 const mercenaries = () => [
   new Apprentice('', new Chronomancer('')),
-  new Captain(CaptainStatIncrease.Move),
   new WarHound(),
   new Thug(),
   new Thief(),
@@ -78,7 +77,8 @@ const mercenaries = () => [
   new Ranger(),
   new Barbarian(),
   new Apothecary(),
-  new Marksman()
+  new Marksman(),
+  new Captain(CaptainStatIncrease.Move)
 ]
 
 export default Vue.extend({
@@ -99,6 +99,7 @@ export default Vue.extend({
   },
   data() {
     const hasApprentice = this.warband.wizard.apprentice !== null
+    const hasCaptain = this.warband.captain !== null
     const mercs = mercenaries()
       .slice(hasApprentice ? 1 : 0)
       .filter(t => t.cost <= this.warband.gold)
@@ -109,7 +110,7 @@ export default Vue.extend({
 
     return {
       name: '',
-      mercenaries: mercs,
+      mercenaries: mercs.slice(0, hasCaptain ? -1 : mercs.length),
       mercenary: mercs[0].value,
       weapons: weapons,
       weapon: weapons[0].value,
