@@ -259,7 +259,9 @@ function serializeApprentice(apprentice: Apprentice) {
 }
 
 function parseApprentice(json: IApprenticeRecord, wizard: Wizard) {
-  return new Apprentice(json.name, wizard)
+  const apprentice = new Apprentice(json.name, wizard)
+  json.items.map(parseItem).forEach(item => apprentice.addItem(item))
+  return apprentice
 }
 
 export interface ISoldierRecord {

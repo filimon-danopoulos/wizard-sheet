@@ -1,14 +1,7 @@
-import Character from '../Character'
+import Character, { IMercenary } from '../Character'
 import Stat from '../Stat'
 import Health from '../Health'
 import Trick from './tricks/Trick'
-import HandWeapon from '../items/basic/weapons/HandWeapon'
-import LeatherArmour from '../items/basic/armour/LeatherArmour'
-import Dagger from '../items/basic/weapons/Dagger'
-import Bow from '../items/basic/weapons/Bow'
-import Crossbow from '../items/basic/weapons/Crossbow'
-import TwoHandedWeapon from '../items/basic/weapons/TwoHandedWeapon'
-import Staff from '../items/basic/weapons/Staff'
 
 export enum CaptainStatIncrease {
   Move,
@@ -23,7 +16,7 @@ export enum CaptainAdvancement {
   Will
 }
 
-export default class Captain extends Character {
+export default class Captain extends Character implements IMercenary {
   public readonly type: string = 'captain'
   public readonly description: string = 'Captain'
   public readonly cost: number = 100

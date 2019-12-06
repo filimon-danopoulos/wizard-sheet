@@ -1,15 +1,15 @@
 <template funtional>
   <div style="padding-bottom: 72px;">
-    <WizardComponent :wizard="wizard" />
-    <ApprenticeComponent
+    <CharacterComponent :character="wizard" />
+    <CharacterComponent
       v-if="wizard.apprentice"
-      :apprentice="wizard.apprentice"
+      :character="wizard.apprentice"
       @dismissed="dismissMercenary(wizard.apprentice)"
     />
-    <SoldierComponent
+    <CharacterComponent
       v-for="(soldier, i) in wizard.soldiers"
       :key="i"
-      :soldier="soldier"
+      :character="soldier"
       @dismissed="dismissMercenary(soldier)"
     />
     <v-fab-transition>
@@ -35,6 +35,11 @@
       @close="toggleHireDialog()"
       @hire="mercenary => this.hireMercenary(mercenary)"
     />
+    <ConfirmDialog
+      :open="showConfimDialog"
+      @yes="handleConfirmation(true)"
+      @no="handleConfirmation(false)"
+    />
   </div>
 </template>
 
@@ -43,19 +48,19 @@ import Vue from 'vue'
 import Wizard from '../model/wizards/Wizard'
 import { PropValidator } from 'vue/types/options'
 
-import WizardComponent from '@/components/Wizard.vue'
-import ApprenticeComponent from '@/components/Apprentice.vue'
-import SoldierComponent from '@/components/Soldier.vue'
+import CharacterComponent from '@/components/Character.vue'
 import Soldier from '@/model/soldiers/Soldier'
 import Apprentice from '@/model/wizards/Apprentice'
 import HireDialog from '@/dialogs/Hire.vue'
+import ConfirmDialog from '@/dialogs/Confirm.vue'
+
+let resolve: (val: boolean) => void
 
 export default Vue.extend({
   components: {
-    WizardComponent,
-    SoldierComponent,
-    ApprenticeComponent,
-    HireDialog
+    CharacterComponent,
+    HireDialog,
+    ConfirmDialog
   },
   computed: {
     warbandCount() {
@@ -65,19 +70,35 @@ export default Vue.extend({
   data() {
     return {
       showFAB: false,
-      hireDialog: false
+      hireDialog: false,
+      showConfimDialog: false
     }
   },
   props: {
-    wizard: ({
-      type: Wizard,
+    wizard: {
+      type: (Wizard as unknown) as new () => Wizard,
       required: true
-    } as unknown) as PropValidator<Wizard>
+    }
   },
   methods: {
-    dismissMercenary(mercenary: Soldier | Apprentice) {
-      this.wizard.dismiss(mercenary)
-      this.$forceUpdate()
+    confirmDismissal(): Promise<boolean> {
+      this.showConfimDialog = true
+      return new Promise(r => {
+        resolve = r
+      })
+    },
+    handleConfirmation(val: boolean) {
+      if (resolve instanceof Function) {
+        resolve(val)
+      }
+      this.showConfimDialog = false
+    },
+    async dismissMercenary(mercenary: Soldier | Apprentice) {
+      const confirmed = await this.confirmDismissal()
+      if (confirmed) {
+        this.wizard.dismiss(mercenary)
+        this.$forceUpdate()
+      }
     },
     toggleHireDialog() {
       this.hireDialog = !this.hireDialog
