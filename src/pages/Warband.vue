@@ -7,6 +7,11 @@
       @dismissed="dismissMercenary(warband.wizard.apprentice)"
     />
     <CharacterComponent
+      v-if="warband.captain"
+      :character="warband.captain"
+      @dismissed="dismissMercenary(warband.captain)"
+    />
+    <CharacterComponent
       v-for="(soldier, i) in warband.soldiers"
       :key="i"
       :character="soldier"

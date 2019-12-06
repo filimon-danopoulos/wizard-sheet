@@ -71,10 +71,11 @@ import Scriptorium from './model/bases/resources/Scriptorium'
 import SummoningCircle from './model/bases/resources/SummoningCircle'
 import * as utils from '@/utils'
 import Warband from './model/Warband'
+import Captain, { CaptainStatIncrease } from './model/captain/Captain'
 
 export interface IWarbandRecord {
   wizard: IWizardRecord
-  // captain: Captain | null = null
+  captain: ICaptainRecord | null
   base: IBaseRecord | null
   soldiers: ISoldierRecord[]
   vault: IItemRecord[]
@@ -85,6 +86,7 @@ export interface IWarbandRecord {
 export function serialize(warband: Warband): IWarbandRecord {
   return {
     wizard: serializeWizard(warband.wizard),
+    captain: serializeCaptain(warband.captain),
     base: serializeBase(warband.base),
     soldiers: warband.soldiers.map(serializeSoldier),
     vault: serializeItems(warband.vault),
@@ -96,6 +98,7 @@ export function deserialize(json: IWarbandRecord): Warband {
   const wizard = parseWizard(json.wizard)
   const warband = new Warband(wizard)
   warband.base = json.base !== null ? parseBase(json.base) : null
+  warband.captain = json.captain !== null ? parseCaptain(json.captain) : null
   json.soldiers.map(parseSoldier).forEach(soldier => {
     warband.soldiers.push(soldier)
   })
@@ -105,6 +108,25 @@ export function deserialize(json: IWarbandRecord): Warband {
   warband.numberOfGames = json.numberOfGames
   warband.gold = json.gold
   return warband
+}
+
+export interface ICaptainRecord {
+  name: string
+}
+function serializeCaptain(captain: Captain | null): ICaptainRecord | null {
+  if (captain === null) {
+    return null
+  }
+
+  return {
+    name: captain.name
+  }
+}
+
+function parseCaptain(json: ICaptainRecord): Captain {
+  const captain = new Captain(CaptainStatIncrease.Fight)
+  captain.name = json.name
+  return captain
 }
 
 export interface IWizardRecord {

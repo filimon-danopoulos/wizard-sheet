@@ -38,7 +38,7 @@ import Thief from '@/model/soldiers/Thief'
 import Wizard from '@/model/wizards/Wizard'
 import { PropValidator } from 'vue/types/options'
 import WarHound from '@/model/soldiers/WarHound'
-import Character from '@/model/Character'
+import Character, { IMercenary } from '@/model/Character'
 import Crossbowman from '@/model/soldiers/Crossbowman'
 import Infantryman from '@/model/soldiers/Infantryman'
 import Tracker from '@/model/soldiers/Tracker'
@@ -54,6 +54,7 @@ import Weapon from '@/model/items/basic/weapons/Weapon'
 import Soldier from '@/model/soldiers/Soldier'
 import Chronomancer from '@/model/wizards/Chronomancer'
 import Warband from '../model/Warband'
+import Captain, { CaptainStatIncrease } from '../model/captain/Captain'
 
 const weapons = [
   { text: 'Hand Weapon', value: new HandWeapon() },
@@ -62,6 +63,7 @@ const weapons = [
 
 const mercenaries = () => [
   new Apprentice('', new Chronomancer('')),
+  new Captain(CaptainStatIncrease.Move),
   new WarHound(),
   new Thug(),
   new Thief(),
@@ -110,15 +112,20 @@ export default Vue.extend({
       mercenaries: mercs,
       mercenary: mercs[0].value,
       weapons: weapons,
-      weapon: weapons[0].value
+      weapon: weapons[0].value,
+      captainStat: CaptainStatIncrease.Move
     }
   },
   methods: {
-    createMercenary(): Soldier | Apprentice {
+    createMercenary(): IMercenary {
       if (this.mercenary instanceof Apprentice) {
         const apprentice = new Apprentice(this.name || 'Junior', this.warband.wizard)
         apprentice.addItem(this.weapon)
         return apprentice
+      } else if (this.mercenary instanceof Captain) {
+        const captain = new Captain(this.captainStat)
+        captain.name = this.name
+        return captain
       } else {
         this.mercenary.name = this.name
       }
