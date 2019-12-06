@@ -2,12 +2,6 @@
   <v-card class="ml-3 mr-3 mt-3">
     <v-card-title class="headline d-flex justify-space-between">
       <span>{{ base.name }}</span>
-      <span class="amber--text text--darken-2">
-        <v-icon class="mb-1" color="amber darken-2">
-          mdi-coins
-        </v-icon>
-        {{ gold }}
-      </span>
     </v-card-title>
     <v-card-subtitle class="pt-4 pl-8 pb-4 pr-8">
       {{ base.description }}

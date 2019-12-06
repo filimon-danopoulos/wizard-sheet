@@ -3,6 +3,12 @@
     <v-app-bar app>
       <v-app-bar-nav-icon @click="toggleDrawer()"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ this.$route.name || 'Wizard Sheet' }}</v-toolbar-title>
+      <div v-if="selectedWarband" class="d-flex flex-grow-1 justify-end pl-4">
+        <v-icon class="mr-1" color="amber darken-2">mdi-coins</v-icon>
+        <span class="subheading font-weight-bold  amber--text text--darken-2">{{
+          selectedWarband.gold
+        }}</span>
+      </div>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" temporary app clipped color="grey lighten-4">
       <v-list dense class="grey lighten-4">
@@ -125,7 +131,6 @@ export default Vue.extend({
       deep: true,
       handler(val: Warband | undefined) {
         if (typeof val !== 'undefined') {
-          debugger
           const storedWarbands = window.localStorage.getItem('warbands')
           const warbands = storedWarbands ? (JSON.parse(storedWarbands) as any[]) : []
           if (warbands[+this.$route.params.id]) {
