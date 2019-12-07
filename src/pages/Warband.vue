@@ -1,21 +1,28 @@
 <template funtional>
   <div style="padding-bottom: 72px;">
-    <CharacterComponent :character="warband.wizard" />
+    <CharacterComponent
+      :character="warband.wizard"
+      @addItem="addItemCharacter = wizard"
+      @dismissed="() => {}"
+    />
     <CharacterComponent
       v-if="warband.wizard.apprentice"
       :character="warband.wizard.apprentice"
       @dismissed="dismissMercenary(warband.wizard.apprentice)"
+      @addItem="addItemCharacter = apprentice"
     />
     <CharacterComponent
       v-if="warband.captain"
       :character="warband.captain"
       @dismissed="dismissMercenary(warband.captain)"
+      @addItem="addItemCharacter = captain"
     />
     <CharacterComponent
       v-for="(soldier, i) in warband.soldiers"
       :key="i"
       :character="soldier"
       @dismissed="dismissMercenary(soldier)"
+      @addItem="addItemCharacter = soldier"
     />
     <v-fab-transition>
       <v-btn
@@ -45,6 +52,13 @@
       @yes="handleConfirmation(true)"
       @no="handleConfirmation(false)"
     />
+    <AddItemDialog
+      v-if="addItemDialog"
+      :open="addItemDialog"
+      :gold="warband.gold"
+      :character="addItemCharacter"
+      @close="addItemCharacter = null"
+    />
   </div>
 </template>
 
@@ -58,7 +72,9 @@ import Soldier from '@/model/soldiers/Soldier'
 import Apprentice from '@/model/wizards/Apprentice'
 import HireDialog from '@/dialogs/Hire.vue'
 import ConfirmDialog from '@/dialogs/Confirm.vue'
+import AddItemDialog from '@/dialogs/AddItem.vue'
 import Warband from '../model/Warband'
+import Character from '../model/Character'
 
 let resolve: (val: boolean) => void
 
@@ -66,15 +82,20 @@ export default Vue.extend({
   components: {
     CharacterComponent,
     HireDialog,
-    ConfirmDialog
+    ConfirmDialog,
+    AddItemDialog
   },
   computed: {
     warbandCount() {
       return 1 + this.warband.soldiers.length + (this.warband.wizard.apprentice !== null ? 1 : 0)
+    },
+    addItemDialog(): boolean {
+      return this.addItemCharacter !== null
     }
   },
   data() {
     return {
+      addItemCharacter: null as Character | null,
       showFAB: false,
       hireDialog: false,
       showConfimDialog: false

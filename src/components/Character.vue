@@ -15,13 +15,13 @@
       </v-list-item-content>
       <CharacterOptions
         :dismissable="!isWizard"
-        @dismissed="$emit('dismissed')"
+        @dismissed="$listeners.dismissed"
         @rename="renaming = true"
       />
     </v-list-item>
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="character" />
-      <CharacterDetails :character="character" />
+      <CharacterDetails :character="character" @addItem="$listeners.addItem" />
     </v-card-text>
     <v-card-actions>
       <v-list-item class="grow">

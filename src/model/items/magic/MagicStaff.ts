@@ -14,7 +14,7 @@ export default class MagicStaff extends MagicItem {
       case MagicItemEffect.TwoDamage:
         return 200
     }
-    throw new Error(`Effect can't be applied.`)
+    return 0
   }
 
   constructor(effect: MagicItemEffect.OneFight | MagicItemEffect.TwoDamage) {

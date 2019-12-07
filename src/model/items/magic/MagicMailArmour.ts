@@ -12,7 +12,7 @@ export default class MagicMailArmour extends MagicItem {
       case MagicItemEffect.OneArmour:
         return 400
     }
-    throw new Error(`Effect can't be applied.`)
+    return 0
   }
 
   constructor(effect: MagicItemEffect.OneArmour) {

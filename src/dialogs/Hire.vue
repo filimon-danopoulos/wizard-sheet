@@ -9,9 +9,6 @@
           <v-row>
             <v-select label="Mercenary" v-model="mercenary" :items="mercenaries"></v-select>
           </v-row>
-          <v-row v-if="isApprentice">
-            <v-select label="Weapon" v-model="weapon" :items="weapons"></v-select>
-          </v-row>
           <v-row>
             <v-text-field label="Name" v-model="name"></v-text-field>
           </v-row>
@@ -55,31 +52,14 @@ import Soldier from '@/model/soldiers/Soldier'
 import Chronomancer from '@/model/wizards/Chronomancer'
 import Warband from '../model/Warband'
 import Captain, { CaptainStatIncrease } from '../model/captain/Captain'
+import { allSoldiers } from '../utils'
 
 const weapons = [
   { text: 'Hand Weapon', value: new HandWeapon() },
   { text: 'Staff', value: new Staff() }
 ]
 
-const mercenaries = () => [
-  new Apprentice('', new Chronomancer('')),
-  new WarHound(),
-  new Thug(),
-  new Thief(),
-  new Archer(),
-  new Crossbowman(),
-  new Infantryman(),
-  new Tracker(),
-  new ManAtArms(),
-  new TreassureHunter(),
-  new Knight(),
-  new Templar(),
-  new Ranger(),
-  new Barbarian(),
-  new Apothecary(),
-  new Marksman(),
-  new Captain(CaptainStatIncrease.Move)
-]
+const mercenaries = () => [new Apprentice('', new Chronomancer(''))]
 
 export default Vue.extend({
   props: {
@@ -92,16 +72,18 @@ export default Vue.extend({
       required: true
     }
   },
-  computed: {
-    isApprentice(): boolean {
-      return this.mercenary instanceof Apprentice
-    }
-  },
   data() {
-    const hasApprentice = this.warband.wizard.apprentice !== null
-    const hasCaptain = this.warband.captain !== null
-    const mercs = mercenaries()
-      .slice(hasApprentice ? 1 : 0)
+    const soldiers = allSoldiers()
+    const addCaptain = this.warband.captain === null
+    if (addCaptain) {
+      soldiers.unshift(new Captain(CaptainStatIncrease.Move))
+    }
+    const addApprentice = this.warband.wizard.apprentice === null
+    if (addApprentice) {
+      soldiers.unshift(new Apprentice('', new Chronomancer('')))
+    }
+
+    const mercs = soldiers
       .filter(t => t.cost <= this.warband.gold)
       .map(m => ({
         text: m.description,
@@ -110,7 +92,7 @@ export default Vue.extend({
 
     return {
       name: '',
-      mercenaries: mercs.slice(0, hasCaptain ? -1 : mercs.length),
+      mercenaries: mercs,
       mercenary: mercs[0].value,
       weapons: weapons,
       weapon: weapons[0].value,
@@ -120,13 +102,7 @@ export default Vue.extend({
   methods: {
     createMercenary(): IMercenary {
       if (this.mercenary instanceof Apprentice) {
-        const apprentice = new Apprentice(this.name || 'Junior', this.warband.wizard)
-        apprentice.addItem(this.weapon)
-        return apprentice
-      } else if (this.mercenary instanceof Captain) {
-        const captain = new Captain(this.captainStat)
-        captain.name = this.name
-        return captain
+        return new Apprentice(this.name || 'Junior', this.warband.wizard)
       } else {
         this.mercenary.name = this.name
       }

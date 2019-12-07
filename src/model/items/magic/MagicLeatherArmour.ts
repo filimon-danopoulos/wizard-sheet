@@ -12,7 +12,7 @@ export default class MagicLeatherArmour extends MagicItem {
       case MagicItemEffect.OneArmour:
         return 300
     }
-    throw new Error(`Effect can't be applied.`)
+    return 0
   }
 
   constructor(effect: MagicItemEffect.OneArmour) {

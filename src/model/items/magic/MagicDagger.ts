@@ -16,7 +16,7 @@ export default class MagicDagger extends MagicItem {
       case MagicItemEffect.TwoDamage:
         return 300
     }
-    throw new Error(`Effect can't be applied.`)
+    return 0
   }
 
   constructor(

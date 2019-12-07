@@ -25,6 +25,14 @@
           </v-chip>
         </v-list-item-action>
       </v-list-item>
+      <v-list-item v-if="group.canAdd" class="pl-12s pr-12">
+        <v-list-item-content class="pt-0 pb-0">
+          <v-btn grow color="primary lighten-1" dark @click.stop="$emit('addItem')">
+            <v-icon>mdi-plus</v-icon>
+            {{ group.addText }}
+          </v-btn>
+        </v-list-item-content>
+      </v-list-item>
     </v-list-group>
   </v-list>
 </template>
@@ -59,10 +67,12 @@ export default Vue.extend({
       }
       return []
     },
-    entryGroups(): { text: string; icon: string; entries: (Spell | Item)[] }[] {
+    entryGroups(): any[] {
       const entryGroups = []
-      if (this.items.length) {
+      if (this.maxItems !== 0) {
         entryGroups.push({
+          canAdd: this.items.length < this.maxItems,
+          addText: 'Add Item',
           text:
             'Items' +
             (this.maxItems !== Infinity ? ` (${this.items.length}/${this.maxItems})` : ''),

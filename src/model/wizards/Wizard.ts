@@ -16,11 +16,11 @@ export interface IWizardConfig {
 
 export default abstract class Wizard extends Character implements ISpellcaster {
   public readonly move: Stat = new Stat(6)
-  public readonly fight: Stat = new Stat(2)
-  public readonly shoot: Stat = new Stat(0)
+  public readonly fight: Stat = new Stat(2, 5)
+  public readonly shoot: Stat = new Stat(0, 5)
   public readonly armour: Stat = new Stat(10)
-  public readonly will: Stat = new Stat(4)
-  public readonly health: Health = new Health(14)
+  public readonly will: Stat = new Stat(4, 8)
+  public readonly health: Health = new Health(14, 20)
   public readonly damage: Stat = new Stat(0)
   public readonly save: Stat = new Stat(0)
   public readonly maxItems: number = 5
