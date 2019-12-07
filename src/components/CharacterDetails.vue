@@ -37,25 +37,28 @@ import Weapon from '@/model/items/basic/weapons/Weapon'
 import Armour from '@/model/items/basic/armour/Armour'
 import Potion from '@/model/items/potions/Potion'
 import { PropValidator } from 'vue/types/options'
+import Character from '../model/Character'
+import Wizard from '../model/wizards/Wizard'
 export default Vue.extend({
   props: {
-    items: {
-      type: Array,
-      required: false,
-      default: () => []
-    } as PropValidator<Item[]>,
-    maxItems: {
-      type: Number,
-      required: false,
-      default: Infinity
-    },
-    spells: {
-      type: Array,
-      requried: false,
-      default: () => []
-    } as PropValidator<Spell[]>
+    character: {
+      type: Character as new () => Character,
+      required: true
+    }
   },
   computed: {
+    items(): Item[] {
+      return this.character.items
+    },
+    maxItems(): number {
+      return this.character.maxItems
+    },
+    spells(): Spell[] {
+      if (this.character instanceof Wizard) {
+        return this.character.spells
+      }
+      return []
+    },
     entryGroups(): { text: string; icon: string; entries: (Spell | Item)[] }[] {
       const entryGroups = []
       if (this.items.length) {

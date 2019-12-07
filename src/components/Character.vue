@@ -1,8 +1,8 @@
 <template>
   <v-card class="ml-3 mr-3 mt-3">
     <v-list-item three-line>
-      <v-progress-circular v-if="hasLevels" size="72" rotate="-90" v-model="experience">
-        {{ experience }} / 100
+      <v-progress-circular v-if="hasLevels" size="72" rotate="-90" v-model="character.experience">
+        {{ character.experience }} / 100
       </v-progress-circular>
       <v-list-item-content class="ml-4">
         <div class="overline mt-1">{{ character.description }}</div>
@@ -21,14 +21,7 @@
     </v-list-item>
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="character" />
-      <CharacterDetails
-        primaryColor=""
-        secondaryColor=""
-        :whiteText="true"
-        :items="character.items"
-        :maxItems="character.maxItems"
-        :spells="character.spells"
-      />
+      <CharacterDetails :character="character" />
     </v-card-text>
     <v-card-actions>
       <v-list-item class="grow">
@@ -95,12 +88,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    experience(): number {
-      if (this.character instanceof Wizard) {
-        return this.character.experience
-      }
-      return 0
-    },
     hasLevels(): boolean {
       return this.character instanceof Wizard || this.character instanceof Captain
     },
