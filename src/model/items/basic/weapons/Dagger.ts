@@ -6,7 +6,7 @@ export default class Dagger extends Weapon {
   public readonly type = 'dagger' as string
   public readonly name = 'Dagger' as string
   public readonly description = '' as string
-  public readonly cost: number = 0
+  public readonly cost: number = 5
   constructor(required: boolean = false) {
     super(-1, required)
   }

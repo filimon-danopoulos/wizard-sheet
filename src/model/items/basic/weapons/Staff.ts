@@ -5,7 +5,7 @@ export default class Staff extends Weapon {
   public readonly type = 'staff' as string
   public readonly name = 'Staff' as string
   public readonly description = '' as string
-  public readonly cost: number = 0
+  public readonly cost: number = 5
   constructor(required: boolean = false) {
     super(-1, required)
   }

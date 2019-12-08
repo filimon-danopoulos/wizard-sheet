@@ -5,7 +5,7 @@ import Item from './model/items/Item'
 import Soldier from './model/soldiers/Soldier'
 import Armour from './model/items/basic/armour/Armour'
 import Weapon from './model/items/basic/weapons/Weapon'
-import MagicItem from './model/items/magic/MagicItem'
+import MagicItem from './model/items/magic/items/MagicItem'
 import Wizard from './model/wizards/Wizard'
 import Base from './model/bases/Base'
 import Resource from './model/bases/resources/Resource'
@@ -18,6 +18,8 @@ import Construct from './model/monsters/construct/Construct'
 import Animal from './model/monsters/animals/Animal'
 import Apprentice from './model/wizards/Apprentice'
 import Captain from './model/captain/Captain'
+import MagicWeapon from './model/items/magic/weapons/MagicWeapon'
+import MagicArmour from './model/items/magic/armour/MagicArmour'
 
 const restrictedImports = [
   // Bases
@@ -29,6 +31,8 @@ const restrictedImports = [
   Weapon,
   Potion,
   MagicItem,
+  MagicWeapon,
+  MagicArmour,
   SpellItem,
   // Magic
   Spell,

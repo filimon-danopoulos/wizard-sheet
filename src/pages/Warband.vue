@@ -2,20 +2,20 @@
   <div style="padding-bottom: 72px;">
     <CharacterComponent
       :character="warband.wizard"
-      @addItem="addItemCharacter = wizard"
+      @addItem="addItemCharacter = warband.wizard"
       @dismissed="() => {}"
     />
     <CharacterComponent
       v-if="warband.wizard.apprentice"
       :character="warband.wizard.apprentice"
       @dismissed="dismissMercenary(warband.wizard.apprentice)"
-      @addItem="addItemCharacter = apprentice"
+      @addItem="addItemCharacter = warband.apprentice"
     />
     <CharacterComponent
       v-if="warband.captain"
       :character="warband.captain"
       @dismissed="dismissMercenary(warband.captain)"
-      @addItem="addItemCharacter = captain"
+      @addItem="addItemCharacter = warband.captain"
     />
     <CharacterComponent
       v-for="(soldier, i) in warband.soldiers"
@@ -58,6 +58,7 @@
       :gold="warband.gold"
       :character="addItemCharacter"
       @close="addItemCharacter = null"
+      @added="e => itemAdded(e)"
     />
   </div>
 </template>
@@ -75,6 +76,7 @@ import ConfirmDialog from '@/dialogs/Confirm.vue'
 import AddItemDialog from '@/dialogs/AddItem.vue'
 import Warband from '../model/Warband'
 import Character from '../model/Character'
+import Item from '@/model/items/Item'
 
 let resolve: (val: boolean) => void
 
@@ -134,6 +136,11 @@ export default Vue.extend({
       this.toggleHireDialog()
       this.warband.hire(mercenary)
       this.$forceUpdate()
+    },
+    itemAdded(e: { item: Item; cost: number }) {
+      this.addItemCharacter!.items.push(e.item)
+      this.warband.gold -= e.cost
+      this.addItemCharacter = null
     }
   }
 })

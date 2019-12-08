@@ -5,7 +5,7 @@ export default class MailArmour extends Armour {
   public readonly type = 'mailarmour' as string
   public readonly name = 'Mail Armour' as string
   public readonly description = '' as string
-  public readonly cost: number = 0
+  public readonly cost: number = 5
   constructor(required: boolean = false) {
     super(2, required)
   }

@@ -294,47 +294,10 @@ function serializeItems(items: Item[]): IItemRecord[] {
 }
 
 function parseItem(json: IItemRecord): Item {
-  switch (json.type) {
-    case 'leatherarmour':
-      return new LeatherArmour(json.required)
-    case 'mainarmour':
-      return new MailArmour(json.required)
-    case 'shield':
-      return new Shield(json.required)
-    case 'bow':
-      return new Bow(json.required)
-    case 'crossbow':
-      return new Crossbow(json.required)
-    case 'dagger':
-      return new Dagger(json.required)
-    case 'handweapon':
-      return new HandWeapon(json.required)
-    case 'staff':
-      return new Staff(json.required)
-    case 'twohandedweapon':
-      return new TwoHandedWeapon(json.required)
-    case 'unarmed':
-      return new Unarmed(json.required)
-    case 'demoninabottle':
-      return new DemonInABottle(json.required)
-    case 'elixiroflife':
-      return new ElixirOfLife(json.required)
-    case 'elixirofspeed':
-      return new ElixirOfSpeed(json.required)
-    case 'explosivecocktail':
-      return new ExplosiveCocktail(json.required)
-    case 'healingpotion':
-      return new HealingPotion(json.required)
-    case 'potionofinvisibility':
-      return new PotionOfInvisibility(json.required)
-    case 'potionofinvulnerability':
-      return new PotionOfInvulnerability(json.required)
-    case 'potionofstrength':
-      return new PotionOfStrength(json.required)
-    case 'potionofteleport':
-      return new PotionOfTeleport(json.required)
-    case 'potionofthoughness':
-      return new PotionOfThoughness(json.required)
+  const allItems = utils.allItems()
+  const item = allItems.find(s => s.type === json.type)
+  if (item) {
+    return item
   }
   throw new Error(`Unknown item "${json.type}"`)
 }
@@ -357,11 +320,11 @@ function parseSpell(json: ISpellRecord): Spell {
   return spell
 }
 
-const allSpells = utils.allSpells()
 function getSpell(type: string): Spell {
+  const allSpells = utils.allSpells()
   const spell = allSpells.find(s => s.type === type)
   if (spell) {
-    return spell.copy()
+    return spell
   }
   throw new Error(`Unknown spell "${type}"`)
 }

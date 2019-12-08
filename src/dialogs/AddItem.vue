@@ -13,20 +13,32 @@
             no-action
           >
             <v-list-item slot="activator" style="margin-left: -36px;">
-              <v-icon class="ml-4 mr-4">
+              <v-icon
+                class="ml-4 mr-4"
+                :class="{
+                  'blue--text': group.magic
+                }"
+              >
                 {{ group.icon }}
               </v-icon>
               <v-list-item-content>
                 <v-list-item-title>{{ group.text }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item v-for="(item, itemIndex) in group.items" :key="itemIndex" class="pl-8">
+            <v-list-item
+              v-for="(item, itemIndex) in group.items"
+              :key="itemIndex"
+              class="pl-8"
+              :disabled="item.disabled"
+              @click="$emit('added', item)"
+            >
               <!-- <v-icon class="ml-4 mr-3">{{ getEntryIcon(item) }}</v-icon> -->
               <v-list-item-content>
-                <v-list-item-title>{{ item.name }}</v-list-item-title>
+                <v-list-item-title> {{ item.name }}</v-list-item-title>
+                <v-list-item-subtitle> {{ item.description }} </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
-                {{ item.cost }}
+                {{ item.cost ? item.cost + 'gc' : 'Free' }}
               </v-list-item-action>
             </v-list-item>
           </v-list-group>
@@ -34,8 +46,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="$emit('close')">Close</v-btn>
-        <v-btn color="blue darken-1" text @click="$emit('close')">Save</v-btn>
+        <v-btn text @click="$emit('close')">Close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -48,9 +59,53 @@ import Armour from '../model/items/basic/armour/Armour'
 import Weapon from '../model/items/basic/weapons/Weapon'
 import Item from '@/model/items/Item'
 import Potion from '@/model/items/potions/Potion'
-import MagicItem from '@/model/items/magic/MagicItem'
+import MagicWeapon from '@/model/items/magic/weapons/MagicWeapon'
+import MagicArmour from '@/model/items/magic/armour/MagicArmour'
+import MagicItem from '@/model/items/magic/items/MagicItem'
 import SpellItem from '@/model/items/magic/SpellItem'
 import { allItems } from '../utils'
+import Unarmed from '../model/items/basic/weapons/Unarmed'
+import Wizard from '../model/wizards/Wizard'
+import HandWeapon from '../model/items/basic/weapons/HandWeapon'
+import Apprentice from '../model/wizards/Apprentice'
+import Staff from '@/model/items/basic/weapons/Staff'
+import Captain from '../model/captain/Captain'
+import LeatherArmour from '../model/items/basic/armour/LeatherArmour'
+
+const cost = (item: Item, character: Character) => {
+  if (character instanceof Wizard || character instanceof Apprentice) {
+    if (item instanceof HandWeapon || item instanceof Staff) {
+      return 0
+    }
+  }
+  if (character instanceof Captain) {
+    if (item instanceof HandWeapon || item instanceof LeatherArmour) {
+      return 0
+    }
+  }
+  return item.cost
+}
+
+const disabled = (item: Item, character: Character, gold: number) => {
+  if (character instanceof Wizard || character instanceof Apprentice) {
+    if (
+      item instanceof Armour ||
+      (item instanceof MagicArmour && item.baseArmour instanceof Armour)
+    ) {
+      return true
+    }
+  }
+  return item.cost > gold
+}
+
+const mapItem = (item: Item, character: Character, gold: number) => ({
+  item: item,
+  name: item.name,
+  description: item.description,
+  magic: false,
+  cost: cost(item, character),
+  disabled: disabled(item, character, gold)
+})
 
 export default Vue.extend({
   props: {
@@ -74,27 +129,58 @@ export default Vue.extend({
         {
           text: 'Armour',
           icon: 'mdi-shield-outline',
-          items: items.filter(item => item instanceof Armour)
+          magic: false,
+          items: items
+            .filter(item => item instanceof Armour)
+            .map(item => mapItem(item, this.character, this.gold))
         },
         {
           text: 'Weapon',
           icon: 'mdi-sword',
-          items: items.filter(item => item instanceof Weapon)
+          magic: false,
+          items: items
+            .filter(item => item instanceof Weapon && !(item instanceof Unarmed))
+            .map(item => mapItem(item, this.character, this.gold))
         },
         {
           text: 'Potion',
           icon: 'mdi-bottle-tonic-outline',
-          items: items.filter(item => item instanceof Potion)
+          magic: false,
+          items: items
+            .filter(item => item instanceof Potion)
+            .map(item => mapItem(item, this.character, this.gold))
+        },
+        {
+          text: 'Magic Armour',
+          icon: 'mdi-shield-outline',
+          magic: true,
+          items: items
+            .filter(item => item instanceof MagicArmour)
+            .map(item => mapItem(item, this.character, this.gold))
+        },
+        {
+          text: 'Magic Weapons',
+          icon: 'mdi-sword',
+          magic: true,
+          items: items
+            .filter(item => item instanceof MagicWeapon)
+            .map(item => mapItem(item, this.character, this.gold))
         },
         {
           text: 'Magic Item',
           icon: 'mdi-crystal-ball',
-          items: items.filter(item => item instanceof MagicItem)
+          magic: true,
+          items: items
+            .filter(item => item instanceof MagicItem)
+            .map(item => mapItem(item, this.character, this.gold))
         },
         {
           text: 'Scroll or Grimoire',
           icon: 'mdi-book-open-page-variant',
-          items: items.filter(item => item instanceof SpellItem)
+          magic: true,
+          items: items
+            .filter(item => item instanceof SpellItem)
+            .map(item => mapItem(item, this.character, this.gold))
         }
       ]
     }
