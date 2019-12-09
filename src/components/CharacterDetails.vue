@@ -20,9 +20,18 @@
           <v-list-item-title>{{ entry.name }}</v-list-item-title>
         </v-list-item-content>
         <v-list-item-action>
-          <v-chip v-if="getEntryChip(entry)">
-            {{ getEntryChip(entry) }}
+          <v-chip v-if="isSpell(entry)">
+            {{ entry.difficulty }}
           </v-chip>
+          <v-btn
+            v-else-if="!entry.required"
+            icon
+            @click="$emit('removeItem', { item: entry, character: character })"
+          >
+            <v-icon>
+              mdi-trash-can-outline
+            </v-icon>
+          </v-btn>
         </v-list-item-action>
       </v-list-item>
       <v-list-item v-if="group.canAdd" class="pl-12s pr-12">
@@ -135,11 +144,11 @@ export default Vue.extend({
           return ''
       }
     },
-    getEntryChip(entry: Item | Spell): string {
+    isSpell(entry: Item | Spell): boolean {
       if (entry instanceof Spell) {
-        return entry.difficulty.toString()
+        return true
       }
-      return ''
+      return false
     }
   }
 })

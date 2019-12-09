@@ -21,7 +21,11 @@
     </v-list-item>
     <v-card-text class="pb-0 pt-0">
       <StatLine :character="character" />
-      <CharacterDetails :character="character" @addItem="$listeners.addItem" />
+      <CharacterDetails
+        :character="character"
+        @addItem="$listeners.addItem"
+        @removeItem="$listeners.removeItem"
+      />
     </v-card-text>
     <v-card-actions>
       <v-list-item class="grow">

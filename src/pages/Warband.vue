@@ -3,18 +3,21 @@
     <CharacterComponent
       :character="warband.wizard"
       @addItem="addItemCharacter = warband.wizard"
+      @removeItem="e => itemRemoved(e)"
       @dismissed="() => {}"
     />
     <CharacterComponent
       v-if="warband.wizard.apprentice"
       :character="warband.wizard.apprentice"
       @dismissed="dismissMercenary(warband.wizard.apprentice)"
+      @removeItem="e => itemRemoved(e)"
       @addItem="addItemCharacter = warband.apprentice"
     />
     <CharacterComponent
       v-if="warband.captain"
       :character="warband.captain"
       @dismissed="dismissMercenary(warband.captain)"
+      @removeItem="e => itemRemoved(e)"
       @addItem="addItemCharacter = warband.captain"
     />
     <CharacterComponent
@@ -22,6 +25,7 @@
       :key="i"
       :character="soldier"
       @dismissed="dismissMercenary(soldier)"
+      @removeItem="e => itemRemoved(e)"
       @addItem="addItemCharacter = soldier"
     />
     <v-fab-transition>
@@ -141,6 +145,15 @@ export default Vue.extend({
       this.addItemCharacter!.items.push(e.item)
       this.warband.gold -= e.cost
       this.addItemCharacter = null
+    },
+    async itemRemoved(e: { item: Item; character: Character }) {
+      const confirmed = await this.confirmDismissal()
+      if (confirmed) {
+        e.character.removeItem(e.item)
+        if (this.warband.numberOfGames === 0) {
+          this.warband.gold += e.item.cost
+        }
+      }
     }
   }
 })

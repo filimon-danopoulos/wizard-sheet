@@ -112,20 +112,28 @@ export function deserialize(json: IWarbandRecord): Warband {
 
 export interface ICaptainRecord {
   name: string
+  items: IItemRecord[]
+  level: number
+  experience: number
 }
 function serializeCaptain(captain: Captain | null): ICaptainRecord | null {
   if (captain === null) {
     return null
   }
-
   return {
-    name: captain.name
+    name: captain.name,
+    items: serializeItems(captain.items),
+    level: captain.level,
+    experience: captain.experience
   }
 }
 
 function parseCaptain(json: ICaptainRecord): Captain {
   const captain = new Captain(CaptainStatIncrease.Fight)
   captain.name = json.name
+  captain.level = json.level
+  captain.experience = json.experience
+  json.items.map(parseItem).forEach(item => captain.items.push(item))
   return captain
 }
 
