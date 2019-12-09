@@ -142,7 +142,7 @@ export default Vue.extend({
       this.$forceUpdate()
     },
     itemAdded(e: { item: Item; cost: number }) {
-      this.addItemCharacter!.items.push(e.item)
+      this.addItemCharacter!.addItem(e.item)
       this.warband.gold -= e.cost
       this.addItemCharacter = null
     },
