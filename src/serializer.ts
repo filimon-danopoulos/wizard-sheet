@@ -133,7 +133,7 @@ function parseCaptain(json: ICaptainRecord): Captain {
   captain.name = json.name
   captain.level = json.level
   captain.experience = json.experience
-  json.items.map(parseItem).forEach(item => captain.items.push(item))
+  json.items.map(parseItem).forEach(item => captain.addItem(item))
   return captain
 }
 
@@ -182,7 +182,7 @@ function parseWizard(json: IWizardRecord): Wizard {
   wizard.level = json.level
   wizard.experience = json.experience
   wizard.unspentPoints = json.unspentPoints
-  json.items.map(parseItem).forEach(item => wizard.items.push(item))
+  json.items.map(parseItem).forEach(item => wizard.addItem(item))
   json.spells.map(parseSpell).forEach(spell => wizard.spells.push(spell))
   wizard.apprentice = json.apprentice !== null ? parseApprentice(json.apprentice, wizard) : null
   return wizard

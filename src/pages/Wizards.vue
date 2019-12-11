@@ -25,7 +25,7 @@
     </v-card>
     <ConfirmDialog
       :open="deleteWarbandIndex !== -1"
-      @no="deleteWarband = -1"
+      @no="deleteWarbandIndex = -1"
       @yes="handleDeleteWarband()"
     />
   </div>

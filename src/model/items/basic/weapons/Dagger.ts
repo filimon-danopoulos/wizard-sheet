@@ -21,7 +21,7 @@ export default class Dagger extends Weapon {
   public remove(character: Character) {
     super.remove(character)
     if (character.items.some(e => e instanceof HandWeapon)) {
-      character.fight.modify(-1)
+      character.fight.undo(1)
     }
   }
 }

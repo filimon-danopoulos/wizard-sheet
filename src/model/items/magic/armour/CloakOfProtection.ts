@@ -12,6 +12,6 @@ export default class CloakOfProtection extends MagicArmour {
   }
 
   public remove(character: Character) {
-    character.armour.modify(-1)
+    character.armour.undo(1)
   }
 }

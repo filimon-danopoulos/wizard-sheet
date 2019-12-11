@@ -17,6 +17,6 @@ export default class HandWeaponOfDamage extends MagicWeapon {
 
   public remove(character: Character) {
     super.remove(character)
-    character.damage.modify(-1)
+    character.damage.undo(1)
   }
 }

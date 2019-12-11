@@ -12,6 +12,6 @@ export default class BootsOfSpeed extends MagicItem {
   }
 
   public remove(character: Character) {
-    character.move.modify(-1)
+    character.move.undo(1)
   }
 }

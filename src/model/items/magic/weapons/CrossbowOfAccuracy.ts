@@ -18,6 +18,6 @@ export default class CrossbowOfDamage extends MagicWeapon {
 
   public remove(character: Character) {
     super.remove(character)
-    character.shoot.modify(-1)
+    character.shoot.undo(1)
   }
 }

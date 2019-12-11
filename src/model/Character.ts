@@ -6,6 +6,8 @@ import Potion from './items/potions/Potion'
 import JSONSerializable from './JSONSerializable'
 import Armour from './items/basic/armour/Armour'
 import Weapon from './items/basic/weapons/Weapon'
+import MagicArmour from './items/magic/armour/MagicArmour'
+import MagicItem from './items/magic/items/MagicItem'
 
 export interface ICharacterConfig {
   name?: string
@@ -55,7 +57,12 @@ export default abstract class Character extends JSONSerializable {
   public addItem(item: Item) {
     if (this.items.length < this.maxItems) {
       this.items.push(item)
-      if (item instanceof Weapon || item instanceof Armour) {
+      if (
+        item instanceof Weapon ||
+        item instanceof Armour ||
+        item instanceof MagicArmour ||
+        item instanceof MagicItem
+      ) {
         item.apply(this)
       }
     }

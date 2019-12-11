@@ -18,6 +18,6 @@ export default class BowOfGreaterDamage extends MagicWeapon {
 
   public remove(character: Character) {
     super.remove(character)
-    character.damage.modify(-2)
+    character.damage.undo(2)
   }
 }

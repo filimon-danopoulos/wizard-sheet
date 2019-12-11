@@ -12,6 +12,6 @@ export default class GlovesOfStrength extends MagicItem {
   }
 
   public remove(character: Character) {
-    character.damage.modify(-2)
+    character.damage.undo(2)
   }
 }

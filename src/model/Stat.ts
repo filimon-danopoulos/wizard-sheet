@@ -28,6 +28,14 @@ export default class Stat {
     this.modifiers.push(modifier)
   }
 
+  public undo(modifier: number) {
+    const index = this.modifiers.indexOf(modifier)
+    if (index === -1) {
+      throw new Error("Can't remove modifer since it is not applied.")
+    }
+    this.modifiers.splice(index, 1)
+  }
+
   public reset() {
     this.modifiers.length = 0
   }

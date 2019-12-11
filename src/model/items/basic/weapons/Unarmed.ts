@@ -17,6 +17,6 @@ export default class Unarmed extends Weapon {
 
   public remove(character: Character) {
     super.remove(character)
-    character.fight.modify(+2)
+    character.fight.undo(-2)
   }
 }

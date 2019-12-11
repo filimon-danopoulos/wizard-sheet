@@ -15,6 +15,6 @@ export default class Staff extends Weapon {
   }
 
   public remove(character: Character) {
-    character.save.modify(-1)
+    character.save.undo(1)
   }
 }

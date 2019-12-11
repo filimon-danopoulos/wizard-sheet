@@ -18,6 +18,6 @@ export default class HandWeaponOfAccuracy extends MagicWeapon {
 
   public remove(character: Character) {
     super.remove(character)
-    character.fight.modify(-1)
+    character.fight.undo(1)
   }
 }

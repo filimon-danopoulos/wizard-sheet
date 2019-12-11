@@ -17,6 +17,6 @@ export default class MailArmourOfProtection extends MagicArmour {
 
   public remove(character: Character) {
     super.remove(character)
-    character.armour.modify(-1)
+    character.armour.undo(1)
   }
 }

@@ -15,6 +15,6 @@ export default abstract class Armour extends Item {
   }
 
   public remove(character: Character) {
-    character.armour.modify(-this.armour)
+    character.armour.undo(this.armour)
   }
 }

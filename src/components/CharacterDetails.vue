@@ -56,6 +56,8 @@ import Potion from '@/model/items/potions/Potion'
 import { PropValidator } from 'vue/types/options'
 import Character from '../model/Character'
 import Wizard from '../model/wizards/Wizard'
+import MagicWeapon from '../model/items/magic/weapons/MagicWeapon'
+import MagicArmour from '../model/items/magic/armour/MagicArmour'
 export default Vue.extend({
   props: {
     character: {
@@ -109,9 +111,9 @@ export default Vue.extend({
       return ''
     },
     getItemIcon(item: Item): string {
-      if (item instanceof Weapon) {
+      if (item instanceof Weapon || item instanceof MagicWeapon) {
         return 'mdi-sword'
-      } else if (item instanceof Armour) {
+      } else if (item instanceof Armour || item instanceof MagicArmour) {
         return 'mdi-shield-outline'
       } else if (item instanceof Potion) {
         return 'mdi-bottle-tonic-outline'

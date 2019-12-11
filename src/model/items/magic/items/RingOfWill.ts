@@ -12,6 +12,6 @@ export default class RingOfWill extends MagicItem {
   }
 
   public remove(character: Character) {
-    character.will.modify(-1)
+    character.will.undo(1)
   }
 }

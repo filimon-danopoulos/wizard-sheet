@@ -14,6 +14,6 @@ export default abstract class Weapon extends Item {
   }
 
   public remove(character: Character) {
-    character.damage.modify(-this.damage)
+    character.damage.undo(this.damage)
   }
 }

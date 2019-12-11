@@ -17,6 +17,6 @@ export default class MailArmour extends Armour {
 
   public remove(character: Character) {
     super.remove(character)
-    character.move.modify(1)
+    character.move.undo(-1)
   }
 }
