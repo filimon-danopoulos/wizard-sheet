@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "33c3e3dcbdb3c03d02bc",
+    "revision": "5f501734165fac50172a",
     "url": "/wizard-sheet/css/app.6b2c2c0c.css"
   },
   {
@@ -24,12 +24,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/wizard-sheet/fonts/materialdesignicons-webfont.e5290ab9.woff"
   },
   {
-    "revision": "59791cf86fda02ae8add2b62264108da",
+    "revision": "087eacd40a99f780bb59d2ceb9ff35e0",
     "url": "/wizard-sheet/index.html"
   },
   {
-    "revision": "33c3e3dcbdb3c03d02bc",
-    "url": "/wizard-sheet/js/app.64aed601.js"
+    "revision": "5f501734165fac50172a",
+    "url": "/wizard-sheet/js/app.47ef99e4.js"
   },
   {
     "revision": "9978d4ad6c5b2baf4fb4",
